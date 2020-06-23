@@ -1,5 +1,5 @@
 <?php
-
+//git test
 include_once dirname(__FILE__) . "/settings.php"; 
 
 $login_id = (isset($_POST['login_id']) ? trim_all($_POST['login_id']) : "");
