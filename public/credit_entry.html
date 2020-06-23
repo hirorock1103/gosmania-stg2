@@ -1,0 +1,249 @@
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="Robots" content="index, follow">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>決済画面</title>
+<meta name="keywords" content="ザ・ゴスペラーズ,ゴスペラーズ,ゴス,THE GOSPELLERS,GosTV,ゴスティービー,村上てつや,黒沢 薫,酒井雄二,北山陽一,安岡優,ゴスマニア,GOSMANIA,グラシアス,GRACIAS" />
+
+<link rel="stylesheet" href="./css/style.css" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="css/style_new_flow.css">
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker(uaid);
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+</head>
+<body>
+
+<div class="wrap">
+<form action="credit_check.html">
+
+<img src="./image/gos_logo2.png" class="img1">
+<img src="./image/gos_logo2.png" class="img4">
+<div class="logout">
+	<p class="section-tit credit-name" style="margin-top:12px;">テスト　田中様</p>
+	<p class="btn " style="margin-top: 10px;"><a href="credit_login.html" class="btn btn-sub btn-logout">ログアウト</a></p>
+</div>
+<p class="section-tit memberlimit">会員有効期限：2020年3月末日<br><span>※反映までにお時間を頂戴する場合がございます。</span></p>
+	<section class="section-list page-news GOSMANIA">
+		<p class="credit-tit" style="margin-bottom:40px;">以下必要事項をご入力の上、<span><br></span>確認ボタンを押してください。</p>
+		<p class="credit-tit">お客様情報を入力してください</p>
+
+			
+		<table class="entry_form" style="margin-bottom:40px;">
+			<tbody>
+				<tr>
+					<th>メールアドレス<span>必須</span></th>
+					<td><input type="text" style="border-radius: 3px; padding: 10px;" name="sample" placeholder="例）sample@mail.com">　</td>
+				</tr>
+				<tr>
+					<th>メールアドレス(確認)<span>必須</span></th>
+					<td><input type="text" style="border-radius: 3px; padding: 10px;" name="sample" placeholder="例）sample@mail.com">　</td>
+				</tr>
+				<tr>
+					<th>メール配信<span>必須</span></th>
+					<td class="radioArea">
+						
+						<input type="radio" name="n1" id="r1" checked><label for="r1">希望する</label>
+						<input type="radio" name="n1" id="r2"><label for="r2">希望しない</label>
+
+					
+					<span class="float_box">GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。<br>
+						※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
+				</td>
+				</tr>				<tr>
+					<th>連絡がつく電話番号<span>必須</span></th>
+					<td><input type="text" style="border-radius: 3px; padding: 10px;" name="sample" placeholder="例）12345678910">　</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+		<p class="credit-tit">クレジットカード情報を<span><br></span>入力してください</p>
+
+		<p class="txt-credit">設定したクレジットカードはGOSMANIA年会費決済にご利用いただけます。<br>
+			※クレジットカード情報は、カード決済代行会社(GMOペイメントゲートウェイ株式会社)で安全に保存されます。</p>
+
+
+
+			<table class="entry_form">
+				<tbody>
+					<tr>
+						<th>カード会社<span>必須</span></th>
+						<td>
+							<ul style="float: left;">
+								<li >
+									<select name="sample" style="width:200px; padding: 10px; border-radius: 3px;">
+										<option value="">VISA</option>
+										<option value="">Mastercard</option>
+										<option value="">JCB</option>
+										<option value="">American Express</option>
+										<option value="">Diners Club</option>
+									</select>
+								</li>
+								
+							</ul>          <div class="cardbrand">※VISA、Master、JCB、American Express、Dinersがご利用いただけます。</div>                       </td>
+					</tr>
+					<tr>
+						<th>カード番号<span>必須</span></th>
+						<td><input type="text" style="border-radius: 3px; padding: 10px;" name="sample" placeholder="例）1111222233334444">　</td>
+					</tr>
+					<tr>
+						<th>セキュリティコード<span>必須</span></th>
+						<td>
+							<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="sample" placeholder="例）000">
+							<span class="float_box">※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
+							American Expressは表面のクレジットカード番号右上に記載されている4桁です。</span>                                </td>
+					</tr>
+					<tr>
+						<th>有効期限<span>必須</span></th>
+						<td>
+							<ul>
+								<li>
+									<select name="sample" style="border-radius: 3px; padding: 10px;">
+										<option value="">---</option>
+										<option value="2020">2020</option>
+										<option value="2021">2021</option>
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
+										<option value="2024">2024</option>
+										<option value="2025">2025</option>
+										<option value="2026">2026</option>
+										<option value="2027">2027</option>
+										<option value="2028">2028</option>
+										<option value="2029">2029</option>
+									</select> 年                                        </li>
+								<li>
+									<select name="sample" style="border-radius: 3px; padding: 10px;">
+										<option value="">---</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select> 月                                        </li>
+							</ul>                                </td>
+					</tr>
+				
+					
+				</tbody>
+			</table>
+		<!--<table class="block-credit">
+			<tbody>
+				<tr>
+					<th>カード会社</th>
+					<td>
+						<ul>
+							<li>
+								<select name="sample">
+									<option value="">VISA</option>
+									<option value="">MasterCard</option>
+									<option value="">JCB</option>
+									<option value="">Diners Club</option>
+									<option value="">American Express</option>
+								</select>
+							</li>
+						</ul>                                </td>
+				</tr>
+				<tr>
+					<th>カード番号</th>
+					<td><input type="text" class="cardnum" name="sample" placeholder="">　<br class="pc_none"></td>
+				</tr>
+				<tr>
+					<th>セキュリティコード</th>
+					<td class="width_middle">
+						<input type="text" class="width_middle" name="sample" placeholder="">
+						<p>※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
+                                American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</p>
+					</td>
+				</tr>
+				<tr>
+					<th>有効期限</th>
+					<td>
+						<ul style="margin-bottom: 8px;">
+							<li>
+								<select name="sample">
+									<option value="">---</option>
+									<option value="2020">2020</option>
+									<option value="2021">2021</option>
+									<option value="2022">2022</option>
+									<option value="2023">2023</option>
+									<option value="2024">2024</option>
+									<option value="2025">2025</option>
+									<option value="2026">2026</option>
+									<option value="2027">2027</option>
+									<option value="2028">2028</option>
+									<option value="2029">2029</option>
+									<option value="2029">2030</option>
+									<option value="2029">2031</option>
+									<option value="2029">2032</option>
+									<option value="2029">2033</option>
+									<option value="2029">2034</option>
+								</select> <span>年</span>                                        </li>
+							<li>
+								<select name="sample">
+									<option value="">---</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select> <span>月</span>                                        </li>
+						</ul>                                </td>
+				</tr>
+				<tr>
+					<th>カード名義</th>
+					<td>
+						<input type="text" class="width_middle cardnum" name="sample" placeholder="">　
+					</td>
+				</tr>
+				
+			</tbody>
+			
+		</table>-->
+
+		<div id="aplly_kind00" class="app btn">
+			<button type="submit" name="action" value="send" class="btn-sub" onclick="location.href='credit_done.html' ">確認</button>
+			
+		</div>
+	</section>
+	
+
+
+
+
+</form>
+<footer>
+
+</footer>
+
+
+</div><!-- .wrap -->
+
+</body>
+</html>

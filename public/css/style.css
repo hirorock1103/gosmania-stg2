@@ -1,0 +1,651 @@
+@charset "UTF-8";
+
+
+body, h1, h2, h3, h4, h5, h6,
+p, li, span, div, section, article,
+input, select {
+	font-family:""メイリオ", Meiryo,ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",  Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+.skin-blue .main-header .logo b {
+	visibility: hidden;
+}
+
+/*
+	2020/04/17追加 by山本
+*/
+
+/* 全体 */
+
+body {
+    background-color: #111111;
+    font-family: -apple-system, BlinkMacSystemFont, "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+}
+
+
+section.section-list {
+    width: 1000px;
+
+    padding-bottom: 100px;
+	margin: 0 auto;
+	padding-top: 80px;
+	position:relative;
+
+}
+
+
+
+
+/* 見出し */
+
+.block-tit {
+    color: inherit;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.4;
+    font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+    font-weight: normal;
+    letter-spacing: 0.1em;
+    color: #e0e0e0;
+	margin: 0 0 60px;
+}
+
+.img1{
+    width:100px;
+    margin-left:25px;
+    margin-top:15px;
+
+}
+
+/* ブロック */
+
+.page-news .block-gosmania {
+    display: block;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 30px auto 20px;
+}
+
+
+
+/* 中見出し 1page*/
+
+.page-news .block-gosmania .block-tit {
+    color: inherit;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+	margin-bottom: 10px;
+
+}
+
+
+.txt-basic {
+    color: inherit;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    margin: 0 0 1em;
+}
+
+
+
+.credit-txt{
+    margin-top:20px;
+}
+
+/* ボタン */
+
+.page-news .btn {
+
+	margin: .5em 0;
+}
+
+/* ログイン後の選択メニュー */
+.flex-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
+.sp_none.flex-buttons{
+    min-height: 212px;
+}
+.flex-buttons .btn-select{
+    box-sizing: border-box;
+    width:60%;
+    position: relative;
+}
+.flex-buttons .btn-select:not(:first-of-type){
+    margin-top: 40px;
+}
+
+
+.btn-sub {
+	line-height: 3;
+    min-width: 170px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    -webkit-appearance: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 1.5em;
+	cursor: pointer;
+	background: transparent;
+    color: #e0e0e0;
+    border: 1px solid #e0e0e0;
+	border-radius: 30px;
+
+}
+
+.btn a{
+	background: transparent;
+    color: #e0e0e0;
+	transition: all 0.3s ease;
+}
+
+.btn a:hover{
+	background-color: #e0e0e0;
+	color: #111111;
+	transition: all 0.3s ease;
+
+}
+
+.btn button:hover{
+	background-color: #e0e0e0;
+	color: #111111;
+	transition: all 0.3s ease;
+
+}
+
+.btn .entry:hover{
+	background-color: #e0e0e0;
+	color: #111;
+	transition: all 0.3s ease;
+
+}
+.btn .return:hover{
+    background-color: #1e90ff;
+    border: #1e90ff;
+	color: #111;
+	transition: all 0.3s ease;
+
+}
+
+
+.btn input:active{
+    outline: none;
+}
+
+
+.btn button:active{
+    outline: none;
+}
+
+.section-list button:hover{
+	background-color: #e0e0e0;
+	color: #111111;
+	transition: all 0.3s ease;
+
+}
+
+.section-list button:active{
+    outline: none;
+}
+
+.btn button:focus{
+    outline: none;
+}
+
+.disable {
+	opacity:0.4;
+	pointer-events: none; 
+}
+
+
+a {
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.img3{
+    display: none;
+
+}
+
+
+
+/* 2page */
+
+.block-gosmania2{
+    display: block;
+    width:70%;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 30px auto 20px;
+
+}
+
+.block-gosmania2 input{
+	display:block;
+	padding: 10px;
+    width: 320px;
+    margin: 20px auto;
+    border: none;
+    border-radius: 3px;
+}
+
+.img2{
+    display: none;
+
+}
+
+.txt-login{
+    margin:30px 0;
+}
+
+
+/* 3page*/
+
+.cardbrand{
+    margin-top: 22px;
+}
+
+table {
+	border-collapse: collapse;
+  }
+
+.credit-tit span{
+    display:none;
+}
+
+
+.img4{
+    display: none;
+
+}
+
+
+  .block-credit{
+	display: block;
+    text-align: left;
+    margin-top: 30px;
+    padding: 20px;
+    margin: 60px auto 20px;
+    width: 80%;
+
+  }
+
+
+  .block-credit input{
+	padding: 10px;
+    width: 320px;
+    border: none;
+    border-radius: 3px;
+}
+
+.block-credit th{
+	text-align:center;
+	width:40%;
+	border: solid 1px #e0e0e0;
+
+}
+
+.block-credit td{
+	padding: 20px;
+	font-size: 13px;
+	border: solid 1px #e0e0e0;
+	text-align: left;
+}
+
+
+.block-credit select{
+    border: 1px solid;
+	padding: 7px;
+    font-size: 16px;
+	border-radius: 3px;
+}
+
+.block-credit ul{
+	text-align: left;
+	padding:0px;	
+
+}
+
+.block-credit ul li{
+	list-style: none;
+	display: inline-block;
+	margin-right: 20px;
+	margin-bottom:-12px;
+}
+
+.credit-name{
+    font-size:22px;
+    margin-right: 30px;
+
+}
+
+.logout{
+    position: absolute;
+    top:10px;
+    right:50px;
+    display:flex;
+    font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+
+}
+
+.memberlimit{
+    position: absolute;
+	top:50px;
+	right:50px;
+    font-size:16px;
+    font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+}
+
+.memberlimit span{
+    font-size:10px;
+}
+
+
+.btn-logout {
+    min-width: 100px;
+    font-size: 12px;
+    height: 25px;
+    padding-bottom: 9px;
+}
+
+.btn-entry{
+	position: absolute;
+    right: 100px;
+}
+
+
+.credit-tit{
+	font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+	color: inherit;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.width_middle input{
+	width:150px;
+}
+
+
+.txt-credit{
+    font-size: 13px;
+}
+
+.entry_radio{
+    margin-right:20px;
+}
+
+
+
+.float_box span{
+    display:none;
+}
+
+.radioArea label{
+    font-size:16px;
+
+}
+
+.InformationSend label{
+    font-size:16px;
+}
+
+/* 4page */
+
+.txt-basic a{
+	color:#e0e0e0;
+}
+
+.block-tit-done {
+    color: inherit;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+	margin-bottom: 10px;
+
+}
+
+.block-tit-done a{
+    color: #E0E0E0;
+    text-decoration: none;
+}
+
+@media screen and (max-width:639px) {
+    /*スマホ用のcssを記述*/
+
+    section.section-list{
+    width: 100%;
+    margin: 0 auto;
+    }
+
+    .img1{
+        display: none;
+    }
+
+    .img2{
+        width: 120px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .img3{
+        width: 120px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .block-gosmania2 input{
+        width:100%;
+    }
+
+    /* select */
+
+    .fas{
+        margin-right:50px;
+    }
+
+    /* 3page */
+
+    .img4{
+        width: 120px;
+        display: block;
+        margin:20px 0 0 30px;
+    }
+
+    .credit-name {
+        font-size: 16px;
+        margin-right: 30px;
+        margin-bottom: 0;
+    }
+
+    .logout {
+        position: absolute;
+        top: 10px;
+        right: 0px;
+        display:block;
+
+    }
+
+    .btn-logout {
+        min-width: 80px;
+        font-size: 12px;
+        height: 22px;
+        padding-bottom: 10px;
+    }
+
+    .memberlimit {
+        position: absolute;
+        top: 90px;
+        right: 15px;
+        font-size: 16px;
+    }
+
+
+    .txt-credit {
+        margin-left: 30px;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        font-size: 13px;
+    }
+
+    .credit-tit span{
+        display:block;
+        height: 1px;
+    }
+
+    .credit-tit{
+        margin-left: 30px;
+    }
+
+    .block-credit input{
+        width:100%;
+    }
+
+    .block-credit{
+        width:95%;
+    }
+
+    .cardnum{
+        margin-bottom:-15px;
+    }
+
+    .block-credit ul li span{
+        font-size:8px;
+    }
+
+    .block-credit ul li{
+        margin-right:0px;
+    }
+
+    .btn-entry {
+        position: absolute;
+        right: 8px;
+    }
+
+    .float_box span{
+        display:block;
+    }
+
+    /*check*/
+
+    .entry{
+        min-width: 100px;
+    }
+
+    .return{
+        min-width: 100px;
+    }
+
+
+/* 4page */
+
+    .block-gosmania2 {
+        margin: 40px auto 20px;
+    }
+}
+
+
+
+
+
+
+       
+@media only screen and (min-width:640px) and (max-width:1023px) {
+    /*tablet用のcssを記述*/
+
+    section.section-list{
+        width: 100%;
+        margin: 0 auto;
+        }
+    
+        .img1{
+            display: none;
+        }
+    
+        .img2{
+            width: 120px;
+            display: block;
+            margin: 0 auto;
+        }
+    
+        .img3{
+            width: 120px;
+            display: block;
+            margin: 0 auto;
+        }
+    
+
+    
+        /* 3page */
+    
+        .img4{
+            width: 120px;
+            display: block;
+            margin:20px 0 0 30px;
+        }
+    
+
+    
+        .block-credit input{
+            width:100%;
+        }
+    
+        .block-credit{
+            width:95%;
+        }
+    
+        .cardnum{
+            margin-bottom:-15px;
+        }
+    
+        .block-credit ul li span{
+            font-size:8px;
+        }
+    
+        .block-credit ul li{
+            margin-right:0px;
+        }
+    
+        .btn-entry {
+            position: absolute;
+            right: 12px;
+        }
+
+        
+    
+    
+    /* 4page */
+    
+        .block-gosmania2 {
+            margin: 50px auto 20px;
+        }
+    
+    
+    
+
+
+
+
+
+
+    }

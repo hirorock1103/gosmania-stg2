@@ -1,0 +1,23 @@
+ul {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  vertical-align:top;
+  background:transparent;
+  position: relative;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style:none;
+}
+th {
+font-weight: normal;
+}
+input, select, textarea {
+  padding: 0;
+  vertical-align:middle;
+  box-sizing: border-box;
+  color: #333333;
+}

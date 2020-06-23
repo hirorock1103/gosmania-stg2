@@ -1,0 +1,449 @@
+*{-webkit-box-sizing:border-box;box-sizing:border-box}input{font-size:1.2rem} !important;border: 1px solid #ccc;border-radius: 3px;padding: 3px;}input:focus{outline:none !important;-webkit-box-shadow:none;box-shadow:none}select{font-size:14px !important}select:focus{outline:none}textarea{ffont-size:1.2rem} !important}textarea:focus{outline:none}.btn-warning{font-size:14px !important;background:#4169e1 !important;border:none !important}input.next{background:#eee;-webkit-box-shadow:none;box-shadow:none;outline:none;border:none;padding:3px 15px;font-size:13px !important;border-radius:3px;border:1px solid #ccc}input.next:hover{background:#ddd}a.underline{color:#444 !important}/* label{font-size:14px !important} */th,td{font-size:1.2rem}.labels label{display:inline-block;margin-right:20px !important;padding:5px 0;width:auto !important}.w500{width:500px !important}.nav-tabs{background:#eee}.nav-tabs li{background:#eee}.tab_content{padding:10px}
+.table{overflow:hidden;margin-bottom:10px;}
+.table .tr{display:-webkit-flex;display:-ms-flex;display:-webkit-box;display:-ms-flexbox;display:flex;border-bottom:1px solid #ccc;}
+.table .tr:nth-child(even){background:#F5F5F5}
+.table .tr:last-child{border-bottom:none;}
+
+.table .tr .th, .table .tr .td .table .tr .td-edit {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center
+}
+
+.table .tr .th {
+  width: 200px;
+  min-width: 200px !important;
+  padding: 10px;
+  background: #F8F4ED;
+}
+
+.table .tr .td {
+  padding: 10px;
+  
+}
+
+/* 編集画面と詳細画面でのガタリを解消 */
+.table .tr .td-edit {
+  padding: 4.5px
+}
+
+.table .tr .td input[placeholder="電話番号"] {
+  width: 150px
+}
+
+.table .tr .td-edit input,
+.table-flex .tr .td input,
+.table-flex .tr .td15 input,
+.table-flex .tr .td20 input {
+  margin-right: 4px;
+  width: 100%;
+}
+
+.table-flex .tr .td select,
+.table-flex .tr .td15 select,
+.table-flex .tr .td20 select {
+  width: 100%;
+}
+
+
+.table .tr:first-child .th {
+  width: 100%;
+  background: #2E3780;
+  color:#fff;
+  font-weight:bold;
+  padding: 10px 10px;
+  font-size: 1.2rem;
+
+line-height: 1.42857143;
+  font-weight: bold;
+}
+
+.table .tr:first-child .th button {
+	margin:3px;
+}
+
+/*追記*/
+.table {
+  border: 1px solid #ccc;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  border-left:none;
+}
+.table thead th,
+.table tbody th,
+.table tbody td {
+  padding: .6em 3em;
+  border-bottom: 1px solid #ccc;
+}
+.table thead th {
+  background: #ddd;
+/*   color:#fff; */
+  font-weight:bold;
+  padding: 10px 10px;
+  font-size: 1.2rem;
+}
+.table tbody th {
+  background-color: #eee;
+}
+.table thead th,
+.table tbody td,
+.table02 thead th {
+  border-left: 1px solid #ccc;
+}
+.table .th ,
+.table .td {
+  border-left: 1px solid #ccc;
+}
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+.table-flex {
+  border: 1px solid #ccc;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 5px;
+  border-left:none;
+  margin-bottom: 10px;
+}
+
+.table-flex .tr {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.table-flex .tr:nth-child(even) {
+  background: #F5F5F5
+}
+
+.table-flex .tr .th,
+.table-flex .tr .td {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1
+}
+.table-flex .tr{display:-webkit-flex;display:-ms-flex;display:-webkit-box;display:-ms-flexbox;display:flex;border-bottom:1px solid #ccc;}
+.table-flex .tr:nth-child(even){background:#F5F5F5}
+.table-flex .tr:last-child{
+	border-bottom:none;
+	}
+
+.table-flex .tr .th,
+.table-flex .tr .th15,
+.table-flex .tr .th20 {
+	padding:10px;
+	background:#F8F4ED;
+	}
+.table-flex .tr .th:last-child,
+.table-flex .tr .th15:last-child,
+.table-flex .tr .th20:last-child {
+	border-right:none;
+	}
+
+.table-flex .tr .td,
+.table-flex .tr .td15,
+.table-flex .tr .td20 {
+	padding:10px;
+	background-color: white;
+	display: flex;
+	align-items:center;
+	/* width: 100%; */
+}
+
+.table-flex .tr .th15,
+.table-flex .tr .td15 {
+	width: 15%;
+}
+
+.table-flex .tr .th20,
+.table-flex .tr .td20 {
+	width: 20%;
+}
+
+.table-flex .tr .td input[placeholder="電話番号"]{
+	width:150px
+}
+.table-flex .tr .td:last-child{
+	border-right:none
+}
+.table-flex .tr:first-child .th{
+	width:100%;
+	background:#2E3780;
+	line-height: 1.42857143;
+	padding:10px 10px;
+	color:#fff;
+	font-weight:bold;
+	font-size: 1.2rem;
+	border-radius: 5px 5px 0 0;
+}
+.table-flex .tr:first-child .th_btn_in {
+	padding:5px 10px;
+}
+.flex-area{
+	display:-webkit-flex;
+	display:-ms-flex;
+	display:-webkit-box;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-box-pack:justify;
+	-webkit-justify-content:space-between;
+	-ms-flex-pack:justify;
+	justify-content:space-between;
+	-webkit-box-align:start;
+	-webkit-align-items:flex-start;
+	-ms-flex-align:start;
+	align-items:flex-start;
+	padding:13px 0;
+}
+
+/*追記*/
+.table-flex {
+  border: 1px solid #ccc;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 5px;
+  border-left:none;
+}
+.table-flex thead th,
+.table-flex tbody th,
+.table-flex thead th15,
+.table-flex tbody th15,
+.table-flex thead th20,
+.table-flex tbody th20,
+.table-flex tbody td,
+.table-flex tbody td15,
+.table-flex tbody td20 {
+  padding: .6em 3em;
+  border-bottom: 1px solid #ccc;
+}
+.table-flex thead th,
+.table-flex thead th15,
+.table-flex thead th20 {
+  background-color: #ddd;
+}
+.table-flex tbody th,
+.table-flex tbody th15,
+.table-flex tbody th20 {
+  background-color: #eee;
+}
+.table-flex thead th,
+.table-flex tbody td,
+.table-flex thead th15,
+.table-flex tbody td15,
+.table-flex thead th20,
+.table-flex tbody td20  {
+  border-left: 1px solid #ccc;
+}
+.table-flex .th,
+.table-flex .td,
+.table-flex .th15,
+.table-flex .td15,
+.table-flex .th20,
+.table-flex .td20 {
+  border-left: 1px solid #ccc;
+}
+.table-flex tbody tr:last-child th,
+.table-flex tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.flex-area .f{width:49.5%}
+.flex-area .f-sm{width:44.5%}
+.flex-area .f-bg{width:55%}
+.flex-area .sm{width:35%}
+.flex-area .sm-narrow{width:25%}
+.flex-area .bg{/*width:64%*/ width:70%;margin-left:20px;}
+.flex-area .bg .table th{text-align:center;}
+.flex-area .bg-wide{/*width:79%*/ width:75%;margin-left:20px;}
+.flex-area .bg-wide2{/*width:79%*/ width:35%;margin-left:20px;}
+.search_results .flex-area .bg-wide2{/*width:79%*/ width:35%;margin-left:0px;}
+.flex-area-col .half{width:49.5%}
+.ml0{margin-left:0 !important}
+.ml10{margin-left:10px !important}
+.ml20{margin-left:20px !important}
+.ml30{margin-left:30px !important}
+.m0{margin:0 !important}
+.mt0{margin-top:0}
+.mt10{margin-top:10px !important}
+.mt20{margin-top:20px !important}
+.mt30{margin-top:30px !important}
+.mt40{margin-top:40px !important}
+.mt50{margin-top:50px !important}
+.min-w200{min-width:200px !important}
+.min-w300{min-width:300px !important}
+.w99{width:99% !important}
+.w100{width:100% !important}
+.color{color:#4682b4 !important}
+
+a.top_nav_alert{
+	/*background:#dff0d8 !important;
+	color: #3c763d; !important;
+	padding:10px 10px;
+	border-radius:4px;
+	font-size: 1.2rem;
+	border:1px solid #b2dba1;
+	box-shadow:0 0 7px rgba(0, 0, 0, 0.3);
+	*/
+	background:#e22929 !important;
+	color:#fff !important;
+	padding:10px 10px;
+	border-radius:3px;
+	box-shadow:0 0 7px rgba(0, 0, 0, 0.3);
+	font-size: 1.2rem;
+	font-weight:bold;
+	
+	
+}
+input[name="logout"]{
+	margin-left:15px !important
+}
+
+@media screen and (max-width: 770px){
+	.main-header{display:none}
+}
+
+/* 20180903 koike add */
+input.this-page{
+	background:#4169e1;
+	-webkit-box-shadow:none;
+	box-shadow:none;
+	outline:none;
+	border:none;
+	padding:3px 15px;
+	font-size:13px !important;
+	border-radius:3px;
+	border:1px solid #ccc;
+	}
+
+.td_not_flex{
+	display:-webkit-flex;
+	display:-ms-flex;
+	display:-webkit-box;
+	display:-ms-flexbox;
+	-webkit-box-align:center;
+	-webkit-align-items:center;
+	-ms-flex-align:center;
+	align-items:center;
+	padding:10px;
+}
+
+/* 20181001 koike add modal */
+
+.full .table .modal-trigger {
+	font-size: 12px;
+	padding: 5px 20px;
+	min-width: 100px;
+}
+
+body {
+	position: relative;
+}
+
+.modal-wrapper {
+	margin-left: -250px;
+}
+
+#modal {
+	position: fixed;
+	z-index: 999999999;
+	width: 90%;
+	height: 80%;
+	min-width: 500px;
+	min-height: 400px;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	background: #fff;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+					box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+	-webkit-transform: translateY(-200%);
+					transform: translateY(-200%);
+	opacity: 0;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+			-ms-flex-pack: center;
+					justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+			-ms-flex-align: center;
+					align-items: center;
+}
+
+#modal .modal-inner {
+	width: calc(100% - 30px);
+	height: calc(100% - 80px);
+	margin-top: 40px;
+}
+
+#modal .modal-inner iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+#bg {
+	position: absolute;
+	top: 0;
+	z-index: 99999999;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	-webkit-transform: scale(0);
+	transform: scale(0);
+}
+
+.modal-active {
+	-webkit-transform: translateY(0) !important;
+					transform: translateY(0) !important;
+	opacity: 1 !important;
+}
+
+.bg-active {
+	-webkit-transform: scale(1) !important;
+					transform: scale(1) !important;
+}
+
+.close-modal {
+	position: fixed;
+	font-size: 30px;
+	right: 10px;
+	top: 0px;
+	cursor: pointer;
+	font-weight: normal;
+}
+
+
+

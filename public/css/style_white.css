@@ -1,0 +1,310 @@
+@charset "UTF-8";
+
+
+body, h1, h2, h3, h4, h5, h6,
+p, li, span, div, section, article,
+input, select {
+	font-family:""メイリオ", Meiryo,ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",  Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+.skin-blue .main-header .logo b {
+	visibility: hidden;
+}
+
+/*
+	2020/04/17追加 by山本
+*/
+
+/* 全体 */
+
+body {
+    background-color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+}
+
+
+section.section-list {
+    width: 1000px;
+    padding-bottom: 100px;
+	margin: 0 auto;
+	padding-top: 80px;
+    position:relative;
+
+}
+
+
+
+
+/* 見出し */
+
+.block-tit {
+    color: inherit;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.4;
+    font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+    font-weight: normal;
+    letter-spacing: 0.1em;
+    color: #111111;
+	margin: 0 0 60px;
+}
+
+.wrap img{
+    width:100px;
+    margin-left:25px;
+    margin-top:15px;
+
+}
+
+
+/* ブロック */
+
+.page-news .block-gosmania {
+    display: block;
+    text-align: left;
+    border: 1px solid #111111;
+    padding: 20px;
+    margin: 30px auto 20px;
+}
+
+
+
+/* 中見出し 1page*/
+
+.page-news .block-gosmania .block-tit {
+    color: inherit;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+	margin-bottom: 10px;
+
+}
+
+
+.txt-basic {
+    color: inherit;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    margin: 0 0 1em;
+}
+
+.txt-credit{
+	margin-top:20px;
+}
+
+
+/* ボタン */
+
+.page-news .btn {
+
+	margin: .5em 0;
+}
+
+.btn-sub {
+	line-height: 3;
+    min-width: 150px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    -webkit-appearance: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 1.5em;
+	cursor: pointer;
+	background: transparent;
+    color: #111111;
+    border: 1px solid #111111;
+	border-radius: 30px;
+
+}
+
+.btn a{
+	background: transparent;
+    color: #111111;
+	transition: all 0.3s ease;
+}
+
+.btn a:hover{
+	background-color: #111111;
+	color: #fff;
+	transition: all 0.3s ease;
+
+}
+
+a {
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+/* 2page */
+.block-gosmania2{
+    display: block;
+    width:70%;
+    text-align: center;
+    border: 1px solid #111111;
+    padding: 20px;
+    margin: 30px auto 20px;
+
+}
+
+.block-gosmania2 input{
+	display:block;
+	padding: 10px;
+    width: 320px;
+    margin: 20px auto;
+    border: 1px solid;
+    border-radius: 3px;
+}
+
+
+/* 3page*/
+
+table {
+	border-collapse: collapse;
+  }
+
+
+
+  .block-credit{
+	display: block;
+    text-align: left;
+    margin-top: 30px;
+    padding: 20px;
+    margin: 60px auto 20px;
+    width: 80%;
+
+  }
+
+  .block-credit input{
+	padding: 10px;
+    width: 320px;
+    border: 1px solid;
+    border-radius: 3px;
+}
+
+.block-credit th{
+	text-align:center;
+	width:40%;
+	border: solid 1px #111111;
+
+}
+
+.block-credit td{
+	padding: 20px;
+	font-size: 13px;
+	border: solid 1px #111111;
+	text-align: left;
+}
+
+.block-credit select{
+    border: 1px solid;
+	padding: 7px;
+    font-size: 16px;
+	border-radius: 3px;
+}
+
+.block-credit ul{
+	text-align: left;
+	padding:0px;	
+
+}
+
+.block-credit ul li{
+	list-style: none;
+	display: inline-block;
+	margin-right: 20px;
+	margin-bottom:-12px;
+}
+
+.credit-name{
+    font-size:22px;
+    margin-right: 30px;
+
+}
+
+.logout{
+    position: absolute;
+    top:10px;
+    right:50px;
+    display:flex;
+    font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+
+}
+
+.memberlimit{
+    position: absolute;
+	top:50px;
+	right:50px;
+    font-size:14px;
+    font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+}
+
+
+.btn-logout {
+    min-width: 100px;
+    font-size: 12px;
+    height: 25px;
+    padding-bottom: 9px;
+}
+
+.btn-entry{
+	position: absolute;
+    right: 100px;
+}
+
+
+.credit-tit{
+	font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
+	position: absolute;
+	left: 100px;
+	color: inherit;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.width_middle input{
+	width:150px;
+}
+
+
+.txt-credit{
+    margin-top: 70px;
+    margin-left: 100px;
+    margin-bottom: -50px;
+    font-size: 13px;
+}
+
+
+/* 4page */
+
+.txt-basic a{
+	color:#111111;
+}
+
+.block-tit-done {
+    color: inherit;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+	margin-bottom: 10px;
+
+}
+
+
+@media screen and (max-width: 640px) {
+
+}

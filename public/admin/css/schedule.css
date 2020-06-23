@@ -1,0 +1,23 @@
+
+.time-box span {
+		margin:2px !important;
+}
+
+.service-box label {
+		display: inline;
+		margin-right: 15px;
+}
+
+.content_position_search table th {
+		width: 120px;
+}
+
+.content_position_search table.confirm-table th {
+		font-weight: bold;
+}
+
+.table_result_client td {
+	white-space: initial !important;
+}
+
+

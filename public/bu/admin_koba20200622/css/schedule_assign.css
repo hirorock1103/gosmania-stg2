@@ -1,0 +1,218 @@
+.catch-item {
+	display:inline-block;
+	padding: 0px 8px 0px;
+	margin: 8px auto;
+	width: 125px;
+	height: 25px;
+	line-height:25px;
+	border-radius: 3px;
+	color: #fff;background-color: #00A65A;
+	border-color: #e08e0b;
+	position:  relative;
+//	overflow: hidden;
+}
+.catch-item .name {
+	overflow: hidden;
+}
+
+.catch-item:hover {
+	cursor: pointer;
+	color: #fff;background-color: #e08e0b;
+	border-color: #d58512;
+}
+/* ↓モック用クラス(週間カレンダー内の左で掴んでいる人と同じ人をホバーと同じ装飾する) */
+.now-catching {
+	cursor: pointer;
+	background-color:#00733e;
+	border-color: #e08e0b;
+}
+/* ↓モック用クラス(週間カレンダー内の左で掴んでいる人と同じ人をホバーと同じ装飾する) */
+.vacation {
+	cursor: pointer;
+	background-image: linear-gradient(to bottom, #47ffd4, #39ccaa);
+	border: 1px solid #39ccaa;
+}
+
+.cancel{
+	position: absolute;
+	left: 115px;
+	top: -5px;
+	border-radius: 5px;
+	height: 18px;
+	width: 18px;
+	background-color: #e22929;
+	vertical-align: middle;
+	text-align: center;
+}
+.leader-active{
+	position: absolute;
+	left: 111px;
+	top: -5px;
+	border-radius: 5px;
+	border: 1px solid #e8e84d;
+	height: 20px;
+	width: 20px;
+	background-color: #fcff96;
+	color:rgb(45, 45, 45);;
+	vertical-align: middle;
+	text-align: center;
+	
+}
+/*	
+.leader{
+	position: absolute;
+	left: 92px;
+	top: -5px;
+	border-radius: 5px;
+	border: 1px solid #adb068;
+	height: 18px;
+	width: 18px;
+	background-color: #adb068;
+	color:#838383;
+	vertical-align: middle;
+	text-align: center;
+} */
+
+.button-kana{
+	background-color:#fff;
+	box-shadow: none;
+	outline: none;
+	border: none;
+	margin-right: 2px;
+	padding: 3px 3px;
+	font-size: 1.2rem !important;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	color:rgb(45, 45, 45);
+	box-sizing:border-box;
+	width:17%;
+}
+
+.button-this-kana{
+	background-color:#e6f5fe;
+	box-shadow: none;
+	outline: none;
+	border: none;
+	margin-right: 2px;
+	padding: 3px 3px;
+	font-size: 1.2rem !important;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	color:rgb(45, 45, 45);
+	box-sizing:border-box;
+	width:17%;
+}
+
+
+div.contextmenu {
+	padding:3px;
+	border:1px solid #999;
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	background-color:#fafafa;
+	box-shadow:2px 2px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+*html div.contextmenu {
+	width:200px;
+}
+
+*+html div.contextmenu {
+	width:200px;
+}
+
+/* メニュータイトル見出し */
+div.contextmenu p.title {
+	margin:0 0 3px;
+	padding:5px 10px;
+	border-bottom:1px solid #aaa;
+	background-color:#eee;
+}
+
+div.contextmenu ul.menu-items {
+	margin:0;
+	padding:0;
+}
+
+div.contextmenu ul.menu-items li.menu-item {
+	margin:0;
+	padding:2px 0;
+	list-style:none;
+	position:relative;
+}
+
+/* 境界 */
+div.contextmenu ul.menu-items li.menu-item.divide {
+	border-top:1px dashed #aaa;
+}
+
+/* ボタン */
+div.contextmenu ul.menu-items li.menu-item button {
+	padding:3px 20px;
+	border:1px solid transparent;
+	border-radius:2px;
+	width:100%;
+	background:transparent;
+	cursor:pointer;
+	text-align:left;
+	transition:border 0.2s ease 0s, background-color 0.2s ease 0s;
+}
+
+div.contextmenu ul.menu-items li.menu-item button:hover {
+	border:1px solid #06d;
+	background-color:#e6f1ff;
+}
+
+div.contextmenu ul.menu-items li.menu-item.disabled button,
+div.contextmenu ul.menu-items li.menu-item.disabled button:hover {
+	border:1px solid transparent;
+	background:transparent;
+	cursor:default;
+}
+
+div.contextmenu ul.menu-items li.menu-item.sub-menu-open > button,
+div.contextmenu ul.menu-items li.menu-item.sub-menu-close > button {
+	background-repeat:no-repeat;
+	background-position:95% 50%;
+}
+
+div.contextmenu ul.menu-items li.menu-item button span.icon {
+	margin:0 5px 0 -16px;
+	vertical-align:middle;
+}
+
+/* サブメニュー */
+div.contextmenu ul.menu-items li.menu-item ul.sub-menu {
+	padding:3px;
+	border:1px solid #999;
+	position:absolute;
+	top:0;
+	left:100%;
+	display:none;
+	background-color:#fafafa;
+	box-shadow:2px 2px 3px 0 rgba(0, 0, 0, 0.5);
+	min-width:150px;
+}
+
+div.contextmenu ul.menu-items li.menu-item.sub-menu-open ul.sub-menu {
+	display:block;
+}
+
+/* メニュー表示 */
+div.contextmenu.open {
+	display:block;
+}
+
+.date-deactive {
+	background-color: #d3d3d3 !important;
+}
+
+.date-active {
+	background-color: #FFD6B7 !important;
+}
+
+#tbl_schedule tbody td {
+	vertical-align: top !important;
+}
