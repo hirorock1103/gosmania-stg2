@@ -238,9 +238,9 @@ function validate_alert($error, $_key){
                         <label for="on" class="switch-on">希望する</label>
                         <input type="radio" id="off" value="0" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
                         <label for="off" class="switch-off">希望しない</label> 
-                        <span class="float_box">GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。
-
-                            ※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
+                        <span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>
+                        <span class="float_box">※必ず「gospellers.tv」(ドメイン)を受信できるように設定をお願いいたします。</span>
+                        <span class="float_box">※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
                     </td>
 				</tr>
 				<tr>
@@ -302,7 +302,7 @@ function validate_alert($error, $_key){
 								</li>
 							</ul>
 
-							<span class="float_box">※VISA,Master,JCB,American Express,Dinersがご利用いただけます。</span>
+							<span class="float_box">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
 
 
 							<?php echo isset($validation['card_brand']) ? '<span style="color: red;">'.$validation['card_brand'].'</span>' : ''; ?>
@@ -321,7 +321,7 @@ function validate_alert($error, $_key){
 							<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
 							<span class="float_box">※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
 							American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</span>
-							<?php echo isset($validation['card_code']) ? '<span style="color: red;">'.$validation['card_code'].'</span>' : ''; ?>
+							<?php echo isset($validation['card_code']) ? '<span class="float_box" style="font-size:13px; color: red;">'.$validation['card_code'].'</span>' : ''; ?>
 						</td>
 					</tr>
 					<tr>

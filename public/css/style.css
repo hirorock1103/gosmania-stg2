@@ -380,6 +380,9 @@ table {
     font-size:10px;
 }
 
+.memberlimit--little-big{
+    font-size:16.8px!important;
+}
 
 .btn-logout {
     min-width: 100px;

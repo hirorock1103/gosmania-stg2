@@ -258,7 +258,7 @@ function validate_alert($error, $_key){
 								<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
 								<span class="float_box">※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
 								American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</span>
-								<?php echo isset($validation['card_code']) ? '<span style="color: red;">'.$validation['card_code'].'</span>' : ''; ?>
+								<?php echo isset($validation['card_code']) ? '<span class="float_box" style="font-size:13px; color: red;">'.$validation['card_code'].'</span>' : ''; ?>
 							</td>
 						</tr>
 						<tr>
