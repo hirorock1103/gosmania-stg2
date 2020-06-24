@@ -23,7 +23,8 @@ $entry_mode = (find_record_by($dbh, 'PaymentInfo', 'seq', 'gmo_id', $ses['cs_id'
 					<a class="btn-sub btn-select <?php echo $class;  ?>" href="./credit_edit.php" class="btn-sub btn-select">
 						<i class="fas fa-sync-alt" style="position: absolute; top: 12px; left: 40px;"></i>クレジットカード更新はこちら
 					</a>
-					<a class="btn-sub btn-select" href="./customer_info_edit.php"  class="btn-sub btn-select">
+					<?php $class = ($entry_mode == true) ? "disable" : "";  ?>
+					<a class="btn-sub btn-select <?php echo $class;  ?>" href="./customer_info_edit.php"  class="btn-sub btn-select">
 						<i class="far fa-envelope" style="position: absolute; top: 12px; left: 40px;"></i>お客様情報の登録・更新はこちら
 					</a>
 			</div>

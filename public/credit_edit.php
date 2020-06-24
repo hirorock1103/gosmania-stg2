@@ -239,7 +239,7 @@ function validate_alert($error, $_key){
 									</li>
 								</ul>
 
-								<span class="cardbrand">※VISA,Master,JCB,American Express,Dinersがご利用いただけます。</span>
+								<span class="cardbrand">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
 
 
 								<?php echo isset($validation['card_brand']) ? '<span style="color: red;">'.$validation['card_brand'].'</span>' : ''; ?>
