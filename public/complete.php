@@ -37,7 +37,7 @@ $status = base64_decode( rawurldecode( filter_input(INPUT_GET, 'status')) );
 						<p class="block-tit-done" style="font-weight: normal;margin-top:0px;">TEL：<a href="tel:03-3479-2958">03-3479-2958</a>(平日 16:00～19:00)</p>
 					<?php } ?>
 				</div>
-				<div class="block-gosmania2--comment"><a class="link-type-1" href="tokutei.php">特定商取引法に関する表記</a></div>
+				<div class="block-gosmania2--comment"><a class="link-type-1" href="select.php">メニュー画面に戻る</a></div>
 
 		</section>
 	<footer>
