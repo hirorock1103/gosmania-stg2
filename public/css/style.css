@@ -44,6 +44,16 @@ section.section-list {
 	text-decoration: none;
 }
 
+/*特定商法エリア*/
+.tokutei p, .tokutei h4 {
+	width:80%;
+	text-align:left;
+}
+
+.tokutei h4 {
+	margin-bottom:1px;
+}
+
 .link-type-1:hover{
 	opacity:50%;
 }
