@@ -417,6 +417,14 @@ table {
     font-size: 13px;
 }
 
+.txt-credit--mt40{
+    font-size: 13px;
+	margin-top:40px;
+}
+.txt-credit--mt20{
+    font-size: 13px;
+	margin-top:20px;
+}
 .entry_radio{
     margin-right:20px;
 }
