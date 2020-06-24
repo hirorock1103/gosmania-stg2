@@ -37,8 +37,16 @@ section.section-list {
 
 }
 
+/* 一般  */
+.link-type-1{
+	color:#fff;
+	border:none;
+	text-decoration: none;
+}
 
-
+.link-type-1:hover{
+	opacity:50%;
+}
 
 /* 見出し */
 
@@ -236,6 +244,12 @@ a {
 
 }
 
+.block-gosmania2--comment{
+    display: block;
+    width:70%;
+    margin-left:135px;;
+
+}
 .block-gosmania2 input{
 	display:block;
 	padding: 10px;
