@@ -1,4 +1,4 @@
-<img src="./image/gos_logo2.png" class="img1">
+<a href="./select.php"><img src="./image/gos_logo2.png" class="img1"></a>
 <img src="./image/gos_logo2.png" class="img4">
 <div class="logout">
 	<p class="section-tit credit-name" style="margin-top:12px;"><?php echo $ses['cs_name']; ?></p>
