@@ -63,16 +63,18 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 <header></header>
 <form action="" method="post">
 	<section class="section-list page-news GOSMANIA">
-		<img src="./image/gos_logo2.png" style="width: 120px; margin-left: 130px;" class="img1">
-		<img src="./image/gos_logo2.png" style="width: 120px; " class="img2">
-			<div class="block-gosmania2">
-			<p class="block-tit">ログイン</p>
-			<input type="text" placeholder="GOSMANIA ID" name="cs_id" value="<?php echo $cs_id;?>" >
-			<input type="text" placeholder="郵便番号" name="cs_zip" value="<?php echo $cs_zip;?>">
-			<button class="btn-sub" type="submit" name="login" value="auth">認証</button>
-			<?php echo $errmsg; ?>
-			</div>
+			<img src="./image/gos_logo2.png" style="width: 120px; margin-left: 130px;" class="img1">
+			<img src="./image/gos_logo2.png" style="width: 120px; " class="img2">
+				<div class="block-gosmania2">
+				<p class="block-tit">ログイン</p>
+				<input type="text" placeholder="GOSMANIA ID" name="cs_id" value="<?php echo $cs_id;?>" >
+				<input type="text" placeholder="郵便番号" name="cs_zip" value="<?php echo $cs_zip;?>">
+				<button class="btn-sub" type="submit" name="login" value="auth">認証</button>
+				<?php echo $errmsg; ?>
+				</div>
+		<div class="block-gosmania2--comment"><a class="link-type-1" href="tokutei.php">特定商取引法に関する表記</a></div>
 	</section>
+
 </form>
 
 
