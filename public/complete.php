@@ -30,8 +30,9 @@ $status = base64_decode( rawurldecode( filter_input(INPUT_GET, 'status')) );
 					<?php } else { // entry.php 登録 ?>
 						<p class="block-tit-done">クレジットカードの登録が完了いたしました。</p>
 						<p class="txt-basic">次回の継続より、クレジットカード決済での自動更新となります。</p>
-						<p class="txt-credit--mt40" >※会員有効期限の1ヶ月半前までに登録・更新されていない場合は、<br>翌年度以降のクレジットカード決済となります。<br>
-							ご不明な点などございましたら、GOSMANIAまでお問い合わせくださいますようお願いいたします。</p>
+						<p class="txt-credit--mt40" >※会員有効期限の1ヶ月半前までに登録・更新されていない場合は、<br>翌年度以降のクレジットカード決済となります。</p>
+						<p class="txt-credit--mt20" >
+					ご不明な点などございましたら、GOSMANIAまでお問い合わせくださいますようお願いいたします。</p>
 						<p class="block-tit-done" style="margin-bottom:0px;">GOSMANIA</p>
 						<p class="block-tit-done" style="font-weight: normal;margin-top:0px;">TEL：<a href="tel:03-3479-2958">03-3479-2958</a>(平日 16:00～19:00)</p>
 					<?php } ?>
