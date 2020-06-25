@@ -176,3 +176,7 @@ button.this-page {
 .bg-red{
 	background:#ff0000;
 }
+.error{
+	color:#ff0000;
+	margin-bottom:20px;
+}
