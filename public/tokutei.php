@@ -13,10 +13,10 @@
 	<section class="section-list page-news GOSMANIA">
 
 		<div class="block-gosmania2--comment"><a class="link-type-1" href="login.php">戻る</a></div>
-		<div class="block-gosmania2">
+		<div class="block-gosmania2--no-border">
 			<div id="aplly_kind00" class="tokutei app btn sp_none flex-buttons">
 
-				<h3>
+				<h3 class="tokutei-title">
 				特定商取引に関する表記
 				</h3>
 

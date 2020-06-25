@@ -38,6 +38,10 @@ section.section-list {
 }
 
 /* 一般  */
+.f-left{
+	float:left;
+}
+
 .link-type-1{
 	color:#fff;
 	border:none;
@@ -57,6 +61,11 @@ section.section-list {
 .link-type-1:hover{
 	opacity:50%;
 }
+
+.comment-type1{
+	margin-top:22px;
+}
+
 
 /* 見出し */
 
@@ -254,6 +263,15 @@ a {
 
 }
 
+.block-gosmania2{
+    display: block;
+    width:70%;
+    text-align: center;
+    padding: 20px;
+    margin: 30px auto 20px;
+
+}
+
 .block-gosmania2--comment{
     display: block;
     width:70%;
@@ -267,6 +285,10 @@ a {
     margin: 20px auto;
     border: none;
     border-radius: 3px;
+}
+
+.tokutei-title{
+	font-family: 'Lusitana', '游明朝', "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif;
 }
 
 .img2{

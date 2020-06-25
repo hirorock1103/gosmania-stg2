@@ -80,7 +80,6 @@ if(isset($_POST) && !empty($_POST)){
 		}
 	}else{
 		$mode = 'confirm';
-		var_dump("confirm");
 	}
 }else{ //一番最初
 	$mode = 'edit';
@@ -114,7 +113,7 @@ function _validation($dbh, $data){
 		// 連絡がつく電話番号
 		if (!preg_match("/[0-9]/", $data['Ci_Phone'])) {
 			$ret['Ci_Phone'] = "連絡先を入力してください。";
-		}else if(strlen($data['Ci_Phone']) < 12 || strlen($data['Ci_Phone']) > 13){
+		}else if(strlen($data['Ci_Phone']) < 10 || strlen($data['Ci_Phone']) > 12){
 			$ret['Ci_Phone'] = "不正な電話番号の入力です。";
 		}
 		
@@ -139,11 +138,12 @@ function _validation($dbh, $data){
 		}
 
 		// カード名義 (半角英数字)
-		if (!isset($data['card_name']) || !$data['card_name'] || !preg_match('/^[A-Za-z0-9,.\-\/ ]+$/', $data['card_name'])) {
+		/* if (!isset($data['card_name']) || !$data['card_name'] || !preg_match('/^[A-Za-z0-9,.\-\/ ]+$/', $data['card_name'])) {
 			$ret['card_name'] = "カード名義を数字/アルファベット(大文字/小文字)/△(半角スペース) ,(カンマ) .(ピリオド) -(ハイフ）/(スラッシュ)で入力してください。";
 		}else if($data['card_name_1'] == '' || $data['card_name_2'] == ''){
 			$ret['card_name'] = "カード名義を入力してください。";
 		}
+		*/
 
 		// セキュリティコード
 		if (!isset($data['card_code']) || !$data['card_code'] || !preg_match('/^[0-9]+$/', $data['card_code']) || (strlen($data['card_code']) != 3 && strlen($data['card_code']) != 4)) {
@@ -168,11 +168,12 @@ function _adjustParams($dbh, $data){
 		//年月結合&半角数字変換
 		$data['card_limit'] = mb_convert_kana($data['card_limit_y'].sprintf('%02d', $data['card_limit_m']), "n");
 	}
-	
+	/*	
 	if( isset($data['Ci_Phone1']) && isset($data['Ci_Phone2']) && isset($data['Ci_Phone3'])) {
 		//連絡先電話番号
 		$data['Ci_Phone'] = $data['Ci_Phone1'].'-'.$data['Ci_Phone2'].'-'.$data['Ci_Phone3'];
 	}
+	*/
 	
 	$ret = $data;
 	
@@ -220,14 +221,14 @@ function validate_alert($error, $_key){
 				<tr>
 					<th>メールアドレス<span>必須</span></th>
 					<td>
-						<input type="text" style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress" placeholder="sample@mail.com" value="<?php echo isset($data['Ci_MailAddress']) ? $data['Ci_MailAddress'] : '';?>">
+						<input type="text" style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddress']) ? $data['Ci_MailAddress'] : '';?>">
 						<?php echo isset($validation['Ci_MailAddress']) ? '<br><br><span style="color: red;">'.$validation['Ci_MailAddress'].'</span>' : ''; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>メールアドレス(確認)<span>必須</span></th>
 					<td>
-						<input type="text" style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress2nd" placeholder="sample@mail.com" value="<?php echo isset($data['Ci_MailAddress2nd']) ? $data['Ci_MailAddress2nd'] : '';?>">
+						<input type="text" style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress2nd" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddress2nd']) ? $data['Ci_MailAddress2nd'] : '';?>">
 					</td>
 				</tr>
 				<tr>
@@ -245,12 +246,11 @@ function validate_alert($error, $_key){
 				</tr>
 				<tr>
 					<th>連絡がつく電話番号<span>必須</span></th>
-					<td>
-						<input type="text" class="width_very_short" style="border-radius: 3px; padding: 10px;" name="Ci_Phone1" placeholder="03" value="<?php echo isset($data['Ci_Phone1']) ? $data['Ci_Phone1'] : '';?>"> -
-						<input type="text" class="width_very_short" style="border-radius: 3px; padding: 10px;" name="Ci_Phone2" placeholder="1234" value="<?php echo isset($data['Ci_Phone2']) ? $data['Ci_Phone2'] : '';?>"> -
-						<input type="text" class="width_very_short" style="border-radius: 3px; padding: 10px;" name="Ci_Phone3" placeholder="5678" value="<?php echo isset($data['Ci_Phone3']) ? $data['Ci_Phone3'] : '';?>">
+                                        <td>
+						<input type="text" style="border-radius: 3px; padding: 10px;" value="<?php echo isset($data['Ci_Phone']) ? $data['Ci_Phone'] : "";  ?>"  name="Ci_Phone"placeholder="例）12345678910">　
 						<?php echo isset($validation['Ci_Phone']) ? '<br><br><span style="color: red;">'.$validation['Ci_Phone'].'</span>' : ''; ?>
 					</td>
+
 				</tr>
 			<?php }else{ ?>
 				<tr>
@@ -280,9 +280,9 @@ function validate_alert($error, $_key){
 		<?php }else{ ?>
 		<p class="credit-tit">クレジットカード情報</p>
 		<?php } ?>
-		<p class="txt-credit">・設定したクレジットカードはゴスマニア年会費にご利用いただけます。<br>
-			・以下入力フォームに情報をご入力の上、登録ボタンを押してください。<br>
-			※クレジットカード情報は、カード決済代行会社（GMOペイメントゲートウェイ株式会社）で安全に保存されます。
+		<p class="txt-credit">
+			設定したクレジットカードはGOSMANIA年会費決済にご利用いただけます。<br>
+※クレジットカード情報は、カード決済代行会社(GMOペイメントゲートウェイ株式会社)で安全に保存されます。
 			<span style="color:red;" ><?php echo isset($errmsg[0]) ? '<br>'.$errmsg[0] : ''; ?></span>
 		</p>
 			<table class="entry_form">
@@ -291,7 +291,7 @@ function validate_alert($error, $_key){
 					<tr>
 						<th>カード会社<span>必須</span></th>
 						<td>
-							<ul>
+							<ul class="f-left">
 								<li>
 									<select name="card_brand" style="width:200px; padding: 10px; border-radius: 3px;">
 										<?php foreach ($def_card_brand as $key => $val) { ?>
@@ -302,7 +302,7 @@ function validate_alert($error, $_key){
 								</li>
 							</ul>
 
-							<span class="float_box">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
+							<span class="float_box comment-type1">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
 
 
 							<?php echo isset($validation['card_brand']) ? '<span style="color: red;">'.$validation['card_brand'].'</span>' : ''; ?>
@@ -311,16 +311,16 @@ function validate_alert($error, $_key){
 					<tr>
 						<th>カード番号<span>必須</span></th>
 						<td>
-							<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
+							<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
 							<?php echo isset($validation['card_number']) ? '<span style="color: red;">'.$validation['card_number'].'</span>' : ''; ?>
 						</td>
 					</tr>
 					<tr>
 						<th>セキュリティコード<span>必須</span></th>
 						<td>
-							<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
+							<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="例）000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
 							<span class="float_box">※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
-							American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</span>
+							American Expressは表面のクレジットカード番号右上に記載されている4桁です。</span>
 							<?php echo isset($validation['card_code']) ? '<span class="float_box" style="font-size:13px; color: red;">'.$validation['card_code'].'</span>' : ''; ?>
 						</td>
 					</tr>
@@ -334,7 +334,7 @@ function validate_alert($error, $_key){
 										<?php for ($i = $st_year; $i < $st_year + 10; $i++) { ?>
 										<option value="<?php echo $i; ?>" <?php echo isset($data) && $i == $data['card_limit_y'] ? 'selected' : ''; ?> ><?php echo $i; ?></option>
 										<?php } ?>
-									</select>年
+									</select> 年
 								</li>
 								<li>
 									<select name="card_limit_m" style="border-radius: 3px; padding: 10px;">
@@ -342,13 +342,13 @@ function validate_alert($error, $_key){
 										<?php for ($i = 1; $i < 13; $i++) { ?>
 										<option value="<?php echo sprintf('%02d', $i); ?>" <?php echo isset($data) && $i == (int)$data['card_limit_m'] ? 'selected' : ''; ?> ><?php echo $i; ?></option>
 										<?php } ?>
-									</select>月
+									</select> 月
 								</li>
 							</ul>
 							<?php echo isset($validation['card_limit']) ? '<span style="color: red;">'.$validation['card_limit'].'</span>' : ''; ?>
 						</td>
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<th>名義人（ｶﾅ）<span>必須</span></th>
 						<td nowrap>
 							ｾｲ&nbsp;<input type="text" class="width_short" style="border-radius: 3px; padding: 10px;" name="card_name_1" placeholder="YAMADA" value="<?php echo isset($data['card_name_1']) ? $data['card_name_1'] : '';?>">　
@@ -379,7 +379,7 @@ function validate_alert($error, $_key){
 						<input type="hidden" name="card_limit_y" value="<?php echo isset($data['card_limit_y']) ? $data['card_limit_y'] : '';?>">
 						<input type="hidden" name="card_limit_m" value="<?php echo isset($data['card_limit_m']) ? $data['card_limit_m'] : '';?>">
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<th>名義人（ｶﾅ）</th>
 						<td><?php echo $data['card_name']; ?></td>
 						<input type="hidden" name="card_name" value="<?php echo isset($data['card_name']) ? $data['card_name'] : '';?>">
@@ -442,6 +442,7 @@ $(function(){
 				param[_col[key]] = val;
 			}
 		}
+		//console.log(param);	
 		console.log(err);	
 		// エラーなければトークン取得
 		if (err == false) {

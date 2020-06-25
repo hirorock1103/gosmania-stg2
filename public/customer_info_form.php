@@ -27,8 +27,14 @@ if(isset($_POST['confirm']) && !empty($_POST['confirm'])) {
 	}
 }else {
 	// 初回GETアクセス
-	$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
-	$customer['Ci_MailAddressConfirm'] = $customer['Ci_MailAddress'];
+	$customer['Ci_Seq'] = "";
+	$customer['Cs_Id'] = "";
+	$customer['Ci_MailAddress'] = "";
+	$customer['Ci_MailAddressConfirm'] = "";
+	$customer['Ci_Phone'] = "";
+	$customer['Ci_InformationSend'] = "";
+	$customer['Ci_Creator'] = "";
+	$customer['Ci_Creatdate'] = "";
 }
 
 
@@ -188,6 +194,7 @@ function insert_into_customer_info($dbh, $data){
 									<span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>
 									<span class="float_box">※必ず「gospellers.tv」(ドメイン)を受信できるように設定をお願いいたします。</span>
 									<span class="float_box">※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
+
 									<?php if(isset($error['Ci_InformationSend']) && !empty($error['Ci_InformationSend']) ){ ?>
 										<p style="color: red;"><?php echo htmlspecialchars($error['Ci_InformationSend']);?></p>
 									<?php } ?>
