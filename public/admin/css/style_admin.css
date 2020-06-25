@@ -168,3 +168,11 @@ button.this-page {
 	white-space: pre-wrap;
 	word-break: break-all;
 }
+
+/*add*/
+.red{
+	color:#ff0000;
+}
+.bg-red{
+	background:#ff0000;
+}

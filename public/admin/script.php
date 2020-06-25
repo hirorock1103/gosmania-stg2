@@ -1,43 +1,43 @@
 <!-- jquery 3.3.1 -->
-<script src="/admin/js/jquery-3.3.1.min.js"></script>
-<script src="/admin/js/jquery-ui-1.12.1.min.js"></script>
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/jquery-ui-1.12.1.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/admin/js/jquery-ui-1.12.1_draggable.min.js"></script>
+<script src="./js/jquery-ui-1.12.1_draggable.min.js"></script>
 
 <!-- Cookie -->
-<script src="/admin/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="./js/jquery.cookie.js" type="text/javascript"></script>
 
 <!-- Bootstrap 3.3.2 JS -->
-<script src="/admin/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/admin/js/bootstrap-datetimepicker.min.js"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+<script src="./js/bootstrap-datetimepicker.min.js"></script>
 
 <!-- Slimscroll -->
-<script src="/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="./js/jquery.slimscroll.min.js" type="text/javascript"></script>
 
 <!-- FastClick -->
-<script src="/admin/js/fastclick.min.js"></script>
+<script src="./js/fastclick.min.js"></script>
 
 <!-- AdminLTE App -->
-<script src="/admin/js/app.min.js" type="text/javascript"></script>
-<script src="/admin/js/jquery-ui-1.10.3.custom.js"></script>
+<script src="./js/app.min.js" type="text/javascript"></script>
+<script src="./js/jquery-ui-1.10.3.custom.js"></script>
 
 <!-- chartapi -->
 <script src="https://www.google.com/jsapi" type="text/javascript"></script>
 
 <!-- datepicker -->
-<script src="/admin/js/jquery.ui.datepicker-ja.js"></script>
+<script src="./js/jquery.ui.datepicker-ja.js"></script>
 <!-- timepicker -->
-<script src="/admin/js/jquery.timepicker.min.js"></script>
+<script src="./js/jquery.timepicker.min.js"></script>
 
 <!-- chosen -->
-<script src="/admin/js/chosen.jquery.js"></script>
-<script src="/admin/js/init.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chosen.jquery.js"></script>
+<script src="./js/init.js" type="text/javascript" charset="utf-8"></script>
 
 <!-- chosen -->
-<script src="/admin/js/context-menu.js"></script>
+<script src="./js/context-menu.js"></script>
 
-<script src="/admin/js/icheck.min.js"></script>
-<script src="/admin/js/common.js"></script>
+<script src="./js/icheck.min.js"></script>
+<script src="./js/common.js"></script>
 
 <script type="text/javascript">
 $(function() {
