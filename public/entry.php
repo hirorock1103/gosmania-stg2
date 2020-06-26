@@ -57,6 +57,7 @@ if(isset($_POST) && !empty($_POST)){
 		
 	}else if( !isset($data['action']) || $data['action'] != 'confirm'){ //更新はbuttonのnameもsubmitも無し
 		$mode = 'complete';
+		$data['card_name'] = "";
 		$ret = _gmo_reg_member($dbh, $ses['cs_id'], $data['card_name'], $errmsg);
 		if (!$ret && $debug == false) { //会員登録が失敗したら
 			//var_dump($errmsg.'<br>Line:58');
@@ -161,7 +162,7 @@ function _adjustParams($dbh, $data){
 	
 	if( isset($data['card_name_1']) && isset($data['card_name_1']) ) {
 		//姓名結合&半角カナ変換
-		$data['card_name'] = mb_convert_kana($data['card_name_1'].' '.$data['card_name_2'], "a");
+		//$data['card_name'] = mb_convert_kana($data['card_name_1'].' '.$data['card_name_2'], "a");
 	}
 	
 	if( isset($data['card_limit_y']) && isset($data['card_limit_m']) ) {
@@ -348,14 +349,6 @@ function validate_alert($error, $_key){
 							<?php echo isset($validation['card_limit']) ? '<span style="color: red;">'.$validation['card_limit'].'</span>' : ''; ?>
 						</td>
 					</tr>
-					<tr style="display:none;">
-						<th>名義人（ｶﾅ）<span>必須</span></th>
-						<td nowrap>
-							ｾｲ&nbsp;<input type="text" class="width_short" style="border-radius: 3px; padding: 10px;" name="card_name_1" placeholder="YAMADA" value="<?php echo isset($data['card_name_1']) ? $data['card_name_1'] : '';?>">　
-							ﾒｲ&nbsp;<input type="text" class="width_short" style="border-radius: 3px; padding: 10px;" name="card_name_2" placeholder="TAROU" value="<?php echo isset($data['card_name_2']) ? $data['card_name_2'] : '';?>">
-							<?php echo isset($validation['card_name']) ? '<br><br><span style="color: red;">'.$validation['card_name'].'</span>' : ''; ?>
-						</td>
-					</tr>
 				<?php }else{ ?>
 					<tr>
 						<th>カード会社</th>
@@ -378,13 +371,6 @@ function validate_alert($error, $_key){
 						<input type="hidden" name="card_limit" value="<?php echo isset($data['card_limit']) ? $data['card_limit'] : '';?>">
 						<input type="hidden" name="card_limit_y" value="<?php echo isset($data['card_limit_y']) ? $data['card_limit_y'] : '';?>">
 						<input type="hidden" name="card_limit_m" value="<?php echo isset($data['card_limit_m']) ? $data['card_limit_m'] : '';?>">
-					</tr>
-					<tr style="display:none;">
-						<th>名義人（ｶﾅ）</th>
-						<td><?php echo $data['card_name']; ?></td>
-						<input type="hidden" name="card_name" value="<?php echo isset($data['card_name']) ? $data['card_name'] : '';?>">
-						<input type="hidden" name="card_name_1" value="<?php echo isset($data['card_name_1']) ? $data['card_name_1'] : '';?>">
-						<input type="hidden" name="card_name_2" value="<?php echo isset($data['card_name_2']) ? $data['card_name_2'] : '';?>">
 					</tr>
 				<?php } ?>
 				</tbody>
@@ -454,7 +440,7 @@ $(function(){
 				cardno : param['card_number'],
 				expire : param['card_limit_y'] + param['card_limit_m'],
 				securitycode : param['card_code'],
-				holdername : param['card_name'],
+				//holdername : param['card_name'],
 				//tokennumber : tokennumber
 			}, _recvToken);
 
