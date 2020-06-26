@@ -488,7 +488,7 @@ function _array_exists($id, &$arr_shop)
 	<div class="">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content_wrapper">
-			<h3 class="detail-title">スケジュール一括登録</h3>
+			<h3 class="detail-title">ログイン会員情報データ一括登録</h3>
 			<!-- Content Header (Page header) -->
 			<section class="content-header"></section>
 			<!-- Main content -->

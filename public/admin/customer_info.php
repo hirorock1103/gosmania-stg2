@@ -86,7 +86,7 @@ if( isset($_POST) && !empty($_POST) ) {
 							<form action="" name="frm_assign_list" method="post">
 								<div class="box1">
 									<div class="box-body">
-										<h2>連絡先情報</h2>
+										<h2>各種変更履歴</h2>
 										<div class="content_position_search">
 											<div class="row">
 												<div class="col-md-12 search-box">

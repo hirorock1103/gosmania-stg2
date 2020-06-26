@@ -56,7 +56,7 @@ if( isset($_POST) && !empty($_POST) ) {
 			<?php include 'side.php';?>
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-				<!--<h1><span>一覧</span></h1>
+				<!--<h1><span>一覧</span></h1>-->
 				<!-- Content Header (Page header) -->
 				<section class="content-header"></section>
 				<!-- Main content -->
@@ -66,7 +66,7 @@ if( isset($_POST) && !empty($_POST) ) {
 							<form action="" name="frm_admin_list" method="post">
 								<div class="box1">
 									<div class="box-body">
-										<h2>認証用データ一覧</h2>
+										<h2>ログイン会員情報データ一覧</h2>
 										<div class="content_position_search">
 											<div class="row">
 												<div class="col-md-12 search-box">

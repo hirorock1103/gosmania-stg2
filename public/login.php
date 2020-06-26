@@ -60,7 +60,7 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 <head><?php include_once dirname(__FILE__) . "/head.php"; ?></head>
 <body>
 <div class="wrap">
-<header></header>
+<!--<header></header>-->
 <form action="" method="post">
 	<section class="section-list page-news GOSMANIA">
 			<img src="./image/gos_logo2.png" style="width: 120px; margin-left: 130px;" class="img1">

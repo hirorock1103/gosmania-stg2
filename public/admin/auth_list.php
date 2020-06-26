@@ -97,7 +97,7 @@ if(isset($data['export'])){
 							<form action="" name="frm_assign_list" method="post">
 								<div class="box1">
 									<div class="box-body">
-										<h2>連携データ一覧</h2>
+										<h2>会員支払方法データ一覧</h2>
 										<div class="content_position_search">
 											<div class="row">
 												<div class="col-md-12 search-box">

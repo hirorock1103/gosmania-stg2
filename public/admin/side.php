@@ -17,9 +17,9 @@
 					<i class="fa fa-users side_text_pos"></i> <span class="side_text_pos">各種認証管理</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="./customer_import.php" target="_blank"><i class="fa"></i>認証用データ登録</a></li>
-					<li><a href="./customer_list.php"><i class="fa"></i>認証用データ一覧</a></li>
-					<li><a href="./auth_list.php"><i class="fa"></i>オーソリデータ一覧</a></li>
+					<li><a href="./customer_import.php" target="_blank"><i class="fa"></i>ログイン会員情報データ登録</a></li>
+					<li><a href="./customer_list.php"><i class="fa"></i>ログイン会員情報データ一覧</a></li>
+					<li><a href="./auth_list.php"><i class="fa"></i>会員支払方法データ一覧</a></li>
 				</ul>
 			</li>
 			<li class="treeview ">
@@ -36,7 +36,7 @@
 					<i class="fa fa-users side_text_pos"></i> <span class="side_text_pos">顧客情報管理</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="./customer_info.php"><i class="fa"></i>連絡先情報</a></li>
+					<li><a href="./customer_info.php"><i class="fa"></i>各種変更履歴</a></li>
 				</ul>
 			</li>
 		</ul>
