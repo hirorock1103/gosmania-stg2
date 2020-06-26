@@ -37,6 +37,10 @@ section.section-list {
 
 }
 
+ul{
+	margin:0;
+}
+
 /* 一般  */
 .f-left{
 	float:left;
@@ -63,7 +67,10 @@ section.section-list {
 }
 
 .comment-type1{
-	margin-top:22px;
+	margin-top: 11px;
+	margin-right: 0;
+	margin-left: 0 !important;
+	padding-left: 0;
 }
 
 
