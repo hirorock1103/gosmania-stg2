@@ -17,7 +17,7 @@ $status = base64_decode( rawurldecode( filter_input(INPUT_GET, 'status')) );
 						<p class="txt-credit--mt40" >※会員有効期限の1ヶ月半前までに登録・更新されていない場合は、<br>翌年度以降のクレジットカード決済となります。</p>
 						<p class="txt-credit--mt20" >ご不明な点などございましたら、GOSMANIAまでお問い合わせくださいますようお願いいたします。</p>
 						<p class="block-tit-done" style="margin-bottom:0px;">GOSMANIA</p>
-						<p class="block-tit-done" style="font-weight: normal;margin-top:0px;">TEL：<a href="tel:03-3479-2958">03-3479-2958</a>(平日 16:00～19:00)</p>
+						<p class="block-tit-done" style="font-weight: normal;margin-top:0px;">TEL：<a href="tel:03-3479-2958">03-3479-2958</a>(平日16:00～19:00)</p>
 
 					<?php } else if($status === 'cs_info_update') { // 顧客情報更新 customer_info_edit.php ?>
 						<p class="block-tit-done">お客様情報の登録・更新が完了いたしました。</p>
@@ -34,7 +34,7 @@ $status = base64_decode( rawurldecode( filter_input(INPUT_GET, 'status')) );
 						<p class="txt-credit--mt20" >
 					ご不明な点などございましたら、GOSMANIAまでお問い合わせくださいますようお願いいたします。</p>
 						<p class="block-tit-done" style="margin-bottom:0px;">GOSMANIA</p>
-						<p class="block-tit-done" style="font-weight: normal;margin-top:0px;">TEL：<a href="tel:03-3479-2958">03-3479-2958</a>(平日 16:00～19:00)</p>
+						<p class="block-tit-done" style="font-weight: normal;margin-top:0px;">TEL：<a href="tel:03-3479-2958">03-3479-2958</a>(平日16:00～19:00)</p>
 					<?php } ?>
 				</div>
 				<div class="block-gosmania2--comment"><a class="link-type-1" href="select.php">メニュー画面に戻る</a></div>
