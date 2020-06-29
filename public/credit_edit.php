@@ -228,7 +228,7 @@ function validate_alert($error, $_key){
 						<tr>
 							<th>カード会社<span>必須</span></th>
 							<td>
-								<ul>
+								<ul class="f-left">
 									<li>
 										<select name="card_brand" style="width:200px; padding: 10px; border-radius: 3px;">
 											<?php foreach ($def_card_brand as $key => $val) { ?>
@@ -239,7 +239,7 @@ function validate_alert($error, $_key){
 									</li>
 								</ul>
 
-								<span class="cardbrand">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
+								<span class="float_box comment-type1">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
 
 
 								<?php echo isset($validation['card_brand']) ? '<span style="color: red;">'.$validation['card_brand'].'</span>' : ''; ?>
@@ -248,14 +248,14 @@ function validate_alert($error, $_key){
 						<tr>
 							<th>カード番号<span>必須</span></th>
 							<td>
-								<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
+								<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
 								<?php echo isset($validation['card_number']) ? '<span style="color: red;">'.$validation['card_number'].'</span>' : ''; ?>
 							</td>
 						</tr>
 						<tr>
 							<th>セキュリティコード<span>必須</span></th>
 							<td>
-								<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
+								<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="例）000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
 								<span class="float_box">※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
 								American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</span>
 								<?php echo isset($validation['card_code']) ? '<span class="float_box" style="font-size:13px; color: red;">'.$validation['card_code'].'</span>' : ''; ?>

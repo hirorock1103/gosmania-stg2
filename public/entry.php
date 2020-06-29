@@ -235,7 +235,7 @@ function validate_alert($error, $_key){
 				<tr>
 					<th>メール配信<span>必須</span></th>
 
-					<td class="InformationSend">
+					<td class="radioArea InformationSend">
                         <input type="radio" id="on" value="1" checked="" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 1 ? 'checked' : '';?>>
                         <label for="on" class="switch-on">希望する</label>
                         <input type="radio" id="off" value="0" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
