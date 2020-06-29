@@ -72,7 +72,7 @@ exit;
 								<li>
 									<select name="sample" style="width:200px; padding: 10px; border-radius: 3px;">
 										<option value="">VISA</option>
-										<option value="">MasterCard</option>
+										<option value="">Mastercard</option>
 										<option value="">JCB</option>
 										<option value="">American Express</option>
 										<option value="">Diners Club</option>

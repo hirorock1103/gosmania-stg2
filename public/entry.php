@@ -31,7 +31,7 @@ define("PAYMENT_REGIST_LIMIT", 1440);// 24時間
 
 $def_card_brand = array(
 	"VISA"		=> "VISA",
-	"MASTER"	=> "MasterCard",
+	"MASTER"	=> "Mastercard",
 	"JCB"		=> "JCB",
 	"AMEX"		=> "American Express",
 	"DINERS"	=> "Diners Club",
