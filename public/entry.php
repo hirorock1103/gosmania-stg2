@@ -229,7 +229,7 @@ function validate_alert($error, $_key){
 				<tr>
 					<th>メールアドレス(確認)<span>必須</span></th>
 					<td>
-						<input type="text" style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress2nd" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddress2nd']) ? $data['Ci_MailAddress2nd'] : '';?>">
+						<input type="text" oncopy="return false" onpaste="return false" oncontextmenu="return false"   style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress2nd" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddress2nd']) ? $data['Ci_MailAddress2nd'] : '';?>">
 					</td>
 				</tr>
 				<tr>
