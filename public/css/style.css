@@ -46,14 +46,33 @@ ul{
 	float:left;
 }
 
+
+.link-type-1:hover{
+	opacity:80;
+}
 .link-type-1{
 	color:#fff;
 	border:none;
 	text-decoration: none;
 }
 
+.link-type-2:hover{
+	opacity:80 !important;
+}
+.link-type-2{
+	color:#fff;
+	border:none;
+	text-decoration: none;
+	padding: 3px 20px;
+	border: 1px solid #adadad;
+}
+
 .err-msg{
 	color:#ff0000;
+}
+
+.elm-center{
+	text-align:center;
 }
 
 /*特定商法エリア*/

@@ -12,7 +12,6 @@
 	<?php //include_once dirname(__FILE__) . "/header.php"; ?>
 	<section class="section-list page-news GOSMANIA">
 
-		<div class="block-gosmania2--comment"><a class="link-type-1" href="login.php">戻る</a></div>
 		<div class="block-gosmania2--no-border">
 			<div id="aplly_kind00" class="tokutei app btn sp_none flex-buttons">
 
@@ -48,6 +47,7 @@
 
 			</div>
 
+			<div class="block-gosmania2--comment elm-center"><a class="link-type-2" href="login.php">戻る</a></div>
 		</div>
 
 	</section>
