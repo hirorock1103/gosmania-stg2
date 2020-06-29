@@ -27,7 +27,7 @@ if (!empty($_POST['login'])) {
 function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 
 	if($cs_id == "" || $cs_zip == "") {
-		$errmsg = "<br><br>ID、郵便番号を入力してください。";
+		$errmsg = "<br><br>GOSMANIA会員番号、登録郵便番号を入力してください。";
 		return false;
 	}
 	
@@ -51,7 +51,7 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 			}
 		}
 	//1行もとれなかったら
-	$errmsg = "<br><br>ID、郵便番号が無効です。";
+	$errmsg = "<br><br>GOSMANIA会員番号、登録郵便番号が無効です。";
 	return false;
 }
 
@@ -75,7 +75,9 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 				 <p class="txt-credit txt-login">※住所変更反映にお時間を頂戴する場合がございます。<br>
 				 ログインできない場合は、変更前の郵便番号にて認証をお願いいたします。</p>
 				<button class="btn-sub" type="submit" name="login" value="auth">認証</button>
-				<?php echo $errmsg; ?>
+				<?php if(!empty($errmsg)){  ?>
+				<span class="err-msg"><?php echo $errmsg; ?></span>
+				<?php } ?>
 				</div>
 		<div class="block-gosmania2--comment"><a class="link-type-1" href="tokutei.php">特定商取引法に関する表記</a></div>
 	</section>
