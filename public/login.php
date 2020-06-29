@@ -1,4 +1,5 @@
 <?php
+//test
 include_once dirname(__FILE__) . "/settings.php";
 
 
