@@ -9,6 +9,9 @@ $errmsg = '';
 // ログイン？
 if (!empty($_POST['login'])) {
 
+	//全角→変換
+	$cs_id = mb_convert_kana($cs_id, "n");
+	$cs_zip = mb_convert_kana($cs_zip, "n");
 	$ret = _login($dbh, $cs_id, $cs_zip, $errmsg);
 
 	if($ret) {
@@ -26,17 +29,31 @@ if (!empty($_POST['login'])) {
 /**********************************************/
 function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 
+
 	if($cs_id == "" || $cs_zip == "") {
 		$errmsg = "<br><br>GOSMANIA会員番号、登録郵便番号を入力してください。";
 		return false;
+	}else{
+		//桁数などのチェック
+		if(!preg_match('/^([0-9]{5})$/', $cs_id)){
+			$errmsg = "<br><br>GOSMANIA会員番号は下5桁の入力をお願いします。";
+			return false;
+		}		
+		if(!preg_match('/^([0-9]{7})$/', $cs_zip)){
+			$errmsg = "<br><br>郵便番号はハイフンなし7桁の入力をお願いします。";
+			return false;
+		}	
 	}
+
+	//cs_zipをハイフンありに変換
+	$cs_zip = substr($cs_zip,0,3) . "-" . substr($cs_zip,3);
 	
 	$sql	= "SELECT * FROM Customer ";
-	$sql .= "WHERE Cs_Id = :cs_id AND Cs_Zip = :cs_zip ";
+	$sql .= "WHERE Cs_Id like :cs_id AND Cs_Zip = :cs_zip ";
 
 	$db = $dbh->prepare($sql);
 
-	$db->bindValue(':cs_id', $cs_id, PDO::PARAM_STR);
+	$db->bindValue(':cs_id', "%".$cs_id, PDO::PARAM_STR);
 	$db->bindValue(':cs_zip', $cs_zip, PDO::PARAM_STR);
 
 	if ($db->execute()) {
