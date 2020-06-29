@@ -13,7 +13,7 @@ $status = base64_decode( rawurldecode( filter_input(INPUT_GET, 'status')) );
 				<div class="block-gosmania2">
 					<?php if($status === 'credit_update') { // クレジット情報更新 credit_edit.php ?>
 						<p class="block-tit-done">クレジットカードの更新が完了いたしました。</p>
-						<p class="txt-basic">次回の継続より、更新されたクレジットカード決済での自動更新となります。</p>
+						<p class="txt-basic">次回の継続より、更新されたクレジットカードでの自動更新となります。</p>
 						<p class="txt-credit--mt40" >※会員有効期限の1ヶ月半前までに登録・更新されていない場合は、<br>翌年度以降のクレジットカード決済となります。</p>
 						<p class="txt-credit--mt20" >ご不明な点などございましたら、GOSMANIAまでお問い合わせくださいますようお願いいたします。</p>
 						<p class="block-tit-done" style="margin-bottom:0px;">GOSMANIA</p>
