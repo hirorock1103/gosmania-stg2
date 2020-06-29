@@ -94,7 +94,7 @@ function params() {
 			<section class="content-header"></section>
 			<!-- Main content -->
 			<section class="content">
-				<form action="/admin/send_mail_edit.php" name="frm_admin" method="POST">
+				<form action="./send_mail_edit.php" name="frm_admin" method="POST">
 					<div class="flex-area">
 						<div class="f" >
 							<?php if (!empty($err)) {

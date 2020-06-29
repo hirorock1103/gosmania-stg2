@@ -200,7 +200,7 @@ function change_isUsing_mail($dbh, $data) {
 														<td class="listUser"><?php echo h( mb_substr($mail['Sm_Subject'], 0, 20)); ?></td>
 														<td class="listUser"><?php echo h( mb_substr($mail['Sm_Content'], 0, 29) . '...'); ?></td>
 														<td class="listUser">
-															<form action="/admin/send_mail_detail.php" method="POST" target="_blank" style="margin-bottom: 0;">
+															<form action="./send_mail_detail.php" method="POST" target="_blank" style="margin-bottom: 0;">
 																<button type="submit" name="Sm_Seq" class="btn" value="<?php echo h($mail['Sm_Seq']); ?>" style="padding:3px 20px">詳細</button>
 															</form>
 														</td>
