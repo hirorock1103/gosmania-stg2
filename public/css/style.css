@@ -75,6 +75,10 @@ ul{
 	text-align:center;
 }
 
+.mt40{
+	margin-top:40px;
+}
+
 /*特定商法エリア*/
 .tokutei p, .tokutei h4 {
 	width:80%;
@@ -185,6 +189,30 @@ ul{
 }
 
 
+
+.link-btn-sub {
+	line-height: 3;
+    min-width: 170px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    -webkit-appearance: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 1.5em;
+	cursor: pointer;
+	background: transparent;
+    color: #e0e0e0;
+    border: 1px solid #e0e0e0;
+	border-radius: 30px;
+
+}
+
+.link-btn-sub:hover {
+	background:#fff;
+	color:#000;
+}
 .btn-sub {
 	line-height: 3;
     min-width: 170px;

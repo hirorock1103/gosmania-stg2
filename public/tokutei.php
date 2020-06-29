@@ -47,7 +47,7 @@
 
 			</div>
 
-			<div class="block-gosmania2--comment elm-center"><a class="link-type-2" href="login.php">戻る</a></div>
+			<div class="block-gosmania2--comment elm-center"><a class="link-btn-sub" href="login.php">戻る</a></div>
 		</div>
 
 	</section>
