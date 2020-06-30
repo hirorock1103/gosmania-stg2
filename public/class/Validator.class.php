@@ -67,7 +67,6 @@ class Validator {
 				$error['card_code'] = "セキュリティコードを半角数字(3～4桁)で入力してください。";
 			}
 		}
-		var_dump($error);
 		return $error;
 	}
 	
