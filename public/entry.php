@@ -1,5 +1,6 @@
 <?php
 include_once dirname(__FILE__) . "/settings.php";
+include_once dirname(__FILE__) . "/class/Validator.class.php";
 
 // GMO定義 --------------------------------------------------
 //define("GMO_API_TOKEN_AUTH_JS", "https://static.mul-pay.jp/ext/js/token.js");// token取得JS
@@ -49,8 +50,8 @@ if(isset($_POST) && !empty($_POST)){
 	$token		 = (isset($data['token']) ? $data['token'] : '');
 	
 	$data = _adjustParams($dbh, $data);
-
-	$validation = _validation($dbh, $data);
+	$validator = new Validator($dbh);
+	$validation = $validator->validate($data, "entry");
 
 	if( (!empty($validation) && $debug == false ) || (isset($data['action']) && $data['action'] == 'back') ){ //validationに引っかかるか、確認画面で戻る押した時
 		$mode = 'edit';
@@ -84,82 +85,23 @@ if(isset($_POST) && !empty($_POST)){
 	}
 }else{ //一番最初
 	$mode = 'edit';
+	$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
+	//顧客情報セット済の場合
+	$data['Ci_MailAddress'] = isset($customer['Ci_MailAddress']) ? $customer['Ci_MailAddress'] : "";
+	$data['Ci_MailAddressConfirm'] = isset($customer['Ci_MailAddress']) ? $customer['Ci_MailAddress'] : "";
+	$data['Ci_InformationSend'] = isset($customer['Ci_InformationSend']) ? $customer['Ci_InformationSend'] : "";
+	$data['Ci_Phone'] = isset($customer['Ci_Phone']) ? $customer['Ci_Phone'] : "";
+	$data['card_brand'] = isset($customer['card_brand']) ? $customer['card_brand'] : "";
 }
 
-/**********************************************/
-// バリデーション
-/**********************************************/
-function _validation($dbh, $data){
-	
-	$ret = [];
-	
-	// var_dump($data);
-	
-	// Token取得済みならJS側でバリデーション完了しているため、次の処理へ
-	// if (isset($data['token']) && $data['token'] != "") { 今回はクレカ登録だけではないのでtokenがOKならOKではない
-		// $ret = true;
-	// } else {
-		
-		$mail_str = "/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/";
-		
-		// メールアドレス
-		if (!isset($data['Ci_MailAddress']) || !$data['Ci_MailAddress']) {
-			$ret['Ci_MailAddress'] = "メールアドレスを入力してください。";
-		}elseif (!isset($data['Ci_MailAddress2nd']) || $data['Ci_MailAddress2nd'] != $data['Ci_MailAddress']) {
-			$ret['Ci_MailAddress'] = "確認用のメールアドレスと入力内容が異なります。";
-		}elseif(!preg_match($mail_str, $data['Ci_MailAddress'])){
-			$ret['Ci_MailAddress'] = "不正なメールアドレスの入力です。";
-		}
-		
-		// 連絡がつく電話番号
-		if(empty($data['Ci_Phone'])){
-			$ret['Ci_Phone'] = "連絡先を入力してください。";
-		}else{
-			if (!preg_match("/^[0-9]+$/", $data['Ci_Phone'])) {
-				$ret['Ci_Phone'] = "電話番号は数値のみ入力をお願いします。";
-			}	
-			
-			if( empty($ret['Ci_Phone']) &&  strlen($data['Ci_Phone']) < 10 || strlen($data['Ci_Phone']) > 11){
-				$ret['Ci_Phone'] = "電話番号は10桁か11桁での入力となります";
-			}
-		}
-		
-		// クレジットカードブランド
-		if (!isset($data['card_brand']) || !$data['card_brand']) {
-			$ret['card_brand'] = "カード種別を選択してください。";
-		}
-		
-		// クレジットカードブランド
-		if (!isset($data['card_brand']) || !$data['card_brand']) {
-			$ret['card_brand'] = "カード種別を選択してください。";
-		}
-
-		// カード番号
-		if (!isset($data['card_number']) || !$data['card_number'] || !preg_match('/^[0-9]+$/', $data['card_number'])) {
-			$ret['card_number'] = "カード番号を半角数字で入力してください。";
-		}
-
-		// カード有効期限
-		if (!isset($data['card_limit_y']) || !$data['card_limit_y'] || !isset($data['card_limit_m']) || !$data['card_limit_m']) {
-			$ret['card_limit'] = "カード有効期限を選択してください。";
-		}
-
-		// カード名義 (半角英数字)
-		/* if (!isset($data['card_name']) || !$data['card_name'] || !preg_match('/^[A-Za-z0-9,.\-\/ ]+$/', $data['card_name'])) {
-			$ret['card_name'] = "カード名義を数字/アルファベット(大文字/小文字)/△(半角スペース) ,(カンマ) .(ピリオド) -(ハイフ）/(スラッシュ)で入力してください。";
-		}else if($data['card_name_1'] == '' || $data['card_name_2'] == ''){
-			$ret['card_name'] = "カード名義を入力してください。";
-		}
-		*/
-
-		// セキュリティコード
-		if (!isset($data['card_code']) || !$data['card_code'] || !preg_match('/^[0-9]+$/', $data['card_code']) || (strlen($data['card_code']) != 3 && strlen($data['card_code']) != 4)) {
-			$ret['card_code'] = "セキュリティコードを半角数字(3～4桁)で入力してください。";
-		}
-	// }
-	
-	return $ret;
+function fetch_customer_info_record($dbh, $Cs_Id) {
+        $sql = "SELECT * FROM CustomerInfo WHERE Cs_Id = :Cs_Id ORDER BY Ci_Seq DESC LIMIT 1";
+        $db = $dbh->prepare($sql);
+        $db->bindValue(':Cs_Id', $Cs_Id, PDO::PARAM_STR);
+        $db->execute();
+        return $db->fetch(PDO::FETCH_ASSOC);
 }
+
 
 /**********************************************/
 // POST値整形
@@ -229,13 +171,13 @@ function validate_alert($error, $_key){
 					<th>メールアドレス<span>必須</span></th>
 					<td>
 						<input type="text" style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddress']) ? $data['Ci_MailAddress'] : '';?>">
-						<?php echo isset($validation['Ci_MailAddress']) ? '<br><br><span style="color: red;">'.$validation['Ci_MailAddress'].'</span>' : ''; ?>
+						<?php echo isset($validation['Ci_MailAddress']) ? '<p class="error-msg">'.$validation['Ci_MailAddress'].'</p>' : ''; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>メールアドレス(確認)<span>必須</span></th>
 					<td>
-						<input type="text" oncopy="return false" onpaste="return false" oncontextmenu="return false"   style="border-radius: 3px; padding: 10px;" name="Ci_MailAddress2nd" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddress2nd']) ? $data['Ci_MailAddress2nd'] : '';?>">
+						<input type="text" oncopy="return false" onpaste="return false" oncontextmenu="return false"   style="border-radius: 3px; padding: 10px;" name="Ci_MailAddressConfirm" placeholder="例）sample@mail.com" value="<?php echo isset($data['Ci_MailAddressConfirm']) ? $data['Ci_MailAddressConfirm'] : '';?>">
 					</td>
 				</tr>
 				<tr>
@@ -255,7 +197,7 @@ function validate_alert($error, $_key){
 					<th>連絡がつく電話番号<span>必須</span></th>
                                         <td>
 						<input type="text" style="border-radius: 3px; padding: 10px;" value="<?php echo isset($data['Ci_Phone']) ? $data['Ci_Phone'] : "";  ?>"  name="Ci_Phone"placeholder="例）12345678910">　
-						<?php echo isset($validation['Ci_Phone']) ? '<br><br><span style="color: red;">'.$validation['Ci_Phone'].'</span>' : ''; ?>
+						<?php echo isset($validation['Ci_Phone']) ? '<p class="error-msg">'.$validation['Ci_Phone'].'</p>' : ''; ?>
 					</td>
 
 				</tr>
@@ -264,7 +206,7 @@ function validate_alert($error, $_key){
 					<th>メールアドレス</th>
 					<td><?php echo $data['Ci_MailAddress']; ?></td>
 					<input type="hidden" name="Ci_MailAddress" value="<?php echo isset($data['Ci_MailAddress']) ? $data['Ci_MailAddress'] : '';?>">
-					<input type="hidden" name="Ci_MailAddress2nd" value="<?php echo isset($data['Ci_MailAddress2nd']) ? $data['Ci_MailAddress2nd'] : '';?>">
+					<input type="hidden" name="Ci_MailAddressConfirm" value="<?php echo isset($data['Ci_MailAddressConfirm']) ? $data['Ci_MailAddressConfirm'] : '';?>">
 				</tr>
 				<tr>
 					<th>メール配信</th>
@@ -309,25 +251,25 @@ function validate_alert($error, $_key){
 								</li>
 							</ul>
 
-
-
-							<?php echo isset($validation['card_brand']) ? '<span style="color: red;">'.$validation['card_brand'].'</span>' : ''; ?>
+							<?php echo isset($validation['card_brand']) ? '<p class="error" style="color: red;">'.$validation['card_brand'].'</p>' : ''; ?>
 						</td>
 					</tr>
 					<tr>
 						<th>カード番号<span>必須</span></th>
 						<td>
 							<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
-							<?php echo isset($validation['card_number']) ? '<span style="color: red;">'.$validation['card_number'].'</span>' : ''; ?>
+							<?php echo isset($validation['card_number']) ? '<p class="error-msg">'.$validation['card_number'].'</p>' : ''; ?>
 						</td>
 					</tr>
 					<tr>
 						<th>セキュリティコード<span>必須</span></th>
 						<td>
 							<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="card_code" placeholder="例）000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
+							<p class="comment-type1-area">
 							<span class="comment-type1">※クレジットカード裏面の署名欄にあるコードの下3桁です。</span><br>
 							<span class="comment-type1">American Expressは表面のクレジットカード番号右上に記載されている4桁です。</span>
-							<?php echo isset($validation['card_code']) ? '<span class="float_box" style="font-size:13px; color: red;">'.$validation['card_code'].'</span>' : ''; ?>
+							</a>
+							<?php echo isset($validation['card_code']) ? '<p class="clear error-msg" >'.$validation['card_code'].'</p>' : ''; ?>
 						</td>
 					</tr>
 					<tr>
@@ -351,7 +293,7 @@ function validate_alert($error, $_key){
 									</select>&nbsp;&nbsp;月
 								</li>
 							</ul>
-							<?php echo isset($validation['card_limit']) ? '<span style="color: red;">'.$validation['card_limit'].'</span>' : ''; ?>
+							<?php echo isset($validation['card_limit']) ? '<p class="error-msg">'.$validation['card_limit'].'</p>' : ''; ?>
 						</td>
 					</tr>
 				<?php }else{ ?>

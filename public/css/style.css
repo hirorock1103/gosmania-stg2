@@ -82,6 +82,14 @@ ul{
 .chousei-1{
 	margin-left: -5px !important;
 }
+.clear{
+	clear:both;
+}
+.error-msg{
+	padding-top:0!important;
+	margin-top:0;
+	color:red;
+}
 
 /*特定商法エリア*/
 .tokutei p, .tokutei h4 {
@@ -97,6 +105,12 @@ ul{
 	opacity:50%;
 }
 
+.comment-type1-area{
+	display:inline;
+	margin:0;
+	padding:0;
+	font-size:12px;
+}
 .comment-type1{
 	margin-top: 11px;
 	margin-right: 0;
