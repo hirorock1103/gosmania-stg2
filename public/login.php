@@ -98,8 +98,8 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 
 
 
-				<input type="text" placeholder="GOSMANIA会員番号(下5桁)" name="cs_id" value="<?php echo $cs_id;?>" >
-				<input type="text" placeholder="登録郵便番号(ハイフン除く7桁)" name="cs_zip" value="<?php echo $cs_zip;?>">
+				<input type="text" maxlength="5"   placeholder="GOSMANIA会員番号(下5桁)" name="cs_id" value="<?php echo $cs_id;?>" >
+				<input type="text" maxlength="7" placeholder="登録郵便番号(ハイフン除く7桁)" name="cs_zip" value="<?php echo $cs_zip;?>">
 				 <p class="txt-credit txt-login">※住所変更反映にお時間を頂戴する場合がございます。<br>
 				 ログインできない場合は、変更前の郵便番号にて認証をお願いいたします。</p>
 				<button class="btn-sub" type="submit" name="login" value="auth">認証</button>
