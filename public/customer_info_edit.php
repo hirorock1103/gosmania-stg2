@@ -224,7 +224,7 @@ function insert_into_customer_info($dbh, $data){
 				<p class="credit-tit" style="margin-bottom:40px;">以下の内容で更新します。<br>よろしければ画面下の更新ボタンを<span><br></span>押して、更新を完了させてください。</p>
 				<p class="credit-tit">お客様情報</p>
 
-				<table class="entry_form" style="margin-bottom:40px;">
+				<table class="entry_form" style="">
 					<tbody>
 						<tr>
 							<th>メールアドレス</th>

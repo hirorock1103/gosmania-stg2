@@ -37,7 +37,7 @@ exit;
 		<p class="credit-tit" style="margin-bottom:40px;">以下必要事項をご入力の上、<span><br></span>登録ボタンを押してください。</p>
 		<p class="credit-tit">お客様情報を入力してください</p>
 		<form action="confirm.php" method="post" >
-		<table class="entry_form" style="margin-bottom:40px;">
+		<table class="entry_form" style="">
 			<tbody>
 				<tr>
 					<th>メールアドレス<span>必須</span></th>

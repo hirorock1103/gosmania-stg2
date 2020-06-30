@@ -216,7 +216,7 @@ function validate_alert($error, $_key){
 		<?php } ?>
 		<form action="" method="post" name="frm_payment">
 		<input type="hidden" name="token" value="" />
-		<table class="entry_form" style="margin-bottom:40px;">
+		<table class="entry_form" style="">
 			<tbody>
 			<?php if($mode == 'edit'){ //編集画面 ?>
 				<tr>
