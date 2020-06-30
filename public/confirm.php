@@ -91,7 +91,7 @@ exit;
 						<td>
 							<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short float_left" name="sample" placeholder="例）000">
 							<span class="float_box">※クレジットカード裏面の署名欄にあるコードの下3桁です。<br>
-							American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</span>                                </td>
+							American Expressは表面のクレジットカード番号右上に記載されている4桁です。</span>                                </td>
 					</tr>
 					<tr>
 						<th>有効期限<!--<span>必須</span>--></th>

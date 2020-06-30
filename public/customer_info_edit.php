@@ -158,7 +158,7 @@ function insert_into_customer_info($dbh, $data){
 							<?php } ?>
 						</div>
 					<?php } ?>
-					<table class="entry_form" style="margin-bottom:40px;">
+					<table class="entry_form" >
 						<tbody>
 							<tr>
 								<th>メールアドレス<span>必須</span></th>

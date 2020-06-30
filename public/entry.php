@@ -277,7 +277,7 @@ function validate_alert($error, $_key){
 			</tbody>
 		</table>
 		<?php if($mode == 'edit'){ //編集画面 ?>
-		<p class="credit-tit">クレジットカード情報を<span><br></span>入力してください。</p>
+		<p class="credit-tit">クレジットカード情報を<span><br></span>入力してください</p>
 		<?php }else{ ?>
 		<p class="credit-tit">クレジットカード情報</p>
 		<?php } ?>
