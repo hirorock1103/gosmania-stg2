@@ -234,7 +234,6 @@ function validate_alert($error, $_key){
 											<?php foreach ($def_card_brand as $key => $val) { ?>
 											<option value="<?php echo $key; ?>" <?php echo isset($data) && $key == $data['card_brand'] ? 'selected' : ''; ?> ><?php echo $val; ?></option>
 											<?php } ?>
-											<option value="-">その他</option>
 										</select>
 										<span class="comment-type1 chousei-1">※VISA・Master・JCB・American Express・Dinersがご利用いただけます。</span>
 									</li>

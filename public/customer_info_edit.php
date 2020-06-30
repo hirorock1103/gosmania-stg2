@@ -96,12 +96,21 @@ function validate($data) {
 		$error['Ci_InformationSend'] = 'メール配信の形式が不正です。';
 	}
 
+
 	// 連絡がつく電話番号
-	if (!preg_match("/[0-9]/", $data['Ci_Phone'])) {
+	if(empty($data['Ci_Phone'])){
 		$ret['Ci_Phone'] = "連絡先を入力してください。";
-	}else if(strlen($data['Ci_Phone']) < 12 || strlen($data['Ci_Phone']) > 13){
-		$ret['Ci_Phone'] = "不正な電話番号の入力です。";
+	}else{
+		if (!preg_match("/^[0-9]+$/", $data['Ci_Phone'])) {
+			$ret['Ci_Phone'] = "電話番号は数値のみ入力をお願いします。";
+		}
+
+		if( empty($ret['Ci_Phone']) &&  strlen($data['Ci_Phone']) < 10 || strlen($data['Ci_Phone']) > 11){
+			$ret['Ci_Phone'] = "電話番号は10桁か11桁での入力となります";
+		}
 	}
+
+
 	return $error;
 }
 
