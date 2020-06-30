@@ -9,7 +9,7 @@ session_start();
 $file = basename($_SERVER['SCRIPT_NAME'], ".php");
 if ($file != "login" && $file != "logout" ) {
 	if(!isset($_SESSION[SESSION_BASE_NAME]['login_info'])){
-		header("Location: logout.php?logout");
+		header("Location: login.php");
 		exit;
 	}else{
 		$ses['cs_name'] = $_SESSION[SESSION_BASE_NAME]['login_info']['Cs_Name'];

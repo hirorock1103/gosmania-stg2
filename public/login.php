@@ -1,13 +1,23 @@
 <?php
-//test
 include_once dirname(__FILE__) . "/settings.php";
 
+$logout_msg = "";
+if(isset($_SESSION['logout-msg'])){
+	$logout_msg = $_SESSION['logout-msg'];
+}
+if(isset($_GET['logout'])){
+	$_SESSION['logout-msg'] = "logoutしました。";
+	header("location:login.php");
+	exit();
+}
+//login画面ではセッションをクリアする
+$_SESSION = array();
 
 $cs_id = (isset($_POST['cs_id']) ? trim_all($_POST['cs_id']) : "");
 $cs_zip = (isset($_POST["cs_zip"]) ? trim_all($_POST["cs_zip"]) : "");
 $errmsg = '';
 
-// ログイン？
+// ログイン
 if (!empty($_POST['login'])) {
 
 	//全角→変換
