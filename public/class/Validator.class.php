@@ -31,11 +31,17 @@ class Validator {
 			if(empty($data['Ci_Phone'])){
 				$error['Ci_Phone'] = "連絡先を入力してください。";
 			}else{
-				if (!preg_match("/^[0-9]+$/", $data['Ci_Phone'])) {
-					$error['Ci_Phone'] = "電話番号は数値のみ入力をお願いします。";
-				}
+				if( strlen($data['Ci_Phone']) == 10 ||  strlen($data['Ci_Phone']) == 11){
+					if (!preg_match("/^[0-9]+$/", $data['Ci_Phone'])) {
+						$error['Ci_Phone'] = "電話番号は数値のみ入力をお願いします。";
+					}
 
-				if( empty($error['Ci_Phone']) &&  strlen($data['Ci_Phone']) < 10 || strlen($data['Ci_Phone']) > 11){
+				}else if( strlen($data['Ci_Phone']) == 12 ||  strlen($data['Ci_Phone']) == 13){
+					if (!preg_match("/^[\-0-9]+$/", $data['Ci_Phone'])) {
+						$error['Ci_Phone'] = "電話番号は数値と半角ハイフンのみ入力をお願いします。";
+					}
+				}else{
+					//length error
 					$error['Ci_Phone'] = "電話番号は10桁か11桁での入力となります";
 				}
 			}

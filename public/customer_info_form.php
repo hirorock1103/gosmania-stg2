@@ -1,20 +1,19 @@
 <?php
 include_once dirname(__FILE__) . "/settings.php";
+include_once dirname(__FILE__) . "/class/Validator.class.php";
 $def_informationSend = ['希望しない','希望する'];
 
 $customer = $error = []; // 同時に空配列で初期化
 
 if(isset($_POST['confirm']) && !empty($_POST['confirm'])) {
 	$customer = params();
-
-	$error = validate($customer);
-	// echo '<pre>';
-	// var_dump($_POST, $customer, $error);exit;
+	$validator = new Validator($dbh);
+	$error = $validator->validate($customer,"customer-info");
 
 }else if(isset($_POST['register']) && !empty($_POST['register'])) {
 	$customer = params();
-
-	$error = validate($customer);
+	$validator = new Validator($dbh);
+	$error = $validator->validate($customer,"customer-info");
 
 	$customer['Ci_Creator'] = $ses['cs_name'];
 	$result = insert_into_customer_info($dbh, $customer);
@@ -155,15 +154,6 @@ function insert_into_customer_info($dbh, $data){
 				<section class="section-list page-news GOSMANIA">
 					<p class="credit-tit" style="margin-bottom:40px;">以下必要事項をご入力の上、<span><br></span>確認ボタンを押してください。</p>
 					<p class="credit-tit">お客様情報を入力してください</p>
-
-					<?php if(!empty($error)) { ?>
-						<div style="color:red;">
-							<strong>エラー</strong><br />
-							<?php if(isset($error['general'])) { ?>
-								<p style="color:red;"><?php echo htmlspecialchars($error['general']);?></p>
-							<?php } ?>
-						</div>
-					<?php } ?>
 					<table class="entry_form" style="margin-bottom:40px;">
 						<tbody>
 							<tr>
@@ -171,7 +161,7 @@ function insert_into_customer_info($dbh, $data){
 								<td>
 									<input type="email" style="border-radius: 3px; padding: 10px;" name="mail_address" value="<?php echo htmlspecialchars($customer['Ci_MailAddress']);?>" placeholder="例）sample@mail.com">
 									<?php if(isset($error['Ci_MailAddress']) && !empty($error['Ci_MailAddress']) ){ ?>
-										<p style="color: red;"><?php echo htmlspecialchars($error['Ci_MailAddress']);?></p>
+										<p class="error-msg"><?php echo htmlspecialchars($error['Ci_MailAddress']);?></p>
 									<?php } ?>
 								</td>
 							</tr>
@@ -180,7 +170,7 @@ function insert_into_customer_info($dbh, $data){
 								<td>
 									<input type="email" style="border-radius: 3px; padding: 10px;" name="mail_address_confirm" value="<?php echo htmlspecialchars($customer['Ci_MailAddressConfirm']);?>" placeholder="例）sample@mail.com">
 									<?php if(isset($error['Ci_MailAddressConfirm']) && !empty($error['Ci_MailAddressConfirm']) ){ ?>
-										<p style="color: red;"><?php echo htmlspecialchars($error['Ci_MailAddressConfirm']);?></p>
+										<p class="error-msg"><?php echo htmlspecialchars($error['Ci_MailAddressConfirm']);?></p>
 									<?php } ?>
 								</td>
 							</tr>
@@ -196,7 +186,7 @@ function insert_into_customer_info($dbh, $data){
 									<span class="float_box">※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
 
 									<?php if(isset($error['Ci_InformationSend']) && !empty($error['Ci_InformationSend']) ){ ?>
-										<p style="color: red;"><?php echo htmlspecialchars($error['Ci_InformationSend']);?></p>
+										<p class="error-msg"><?php echo htmlspecialchars($error['Ci_InformationSend']);?></p>
 									<?php } ?>
 								</td>
 							</tr>
@@ -212,7 +202,7 @@ function insert_into_customer_info($dbh, $data){
 										maxlength="13"
 									/>
 									<?php if(isset($error['Ci_Phone']) && !empty($error['Ci_Phone']) ){ ?>
-										<p style="color: red;"><?php echo htmlspecialchars($error['Ci_Phone']);?></p>
+										<p class="error-msg"><?php echo htmlspecialchars($error['Ci_Phone']);?></p>
 									<?php } ?>
 								</td>
 							</tr>
