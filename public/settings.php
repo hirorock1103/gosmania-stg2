@@ -3,8 +3,8 @@
 define("SESSION_BASE_NAME", "gosmania_auth");
 
 session_name(constant("SESSION_BASE_NAME"));
+session_cache_limiter('none');
 session_start();
-
 // ログイン／ログアウト画面以外でSESSION情報なければログアウトする
 $file = basename($_SERVER['SCRIPT_NAME'], ".php");
 if ($file != "login" && $file != "logout" ) {
