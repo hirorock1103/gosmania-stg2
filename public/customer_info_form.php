@@ -178,7 +178,7 @@ function insert_into_customer_info($dbh, $data){
 								<th>メール配信<span>必須</span></th>
 								<td class="radioArea">
 									<input type="radio" name="n1" value="1" id="r1" <?php echo $customer['Ci_InformationSend'] === 1 ? 'checked' : '';?>>
-									<label for="r1">希望する</label>
+									<label class="mr10" for="r1">希望する</label>
 									<input type="radio" name="n1" value="0" id="r2" <?php echo $customer['Ci_InformationSend'] === 1 ? '' : 'checked';?>>
 									<label for="r2">希望しない</label>
 									<span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>

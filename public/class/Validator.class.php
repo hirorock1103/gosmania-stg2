@@ -42,7 +42,7 @@ class Validator {
 					}
 				}else{
 					//length error
-					$error['Ci_Phone'] = "電話番号は10桁か11桁での入力となります";
+					$error['Ci_Phone'] = "電話番号は10桁か11桁での入力となります。";
 				}
 			}
 		}

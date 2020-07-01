@@ -186,7 +186,7 @@ function validate_alert($error, $_key){
 
 					<td class="radioArea InformationSend">
 						<input type="radio" id="on" value="1" checked="" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 1 ? 'checked' : '';?>>
-						<label for="on" class="switch-on">希望する</label>
+						<label for="on" class="switch-on mr10">希望する</label>
 						<input type="radio" id="off" value="0" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
 						<label for="off" class="switch-off">希望しない</label> 
 						<span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>

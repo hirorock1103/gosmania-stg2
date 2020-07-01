@@ -49,7 +49,9 @@ ul{
 	float:left;
 }
 
-
+.mr10{
+	margin-right:10px;
+}
 .link-type-1:hover{
 	opacity:80;
 }
