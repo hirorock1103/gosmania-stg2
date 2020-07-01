@@ -168,7 +168,7 @@ function insert_into_customer_info($dbh, $data){
 							<tr>
 								<th>メールアドレス(確認)<span>必須</span></th>
 								<td>
-									<input type="email" style="border-radius: 3px; padding: 10px;" name="mail_address_confirm" value="<?php echo htmlspecialchars($customer['Ci_MailAddressConfirm']);?>" placeholder="例）sample@mail.com">
+									<input type="email" oncopy="return false" onpaste="return false" oncontextmenu="return false"  style="border-radius: 3px; padding: 10px;" name="mail_address_confirm" value="<?php echo htmlspecialchars($customer['Ci_MailAddressConfirm']);?>" placeholder="例）sample@mail.com">
 									<?php if(isset($error['Ci_MailAddressConfirm']) && !empty($error['Ci_MailAddressConfirm']) ){ ?>
 										<p class="error-msg"><?php echo htmlspecialchars($error['Ci_MailAddressConfirm']);?></p>
 									<?php } ?>

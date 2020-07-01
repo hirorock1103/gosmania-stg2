@@ -42,6 +42,9 @@ ul{
 }
 
 /* 一般  */
+.show-off{
+	display:none;
+}
 .f-left{
 	float:left;
 }

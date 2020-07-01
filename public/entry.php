@@ -45,9 +45,12 @@ $st_year = (int)date('Y');
 //GMO連携以外の処理を単体確認したい時にtrue
 $debug = false;
 
+$exists_customer_info = false;
+
 if(isset($_POST) && !empty($_POST)){
 	$data		 = $_POST;
 	$token		 = (isset($data['token']) ? $data['token'] : '');
+	$exists_customer_info = isset($data['exists_customer_info']) ? $data['exists_customer_info'] : false;
 	
 	$data = _adjustParams($dbh, $data);
 	$validator = new Validator($dbh);
@@ -61,7 +64,6 @@ if(isset($_POST) && !empty($_POST)){
 		$data['card_name'] = "";
 		$ret = _gmo_reg_member($dbh, $ses['cs_id'], $data['card_name'], $errmsg);
 		if (!$ret && $debug == false) { //会員登録が失敗したら
-			//var_dump($errmsg.'<br>Line:58');
 			var_dump($errmsg);
 			$mode = 'confirm';
 		}else{
@@ -92,6 +94,9 @@ if(isset($_POST) && !empty($_POST)){
 	$data['Ci_InformationSend'] = isset($customer['Ci_InformationSend']) ? $customer['Ci_InformationSend'] : "";
 	$data['Ci_Phone'] = isset($customer['Ci_Phone']) ? $customer['Ci_Phone'] : "";
 	$data['card_brand'] = isset($customer['card_brand']) ? $customer['card_brand'] : "";
+	if(!empty($data['Ci_MailAddress'])){
+		$exists_customer_info = true;
+	}
 }
 
 function fetch_customer_info_record($dbh, $Cs_Id) {
@@ -117,12 +122,6 @@ function _adjustParams($dbh, $data){
 		//年月結合&半角数字変換
 		$data['card_limit'] = mb_convert_kana($data['card_limit_y'].sprintf('%02d', $data['card_limit_m']), "n");
 	}
-	/*	
-	if( isset($data['Ci_Phone1']) && isset($data['Ci_Phone2']) && isset($data['Ci_Phone3'])) {
-		//連絡先電話番号
-		$data['Ci_Phone'] = $data['Ci_Phone1'].'-'.$data['Ci_Phone2'].'-'.$data['Ci_Phone3'];
-	}
-	*/
 	
 	$ret = $data;
 	
@@ -154,17 +153,19 @@ function validate_alert($error, $_key){
 <body>
 <div class="wrap">
 <?php include_once dirname(__FILE__) . "/header.php"; ?>
+	<?php $disp = $exists_customer_info ? "show-off" : "";  ?>	
 	<section class="section-list page-news GOSMANIA">
 		<?php if($mode == 'edit'){ //編集画面 ?>
-		<p class="credit-tit" style="margin-bottom:40px;">以下必要事項をご入力の上、<span><br></span>確認ボタンを押してください。</p>
-		<p class="credit-tit">お客様情報を入力してください</p>
+			<p class="credit-tit" style="margin-bottom:40px;">以下必要事項をご入力の上、<span><br></span>確認ボタンを押してください。</p>
+			<p class="credit-tit <?=$disp?>">お客様情報を入力してください</p>
 		<?php }else{ ?>
-		<p class="credit-tit" style="margin-bottom:40px;">以下の内容で登録します。<br>よろしければ画面下の登録ボタンを押して、<span><br></span>登録を完了させてください。</p>
-		<p class="credit-tit">お客様情報</p>
+			<p class="credit-tit" style="margin-bottom:40px;">以下の内容で登録します。<br>よろしければ画面下の登録ボタンを押して、<span><br></span>登録を完了させてください。</p>
+			<p class="credit-tit <?=$disp?>">お客様情報</p>
 		<?php } ?>
 		<form action="" method="post" name="frm_payment">
 		<input type="hidden" name="token" value="" />
-		<table class="entry_form" style="">
+		<input type="hidden" name="exists_customer_info" value="<?php echo $exists_customer_info;  ?>" />
+		<table class="entry_form <?=$disp?>">
 			<tbody>
 			<?php if($mode == 'edit'){ //編集画面 ?>
 				<tr>
@@ -184,14 +185,14 @@ function validate_alert($error, $_key){
 					<th>メール配信<span>必須</span></th>
 
 					<td class="radioArea InformationSend">
-                        <input type="radio" id="on" value="1" checked="" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 1 ? 'checked' : '';?>>
-                        <label for="on" class="switch-on">希望する</label>
-                        <input type="radio" id="off" value="0" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
-                        <label for="off" class="switch-off">希望しない</label> 
-                        <span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>
-                        <span class="float_box">※必ず「gospellers.tv」(ドメイン)を受信できるように設定をお願いいたします。</span>
-                        <span class="float_box">※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
-                    </td>
+						<input type="radio" id="on" value="1" checked="" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 1 ? 'checked' : '';?>>
+						<label for="on" class="switch-on">希望する</label>
+						<input type="radio" id="off" value="0" name="Ci_InformationSend" <?php echo isset($data['Ci_InformationSend']) && $data['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
+						<label for="off" class="switch-off">希望しない</label> 
+						<span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>
+						<span class="float_box">※必ず「gospellers.tv」(ドメイン)を受信できるように設定をお願いいたします。</span>
+						<span class="float_box">※配信を希望されない場合でも、重要なお知らせについて配信する場合がございます。</span>
+				        </td>
 				</tr>
 				<tr>
 					<th>連絡がつく電話番号<span>必須</span></th>
@@ -217,9 +218,6 @@ function validate_alert($error, $_key){
 					<th>連絡がつく電話番号</th>
 					<td><?php echo $data['Ci_Phone']; ?></td>
 					<input type="hidden" name="Ci_Phone" value="<?php echo isset($data['Ci_Phone']) ? $data['Ci_Phone'] : '';?>">
-					<input type="hidden" name="Ci_Phone1" value="<?php echo isset($data['Ci_Phone1']) ? $data['Ci_Phone1'] : '';?>">
-					<input type="hidden" name="Ci_Phone2" value="<?php echo isset($data['Ci_Phone2']) ? $data['Ci_Phone2'] : '';?>">
-					<input type="hidden" name="Ci_Phone3" value="<?php echo isset($data['Ci_Phone3']) ? $data['Ci_Phone3'] : '';?>">
 				</tr>
 			<?php } ?>
 			</tbody>
@@ -354,6 +352,8 @@ $(function(){
 		var param = new Object();
 		// 入力チェック
 		for (key in _col) {
+			if(_col[key] == "exists_customer_info"){continue;}
+			if(_col[key] == "card_name"){continue;}
 			var val = $('[name="' + _col[key] + '"]').val();
 			if ( ( !val || (val && val.trim() == "") ) && _col[key] != 'token' && _col[key].indexOf('Ci_') == -1 ) {
 				err = true;// 未入力あり
