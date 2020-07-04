@@ -805,7 +805,10 @@ table.entry_form {
     -webkit-appearance: radio;
 }
 
-
+/*--追加--*/
+.entry_form td p {
+    padding-top: 0px; 
+}
 
 
 /* ====================================================================================== */
@@ -1172,9 +1175,6 @@ table.entry_form {
     display: block;
     width: auto;
     margin: -1px 0;
-}
-
-.entry_form td p {
 }
 
 .entry_form td ul {
@@ -1554,5 +1554,18 @@ table.entry_form {
 	letter-spacing:1px;
 }
 
-
 /* ====================================================================================== */
+
+/*--追加--*/
+    .entry_form td input[type="email"],.entry_form td input[type="text"]{
+        width: 100%;
+    }
+    .entry_form td ul.card_com_ul li {
+        width: 100%;
+        margin-right: 0;
+    }
+    .entry_form td {
+        overflow: hidden;
+    }
+
+}

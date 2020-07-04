@@ -161,7 +161,7 @@ function validate_alert($error, $_key){
 						<tr>
 							<th>カード会社<span>必須</span></th>
 							<td>
-								<ul class="">
+								<ul class="card_com_ul">
 									<li>
 										<select name="card_brand" style="width:200px; padding: 10px; border-radius: 3px;">
 											<?php foreach ($def_card_brand as $key => $val) { ?>
@@ -187,7 +187,7 @@ function validate_alert($error, $_key){
 						<tr>
 							<th>セキュリティコード<span>必須</span></th>
 							<td>
-								<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short f-left" name="card_code" placeholder="例）000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
+								<input type="text" style="border-radius: 3px; padding: 10px;" class="width_short" name="card_code" placeholder="例）000" value="<?php echo isset($data['card_code']) ? $data['card_code'] : '';?>">
 								<p class="comment-type1-area">
 								<span class="comment-type1">※クレジットカード裏面の署名欄にあるコードの下3桁です。</span><br>
 								<span class="comment-type1">American Expressは表面のクレジットカード番号右上に記載されている4桁です。</span>

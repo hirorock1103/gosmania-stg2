@@ -238,7 +238,7 @@ function validate_alert($error, $_key){
 					<tr>
 						<th>カード会社<span>必須</span></th>
 						<td>
-							<ul class="">
+							<ul class="card_com_ul">
 								<li>
 									<select name="card_brand" style="width:200px; padding: 10px; border-radius: 3px;">
 										<?php foreach ($def_card_brand as $key => $val) { ?>

@@ -577,6 +577,27 @@ table {
     text-decoration: none;
 }
 
+/*--追加--*/
+.section-list a i{
+    top: calc(50% - 8px);
+}
+
+.sp{
+    display: none;
+}
+
+.block-gosmania2--comment {
+    margin: 0 auto;
+}
+.entry_form td input[type="text"].width_short {
+    float: left;
+}
+.comment-type1-area {
+    display: block;
+    float: left;
+}
+
+
 @media screen and (max-width:639px) {
     /*スマホ用のcssを記述*/
 
@@ -709,14 +730,42 @@ table {
     .block-gosmania2 {
         margin: 40px auto 20px;
     }
+
+/*--追加--*/
+     .section-list .btn-sub{
+        line-height: 1.7;
+        padding: 1em 1.5em;
+     }  
+     .section-list .flex-buttons .btn-select {
+        width: 80%;
+    } 
+    .sp{
+        display: block;
+    }
+    .comment-type1-area{
+        margin-top: 10px;
+    }
+    .comment-type1 {
+        display: inline;
+        padding-left: 0px;
+    }
+    .card_com_ul .comment-type1 {
+        display: block;
+        margin-left: 10px;
+    }
+
+    .card_com_ul .chousei-1 {
+        margin-left: 0px !important;
+    }
+
+    .credit-tit {
+        margin-left: 6%;
+        width:94%;
+    }
+
 }
 
-
-
-
-
-
-       
+      
 @media only screen and (min-width:640px) and (max-width:1023px) {
     /*tablet用のcssを記述*/
 
@@ -786,13 +835,33 @@ table {
         .block-gosmania2 {
             margin: 50px auto 20px;
         }
-    
-    
-    
 
 
+    /*--追加--*/
+         .section-list .btn-sub{
+            line-height: 1.7;
+            padding: 1em 1.5em;
+         }  
+         .section-list .flex-buttons .btn-select {
+            width: 80%;
+        } 
+        .comment-type1-area {
+            display: block;
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .comment-type1 {
+            display: inline;
+            padding-left: 0px;
+        }
+        .chousei-1 {
+            margin-left: 0px !important;
+        }
 
-
+        .card_com_ul .comment-type1 {
+            display: block;
+        }
 
 
     }
