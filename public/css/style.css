@@ -597,15 +597,54 @@ table {
     float: left;
 }
 
+.mt-for-credit-name{
+	margin-top:12px;
+}
+
+.mobile{
+	display:none;
+}
+.pc{
+	display:block;
+}
 
 @media screen and (max-width:639px) {
     /*スマホ用のcssを記述*/
+	.mobile{
+		display:flex;
+		flex-direction:column;
+	}
+	.pc{
+		display:none;
+	}
 
     section.section-list{
     width: 100%;
+    padding-top:0px;
     margin: 0 auto;
     }
 
+	.mobile-row-1{
+		display:flex;
+	}
+	.mobile-row-2{
+		text-align:center;	
+	}
+	.mobile-row-2 .limit-txt{
+		font-size:10px;
+	}
+	.mobile-row-2 .limit-txt1{
+		font-size:16.2px;
+	}
+	.mobile-logo{
+		flex-grow:1;
+	}
+	.mobile-logout .member-name {
+		margin-bottom:0px;	
+	}
+	.mobile-logout .btn {
+		margin-top:2px;	
+	}
     .img1{
         display: none;
     }
@@ -635,7 +674,7 @@ table {
     /* 3page */
 
     .img4{
-        width:80px;
+        width:90px;
         display: block;
         margin:20px 0 0 30px;
     }
@@ -650,10 +689,14 @@ table {
         position: absolute;
         top: 10px;
         right: 0px;
-        display:block;
+        display:flex;
 
     }
+	.mt-for-credit-name{
+		margin-top:14px;
+		margin-right:4px;
 
+	}
     .btn-logout {
         min-width: 80px;
         font-size: 12px;
@@ -662,10 +705,10 @@ table {
     }
 
     .memberlimit {
-        position: absolute;
-        top: 90px;
+       /* position: absolute;
+        top:0px;
         right: 15px;
-        font-size: 16px;
+        font-size: 16px;*/
     }
 
 
