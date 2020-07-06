@@ -1558,7 +1558,7 @@ table.entry_form {
 
 /*--追加--*/
     .entry_form td input[type="email"],.entry_form td input[type="text"]{
-        width: 100%;
+        width: 97%;
     }
     .entry_form td ul.card_com_ul li {
         width: 100%;
