@@ -582,7 +582,7 @@ table.entry_form {
 }
 
 .entry_form th span {
-	float:right;
+/*	float:right;*/
     margin: 0;
     padding: 1px 5px;
     color: #ff0000;
