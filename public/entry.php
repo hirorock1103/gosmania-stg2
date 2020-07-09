@@ -148,6 +148,7 @@ function validate_alert($error, $_key){
 
 
 ?>
+<!DOCTYPE html>
 <html lang="ja">
 <head><?php include_once dirname(__FILE__) . "/head.php"; ?></head>
 <body>

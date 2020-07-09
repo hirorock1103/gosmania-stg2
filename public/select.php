@@ -7,6 +7,7 @@ $entry_mode = (find_record_by($dbh, 'PaymentInfo', 'seq', 'gmo_id', $ses['cs_id'
 $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['cs_id'], 'desc') == true);
 
 ?>
+<!DOCTYPE html>
 <html lang="ja">
 <head><?php include_once dirname(__FILE__) . "/head.php"; ?></head>
 <body>

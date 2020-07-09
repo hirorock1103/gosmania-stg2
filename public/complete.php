@@ -3,6 +3,7 @@ include_once dirname(__FILE__) . "/settings.php";
 
 $status = base64_decode( rawurldecode( filter_input(INPUT_GET, 'status')) );
 ?>
+<!DOCTYPE html>
 <html lang="ja">
 <head><?php include_once dirname(__FILE__) . "/head.php"; ?></head>
 <body>
