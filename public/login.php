@@ -92,7 +92,7 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 <form action="" method="post">
 	<section class="section-list page-news GOSMANIA">
 			<img src="./image/gos_logo2.png" style="width: 120px; margin-left: 130px;" class="img1">
-			<img src="./image/gos_logo2.png" style="width: 120px; " class="img2">
+			<img src="./image/gos_logo2.png" class="img2">
 				<div class="block-gosmania2">
 				<p class="block-tit">ログイン</p>
 

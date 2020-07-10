@@ -252,7 +252,7 @@ function validate_alert($error, $_key){
 			<?php }else{ ?>
 				<button type="submit" name="action" value="back" class="btn-sub" >戻る</button>
 				<!-- <button type="button" name="action" value="complete" class="btn-sub" id="btn_submit" >登録</button> -->
-				<button class="btn-sub" type="button" id="btn_submit">登録</button>
+				<button class="btn-sub" type="button" id="btn_submit">更新</button>
 				<span class="loading"></span>
 			<?php } ?>
 		</div>
