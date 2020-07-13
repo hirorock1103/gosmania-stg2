@@ -279,7 +279,7 @@ function validate_alert($error, $_key){
 									<select name="card_limit_y" style="border-radius: 3px; padding: 10px;">
 										<option value="">---</option>
 										<?php for ($i = $st_year; $i < $st_year + 10; $i++) { ?>
-										<option value="<?php echo $i; ?>" <?php echo isset($data) && $i == $data['card_limit_y'] ? 'selected' : ''; ?> ><?php echo $i; ?></option>
+										<option value="<?php echo $i; ?>" <?php echo isset($data['card_limit_y']) && $i == $data['card_limit_y'] ? 'selected' : ''; ?> ><?php echo $i; ?></option>
 										<?php } ?>
 									</select>&nbsp;&nbsp;年
 								</li>
@@ -287,7 +287,7 @@ function validate_alert($error, $_key){
 									<select name="card_limit_m" style="border-radius: 3px; padding: 10px;">
 										<option value="">---</option>
 										<?php for ($i = 1; $i < 13; $i++) { ?>
-										<option value="<?php echo sprintf('%02d', $i); ?>" <?php echo isset($data) && $i == (int)$data['card_limit_m'] ? 'selected' : ''; ?> ><?php echo $i; ?></option>
+										<option value="<?php echo sprintf('%02d', $i); ?>" <?php echo isset($data['card_limit_m']) && $i == (int)$data['card_limit_m'] ? 'selected' : ''; ?> ><?php echo $i; ?></option>
 										<?php } ?>
 									</select>&nbsp;&nbsp;月
 								</li>
