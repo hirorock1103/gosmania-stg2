@@ -628,9 +628,10 @@ table {
     }
 
 	.mobile-row-1{
-		display:flex;
+	/*	display:flex;*/
 	}
 	.mobile-row-2{
+		clear:both;
 		text-align:center;	
 		margin-bottom:20px;
 	}
@@ -642,6 +643,11 @@ table {
 	}
 	.mobile-logo{
 		flex-grow:1;
+		    display: inline-block;
+	}
+	.mobile-logout{
+		    display: inline-block;
+		    float: right;
 	}
 	.mobile-logout .member-name {
 		margin-bottom:0px;	
