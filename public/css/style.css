@@ -684,7 +684,7 @@ table {
     /* 3page */
 
     .img4{
-        width:90px;
+        width:85px;
         display: block;
         margin:20px 0 0 30px;
     }
@@ -710,6 +710,7 @@ table {
     .btn-logout {
         min-width: 80px;
         font-size: 12px;
+	line-height: 2.5;
         /*height: 22px;
         padding-bottom: 10px;*/
     }
@@ -790,7 +791,7 @@ table {
         padding: 1em 1.5em;
      } 
      .btn-sub {
-        min-width:130px;
+      /*  min-width:130px;*/
     } 
      .section-list .flex-buttons .btn-select {
         width: 80%;
