@@ -325,9 +325,9 @@ function validate_alert($error, $_key){
 		<?php if($mode == 'edit'){ //編集画面 ?>
 			<button type="submit" name="action" value="confirm" class="btn-sub" >確認</button>
 		<?php }else{ ?>
-			<button type="submit" name="action" value="back" class="btn-sub" >戻る</button>
+			<button type="submit" name="action" value="back" class="btn-sub return" style="margin-right:20px;" >戻る</button>
 			<!-- <button type="button" name="action" value="complete" class="btn-sub" id="btn_submit" >登録</button> -->
-			<button class="btn-sub" type="button" id="btn_submit">登録</button>
+			<button class="btn-sub entry" type="button" id="btn_submit">登録</button>
 			<span class="loading"></span>
 		<?php } ?>
 		</div>
