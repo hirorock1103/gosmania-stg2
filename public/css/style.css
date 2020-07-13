@@ -821,6 +821,7 @@ table {
     .block-tit {
         margin: 0 0 20px;
 	font-family:serif;
+	background:yellow;
     }
     .img2{
         width:90px;
