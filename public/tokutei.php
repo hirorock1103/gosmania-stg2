@@ -1,8 +1,4 @@
 <?php
-//include_once dirname(__FILE__) . "/settings.php";
-
-// true -> GMO連携データなし
-//$entry_mode = (find_record_by($dbh, 'PaymentInfo', 'seq', 'gmo_id', $ses['cs_id'], 'desc') === false);
 ?>
 <html lang="ja">
 <head><?php include_once dirname(__FILE__) . "/head.php"; ?></head>
@@ -13,7 +9,7 @@
 	<section class="section-list page-news GOSMANIA">
 
 		<div class="block-gosmania2--no-border">
-			<div id="aplly_kind00" class="tokutei app btn sp_none flex-buttons">
+			<div id="aplly_kind00" class="tokutei app btn flex-buttons">
 
 				<h3 class="tokutei-title">
 				特定商取引に関する表記
