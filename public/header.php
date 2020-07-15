@@ -15,7 +15,7 @@
 			<a href="./select.php"><img src="./image/gos_logo2.png" class="img4"></a>
 		</div>
 		<div class="mobile-logout">
-			<p class="member-name"><?php echo $ses['cs_name']; ?> 樣</p>
+			<p class="member-name"><?php echo $ses['cs_name']; ?> 様</p>
 			<p class="btn"><a href="login.php?logout" class="btn-sub btn-logout">ログアウト</a></p>
 		</div>
 	</div>
