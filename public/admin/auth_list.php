@@ -142,7 +142,7 @@ if(isset($data['export'])){
 												<tbody>
 												<?php foreach ($list as $at_seq => $record) { ?>
 													<tr>
-														<td class="listUser" ><?php echo htmlspecialchars($record['Cs_Name']); ?></td>
+														<td class="listUser" ><?php echo !empty($record['Cs_Name']) ? htmlspecialchars($record['Cs_Name']) : "会員情報が存在しないため出力対象外"; ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['Cs_Id']); ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['csv_output_date']); ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['createdate']); ?></td>
