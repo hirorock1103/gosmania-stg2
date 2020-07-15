@@ -58,7 +58,7 @@ if(isset($data['export'])){
 		header('Content-Disposition: attachment; filename='.$filename.date('YmdHis').'.csv');
 		//header('Content-Transfer-Encoding: binary');
 		echo mb_convert_encoding($csv, 'sjis-win', 'UTF-8');
-		//exit();
+		exit();
 	}catch(Exception $e){
 		var_dump($e->getMessage());
 		$dbh->rollback();	
