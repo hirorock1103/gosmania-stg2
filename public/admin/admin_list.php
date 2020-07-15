@@ -123,7 +123,7 @@ function _search($dbh, $arr_input)
 													<tr>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">ログインID</th>
-														<th class="listUser table_result_element">ｽﾃｰﾀｽ</th>
+														<th class="listUser table_result_element">ステータス</th>
 														<th class="listUser table_result_element">詳細</th>
 													</tr>
 												</thead>
