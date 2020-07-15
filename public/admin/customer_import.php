@@ -7,20 +7,20 @@ include_once dirname(__FILE__) . "/functions.php";
 //var_dump($_FILES);
 
 
-$frm_status = "INPUT";
-$errmsg = array();
-$completemsg = array();
-$arr_input = array();
+$frm_status    = "INPUT";
+$errmsg        = array();
+$completemsg   = array();
+$arr_input     = array();
 $arr_input_err = array();
 
 
 // CSVカラム
 $cols = array(
-	'Cs_ID'					=> array('name' => "顧客番号",		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "重複不可です。", 'ex' => "CS0001"),
-	'Cs_Name'				=> array('name' => "顧客名", 		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "", 'ex' => "テスト　太郎"),
-	'Cs_Zip'				=> array('name' => "郵便番号",		'must' => 1, 'type' => "number", 'valid' => [],	 'memo' => "ハイフンを付けてください。", 'ex' => "177-0001"),
-	'Cs_Timelimit'			=> array('name' => "会員有効期限",	'must' => 1, 'type' => "date",	 'valid' => [],	 'memo' => "「yyyy/mm/dd」で入力してください。", 'ex' => "2020/01/01"),
-	'Cs_SendMail'			=> array('name' => "メール送付フラグ",	'must' => 1, 'type' => "number",	 'valid' => [],	 'memo' => "0:送付不要 1:要送付", 'ex' => "1"),
+	'Cs_ID'        => array('name' => "顧客番号",		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "重複不可です。", 'ex' => "00-00009"),
+	'Cs_Name'      => array('name' => "顧客名", 		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "", 'ex' => "テスト　太郎"),
+	'Cs_Zip'       => array('name' => "郵便番号",		'must' => 1, 'type' => "number", 'valid' => [],	 'memo' => "ハイフンを付けてください。", 'ex' => "177-0001"),
+	'Cs_Timelimit' => array('name' => "会員有効期限",	'must' => 1, 'type' => "date",	 'valid' => [],	 'memo' => "「yyyy/mm/dd」で入力してください。", 'ex' => "2020/01/01"),
+	'Cs_SendMail'  => array('name' => "メール送付フラグ",	'must' => 1, 'type' => "number",	 'valid' => [],	 'memo' => "0:送付不要 1:要送付 <br>※会員状態が在会員かつ支払方法がクレカの会員様を1:要送付とする。", 'ex' => "1"),
 );
 //var_dump($cols);
 
@@ -28,10 +28,10 @@ $cols = array(
 // アップロード？
 if (isset($_POST['frm_submit'])) {
 	// アップロードされたファイルを保存
-	$filedir	= "csv_upload";
-	$filename = "";
+	$filedir      = "csv_upload";
+	$filename     = "";
 	$filefullname = "";
-	$ret = _saveFile($filedir, $filename, $errmsg);
+	$ret          = _saveFile($filedir, $filename, $errmsg);
 	if ($ret) {
 		$filefullname = $filedir."/".$filename;
 	}
@@ -75,7 +75,7 @@ if (isset($_POST['frm_submit'])) {
 } else if (isset($_GET['complete'])) {
 	$cnt = $_SESSION[SESSION_BASE_NAME]['customer_info']['csv_cnt'];
 	//unset($_SESSION[SESSION_BASE_NAME]['customer_info']['csv_cnt']);
-	$completemsg[] = number_format($cnt -1) . "件の認証用データを一括登録しました。";
+	$completemsg[] = number_format($cnt) . "件の認証用データを一括登録しました。";
 }
 
 
@@ -174,6 +174,12 @@ function _validation(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$errm
 				
 				if ($col_name == 'Cs_ID' && isset($id_list[$data[$i]])) {
 					$errmsg[] = $row . "行目：".$col_info['name']."の値が重複しています。";
+				}else{
+					if($col_name == 'Cs_ID'){
+						if(!preg_match('/[0-9]{2}-[0-9]{5}/', $data[$i])){
+							$errmsg[] = $row . "行目：".$data[$i]."は会員番号(00-00000)の正しい形式ではありません。";
+						}	
+					}
 				}
 				$id_list[$data[$i]] = $data[$i];
 				
@@ -535,7 +541,7 @@ function _array_exists($id, &$arr_shop)
 										ファイル形式：CSV（半角カンマ区切り）<br>
 										文字エンコード：Shift-JIS<br>
 										<br>
-										<a href="files/template.csv" class="" style="color:#03F; text-decoration:underline;">記入用テンプレートのダウンロードはこちら</a>（Shift-JIS版）<br/>
+										<a href="files/template.csv" class="" style="color:#03F; text-decoration:underline;" download>記入用テンプレートのダウンロードはこちら</a>（Shift-JIS版）<br/>
 										<br>
 										※１行目は必ずカラムヘッダを記載してください。<br>
 										※入力内容は右表をご参照ください。
