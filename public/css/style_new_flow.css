@@ -1164,6 +1164,7 @@ table.entry_form {
     width: 100%;
     padding: 10px 15px;
     font-size: 13px;
+    text-align:left;
 }
 
 .entry_form th span {
@@ -1558,7 +1559,8 @@ table.entry_form {
 
 /*--追加--*/
     .entry_form td input[type="email"],.entry_form td input[type="text"]{
-        width: 97%;
+        /*width: 97%;*/
+        width: 93%;
     }
     .entry_form td ul.card_com_ul li {
         width: 100%;
