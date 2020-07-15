@@ -54,7 +54,7 @@ if(isset($data['export'])){
 			$csv .= "\n";
 		}
 
-		$str = $incluincludeOutputted ? "（出力済）" : "";
+		$str = $includeOutputted ? "（出力済）" : "";
 		$filename = "会員支払方法データ".$str;
 		header('Content-Type: application/octet-stream; charset=sjis-win');
 		header('Content-Disposition: attachment; filename='.$filename.date('YmdHis').'.csv');
