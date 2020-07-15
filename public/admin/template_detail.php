@@ -12,7 +12,7 @@
 		<div class="tr">
 			<div class="th"><?php echo $table_info['col_name']; ?></div>
 			<div class="td">
-				<div class="pre-text-output"><?php echo nl2br($data[$col]); ?></div>
+				<div class="pre-text-output"><?php echo ($data[$col]); ?></div>
 				<p class="input_err"><?php echo isset($err[$col]) ? $err[$col] : ''; ?></p>
 			</div>
 		</div>
