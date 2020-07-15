@@ -217,7 +217,7 @@ function _param($data, $table_ary){
 									echo '<p>' . $message . '</p>';
 							} ?>
 						</div>
-						<form action="/admin/send_mail_detail.php" name="back_detail" method="POST" id="back_detail">
+						<form action="send_mail_detail.php" name="back_detail" method="POST" id="back_detail">
 							<input type="hidden" name="Sm_Seq" value="<?php echo filter_input(INPUT_POST, 'Sm_Seq'); ?>">
 							<button type="submit" name="back" class="btn" form="back_detail" >戻る</button>
 						</form>
@@ -294,7 +294,7 @@ function _param($data, $table_ary){
 							<input type="submit" name="submit" class="btn btn-success" value="確認" style="margin-left:10px;" >
 						<?php } ?>
 					</form>
-					<form action="/admin/send_mail_detail.php" name="back_detail" method="POST" id="back_detail"></form>
+					<form action="send_mail_detail.php" name="back_detail" method="POST" id="back_detail"></form>
 				<?php } ?>
 			</section><!-- /.content -->
 		</div><!-- /.content-wrapper -->
