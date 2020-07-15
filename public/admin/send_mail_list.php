@@ -39,6 +39,7 @@ function search_params() {
 	$condition['Sm_Subject'] = filter_input(INPUT_POST, 'Sm_Subject');
 	$condition['Sm_Content'] = filter_input(INPUT_POST, 'Sm_Content');
 	$condition['Sm_IsUsing'] = filter_input(INPUT_POST, 'Sm_IsUsing');
+	$condition['Sm_Type'] = filter_input(INPUT_POST, 'Sm_Type');
 
 	foreach($condition as $key => $value) {
 		if($value === NULL || $value === "") {
@@ -142,6 +143,16 @@ function change_isUsing_mail($dbh, $data) {
 															<td><input type="text" name="Sm_Content" value="<?php echo isset($condition['Sm_Content']) ? $condition['Sm_Content']['value'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
 														</tr>
 														<tr>
+															<th>メール種別</th>
+															<td>
+																<select name="Sm_Type">
+																	<option value="">全て</option>
+																	<?php foreach($mail_types as $key => $value) {
+																		$selected =  ( isset($condition['Sm_Type']) && $key == $condition['Sm_Type']['value'] ) ? ' selected ' : '';
+																		echo '<option value="' . $key . '"'. $selected . ' >' . $value . '</option>';
+																	} ?>
+																</select>
+															</td>
 															<th>状態</th>
 															<td>
 																<select name="Sm_IsUsing">
