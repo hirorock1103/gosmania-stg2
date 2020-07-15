@@ -30,37 +30,40 @@ if( isset($_POST) && !empty($_POST) ) {
 
 if(isset($data['export'])){
 	// トランザクション開始
-	$dbh->beginTransaction();
-
-	// ループして更新
-	$sql = "UPDATE PaymentInfo SET
-		csv_output_date = NOW(),
-		updatedate = NOW()
-	WHERE seq = :seq";
-	$db = $dbh->prepare($sql);
-	foreach($list as $seq => $row) {
-		$db->bindValue(':seq', $seq, PDO::PARAM_INT);
-		$db->execute();
+	//
+	try{
+		$dbh->beginTransaction();
+		// ループして更新
+		$sql = "UPDATE PaymentInfo SET
+			csv_output_date = NOW(),
+			updatedate = NOW()
+		WHERE seq = :seq";
+		$db = $dbh->prepare($sql);
+		foreach($list as $seq => $row) {
+			if(empty($row['Cs_Seq'])){continue;}
+			$db->bindValue(':seq', $seq, PDO::PARAM_INT);
+			$db->execute();
+		}
+		$dbh->commit();
+		// CSV出力
+		$csv = '会員ID(ここに出力される会員IDはアクセス連携時に支払方法：クレカに更新される)' . "\n";
+		// 2行目以降
+		foreach($list as $key => $row) {
+			if(empty($row['Cs_Seq'])){continue;}
+			$csv .= $row['gmo_id'];
+			$csv .= "\n";
+		}
+		$filename = "Authority";
+		header('Content-Type: application/octet-stream; charset=sjis-win');
+		header('Content-Disposition: attachment; filename='.$filename.date('YmdHis').'.csv');
+		//header('Content-Transfer-Encoding: binary');
+		echo mb_convert_encoding($csv, 'sjis-win', 'UTF-8');
+		//exit();
+	}catch(Exception $e){
+		var_dump($e->getMessage());
+		$dbh->rollback();	
 	}
-	$dbh->commit();
 
-	// CSV出力
-	$csv = '会員ID,認証結果,作成日' . PHP_EOL;
-	// 2行目以降
-	foreach($list as $key => $row) {
-		// foreach($row as $col => $value) {
-		// 	if($col == '' || $col == 'gmo_id' || $col == 'createdate'){
-		// 		$csv .= $value.',';
-		// 	}
-		// }
-		$csv .= $row['gmo_id'] . ',,' . $row['createdate'];
-		$csv .= PHP_EOL;
-	}
-	$filename = "Authority";
-	header('Content-Type: application/octet-stream; charset=sjis-win');
-	header('Content-Disposition: attachment; filename='.$filename.date('YmdHis') . '.csv');
-	echo mb_convert_encoding($csv, 'sjis-win', 'UTF-8');
-	exit;
 }
 
 
