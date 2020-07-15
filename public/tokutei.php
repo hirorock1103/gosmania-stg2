@@ -42,8 +42,11 @@
 				※上記時間外はインフォメーションテープが流れています。</p>
 
 			</div>
-
-			<div class="block-gosmania2--comment elm-center"><a class="link-btn-sub" href="login.php">戻る</a></div>
+			<form action="login.php" method="post">	
+				<div class="app btn">
+					<button type="submit" name="" value="" class="btn-sub">戻る</button>
+				</div>
+			</form>
 		</div>
 
 	</section>
