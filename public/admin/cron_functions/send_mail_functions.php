@@ -214,20 +214,28 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 		$mailHeader = "From: ".mb_encode_mimeheader('GOSMANIA事務局') ."<info@gosmania.amb-dev.com>\nReply-To: info@gosmania.amb-dev.com";
 
 
-		var_dump($sendMail);
-		var_dump($Customers);
-
 		// メール送信対象でループ
 		foreach($Customers as $Cs_Id => $customer) {
 
 			// 顧客データにメールアドレスが無い場合、メール送信希望しない場合、カード情報がない場合はスキップ
-			if(!isset($customer['Ci_MailAddress']) ||
-				empty($customer['Ci_MailAddress']) ||
-				$customer['Ci_InformationSend'] != 1 ||
-				!isset($customer['card_limitdate']) ||
-				empty($customer['card_limitdate'])
-			) {
-				continue;
+			if( $Sm_Type == 1  ){
+				if(!isset($customer['Ci_MailAddress']) ||
+					empty($customer['Ci_MailAddress']) ||
+					$customer['Ci_InformationSend'] != 1 ||
+					!isset($customer['card_limitdate']) ||
+					empty($customer['card_limitdate'])
+				) {
+					continue;
+				}
+			}else{
+				if(!isset($customer['Ci_MailAddress']) ||
+					empty($customer['Ci_MailAddress']) ||
+					$customer['Ci_InformationSend'] != 1 ||
+					!isset($customer['card_limitdate'])
+				) {
+					continue;
+				}
+			
 			}
 
 			// 顧客情報に基づいてメール本文を生成
