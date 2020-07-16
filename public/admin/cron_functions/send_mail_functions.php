@@ -33,13 +33,6 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 			}
 
 			// CustomerInfoテーブル
-			// Cs_IdごとにCi_Createdateが最新の行だけ抽出
-			// ONの先に書く条件 -> グループするカラム
-			// ANDの後に書く条件 ->  t1 (FROM側)よりも同じカラム値が大きいものがあれば結合(最大をとるカラム)
-			// WHERE 句 -> t1 (FROM側) が最大だとt2(JOIN側)がNULLになるので、 NULLの行だけ抽出
-			/*$sql = "SELECT CsI.* FROM CustomerInfo AS CsI
-			LEFT JOIN CustomerInfo AS CsI2 ON CsI.Cs_Id = CsI2.Cs_Id AND CsI.Ci_Seq < CsI2.Ci_Seq
-			WHERE CsI2.Cs_Id IS NULL";*/
 			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
@@ -60,10 +53,6 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 			}
 
 			// PaymentInfoテーブル
-			// 同上
-			/*$sql = "SELECT PyI.* FROM PaymentInfo AS PyI
-			LEFT JOIN PaymentInfo AS PyI2 ON PyI.gmo_id = PyI2.gmo_id AND PyI.seq < PyI2.seq
-			WHERE PyI2.seq IS NULL";*/
 			$sql = "select I.* from PaymentInfo as I inner join Customer as C on C.Cs_Id = I.gmo_id where I.seq in (SELECT min(seq) FROM `PaymentInfo` group by gmo_id)";
 			$db = $dbh->prepare($sql);
 			$db->execute();
@@ -84,7 +73,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 					$month1=date("Y",$date1)*12+date("m",$date1);
 					$month2=date("Y",$date2)*12+date("m",$date2);
 
-					$diff = $month1 - $month2;
+					$diff = $month2 - $month1;
 					if($diff < 3){
 						$Customers[$cs_id]['card_limitmonth'] = $diff;
 						$Customers[$cs_id]['card_limitdate'] = $tmp[$cs_id]['card_limitdate'];
