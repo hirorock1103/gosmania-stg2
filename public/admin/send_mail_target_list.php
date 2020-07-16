@@ -117,8 +117,10 @@ function validate() {
 												<div class="col-md-12" style="margin-top:10px;">
 													<input type="submit" name="search" class="btn import_btn large" value="検索">
 													<?php if(isset($_POST['search']) ) { ?>
+														<?php if($selected_mail_type == 1 || $selected_mail_type == 2){  ?>
 														<input type="hidden" name="check" value="true">
 														<input type="submit" name="send_mail" id="mail_send_button" class="btn import_btn large" value="メール送信" style="margin-left:10px;">
+														<?php } ?>
 													<?php } ?>
 												</div>
 												<div class="col-md-12" style="margin-top:10px;">
@@ -177,6 +179,8 @@ function validate() {
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">会員有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
+													<?php }else if($selected_mail_type == 3){  ?>
+														<th class="listUser table_result_element">登録手続が終了した会員様が対象となります</th>
 													<?php } ?>
 													</tr>
 												</thead>
@@ -220,9 +224,6 @@ function validate() {
 												</thead>
 												<tr>
 													<td><span style="white-space: pre-wrap; word-break: break-all;"><?php if(isset($list[array_key_first($list)])) {
-														//var_dump(getSendMailData($dbh, 1));
-														//var_dump($list[array_key_first($list)]);
-														//var_dump(array_key_first($list));
 														echo generateMailContent(getSendMailData($dbh, $selected_mail_type), $list[array_key_first($list)]);
 													} ?></span></td>
 												</tr>

@@ -134,6 +134,58 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 
 
 		break;
+		case 3:
+			// Customerテーブル
+			$sql = "SELECT * FROM Customer";
+
+			$db = $dbh->prepare($sql);
+			$db->execute();
+			
+			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
+				//期限までの残月数
+				$target1 = date("Y-m-01");
+				$target2 = $row['Cs_Timelimit']; 
+				
+				$date1 = strtotime($target1);
+				$date2 = strtotime($target2);
+
+				$month1=date("Y",$date1)*12+date("m",$date1);
+				$month2=date("Y",$date2)*12+date("m",$date2);
+
+				$diff = $month2 - $month1;
+
+				$Customers[$row['Cs_Id']]                       = $row;
+				$Customers[$row['Cs_Id']]['member_limitmonth']  = "";
+				$Customers[$row['Cs_Id']]['card_limitdate']     = "";
+				$Customers[$row['Cs_Id']]['Ci_Seq']             = "";
+				$Customers[$row['Cs_Id']]['Ci_MailAddress']     = "";
+				$Customers[$row['Cs_Id']]['Ci_Mhone']           = "";
+				$Customers[$row['Cs_Id']]['Ci_InformationSend'] = "";
+
+			}
+
+			// CustomerInfoテーブル
+			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+			$db = $dbh->prepare($sql);
+			$db->execute();
+			$tmp = array();
+			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
+				$tmp[$row['Cs_Id']] = $row;
+			}
+			//group1 と比較して group2にないものは除外する
+			foreach($Customers as $cs_id => $row){
+				if(array_key_exists($cs_id, $tmp) == true){
+					$Customers[$cs_id]['Ci_Seq']              = $tmp[$cs_id]['Ci_Seq'];
+					$Customers[$cs_id]['Ci_MailAddress']     = $tmp[$cs_id]['Ci_MailAddress'];
+					$Customers[$cs_id]['Ci_Mhone']           = $tmp[$cs_id]['Ci_Phone'];
+					$Customers[$cs_id]['Ci_InformationSend'] = $tmp[$cs_id]['Ci_InformationSend'];
+				}else{
+					unset($Customers[$cs_id]);
+				}
+			}
+
+
+		break;
 		default:
 			$Customers = [];
 	}
