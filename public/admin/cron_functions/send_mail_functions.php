@@ -33,7 +33,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 			}
 
 			// CustomerInfoテーブル
-			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			$tmp = array();
@@ -53,7 +53,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 			}
 
 			// PaymentInfoテーブル
-			$sql = "select I.* from PaymentInfo as I inner join Customer as C on C.Cs_Id = I.gmo_id where I.seq in (SELECT min(seq) FROM `PaymentInfo` group by gmo_id)";
+			$sql = "select I.* from PaymentInfo as I inner join Customer as C on C.Cs_Id = I.gmo_id where I.seq in (SELECT max(seq) FROM `PaymentInfo` group by gmo_id)";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			$tmp = array();
