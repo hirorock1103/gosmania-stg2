@@ -264,6 +264,11 @@ function _param($data, $table_ary){
 												<div class="td">テスト　太郎</div>
 											</div>
 											<div class="tr">
+												<div class="th">{M_LIMIT}</div>
+												<div class="td">会員有効期限</div>
+												<div class="td">2020年11月末日</div>
+											</div>
+											<div class="tr">
 												<div class="th">{DATE_YMD}</div>
 												<div class="td">送信時点の西暦を含む年月日</div>
 												<div class="td">2020年1月1日</div>

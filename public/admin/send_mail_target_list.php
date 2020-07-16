@@ -223,7 +223,7 @@ function validate() {
 														//var_dump(getSendMailData($dbh, 1));
 														//var_dump($list[array_key_first($list)]);
 														//var_dump(array_key_first($list));
-														echo generateMailContent(getSendMailData($dbh, 1), $list[array_key_first($list)]);
+														echo generateMailContent(getSendMailData($dbh, $selected_mail_type), $list[array_key_first($list)]);
 													} ?></span></td>
 												</tr>
 										</div>

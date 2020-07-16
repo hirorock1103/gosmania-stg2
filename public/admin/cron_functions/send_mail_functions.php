@@ -107,6 +107,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 				if($diff < 3){
 					$Customers[$row['Cs_Id']] = $row;
 					$Customers[$row['Cs_Id']]['member_limitmonth'] = $diff;
+					$Customers[$row['Cs_Id']]['card_limitdate'] = "";
 				}
 
 			}
@@ -256,6 +257,10 @@ function generateMailContent($send_mail, $customer) {
 	// 氏名
 	$return_text = str_replace('{NAME}', $customer['Cs_Name'], $return_text);
 
+	// 会員 
+	$limit_date = new DateTimeImmutable($customer['Cs_Timelimit']);
+	$return_text = str_replace('{M_LIMIT}', $limit_date->format('Y年m月'), $return_text);
+
 	// 西暦を含む年月日
 	$return_text = str_replace('{DATE_YMD}', date('Y年m月d日'), $return_text);
 
@@ -263,8 +268,12 @@ function generateMailContent($send_mail, $customer) {
 	$return_text = str_replace('{DATE_MD}', date('m月d日'), $return_text);
 
 	// クレジットカード有効期限
-	$limit_date = new DateTimeImmutable($customer['card_limitdate']);
-	$return_text = str_replace('{LIMIT}', $limit_date->format('Y年m月'), $return_text);
+	if( isset($customer['card_limitdate']) && !empty( $customer['card_limitdate'] ) ){
+		$limit_date = new DateTimeImmutable($customer['card_limitdate']);
+		$return_text = str_replace('{LIMIT}', $limit_date->format('Y年m月'), $return_text);
+	}else{
+		$return_text = str_replace('{LIMIT}', "-※{LIMIT}は使用できません-", $return_text);
+	}
 
 
 	return $return_text;
