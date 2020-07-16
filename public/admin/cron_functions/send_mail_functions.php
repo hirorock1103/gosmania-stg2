@@ -241,7 +241,6 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 			// 顧客情報に基づいてメール本文を生成
 			$mailContent = generateMailContent($sendMail, $customer);
 
-			var_dump($mailContent);
 			// メール送信実行
 			$sendCount += mb_send_mail(
 				$customer['Ci_MailAddress'],
