@@ -113,7 +113,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 			}
 
 			// CustomerInfoテーブル
-			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			$tmp = array();
