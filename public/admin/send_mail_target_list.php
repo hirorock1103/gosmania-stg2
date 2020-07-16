@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * クレカ有効期限の確認
+ * 条件：
+ * 1.現在Customerテーブルに存在する
+ * 2.メール送信希望フラグが1のもの
+ * 3.カードの有効期限残が2ヶ月
+ *
+ */
+
 include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
 
@@ -18,10 +28,13 @@ if( isset($_POST) && !empty($_POST) ) {
 	
 	$error = validate();
 		$query = params();
-
+		$selected_mail_type = $query['Sm_Type'];
 	if(empty($error) && !empty($_POST['search']) ){
 		// 対象者確認処理へ
 		$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
+		//echo "<pre>";
+		//var_dump($list);
+		//echo "</pre>";
 	}else if (empty($error) && !empty($_POST['send_mail']) ){
 		// メール送信処理へ
 		$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
@@ -110,6 +123,15 @@ function validate() {
 												</div>
 												<div class="col-md-12" style="margin-top:10px;">
 													<p>---</p>
+													<?php if($selected_mail_type == 1){  ?>
+													<ul>
+														<li> クレカ有効期限の抽出確認
+														<li> 条件：
+														<li> 1.現在Customerテーブルに存在する会員(アクセスの支払方法がクレカになっている会員のみ)が対象
+														<li> 2.メール送信希望フラグが1(送信希望)に設定されている会員
+														<li> 3.カードの有効期限残が2ヶ月を切っている
+													</ul>	
+													<?php } ?>
 												</div>
 											</div>
 										</div>
@@ -139,6 +161,8 @@ function validate() {
 														<th class="listUser table_result_element" style="width: 10%;">会員ID</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
+														<th class="listUser table_result_element">カード有効期限</th>
+														<th class="listUser table_result_element">残月数</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -153,6 +177,8 @@ function validate() {
 																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
 																<?php } ?>
 															</td>
+															<td class="listUser"><?php echo h($customer['card_limitdate']); ?></td>
+															<td class="listUser"><?php echo h($customer['card_limitmonth']); ?></td>
 														</tr>
 													<?php } ?>
 												</tbody>

@@ -37,30 +37,61 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 			// ONの先に書く条件 -> グループするカラム
 			// ANDの後に書く条件 ->  t1 (FROM側)よりも同じカラム値が大きいものがあれば結合(最大をとるカラム)
 			// WHERE 句 -> t1 (FROM側) が最大だとt2(JOIN側)がNULLになるので、 NULLの行だけ抽出
-			$sql = "SELECT CsI.* FROM CustomerInfo AS CsI
+			/*$sql = "SELECT CsI.* FROM CustomerInfo AS CsI
 			LEFT JOIN CustomerInfo AS CsI2 ON CsI.Cs_Id = CsI2.Cs_Id AND CsI.Ci_Seq < CsI2.Ci_Seq
-			WHERE CsI2.Cs_Id IS NULL";
+			WHERE CsI2.Cs_Id IS NULL";*/
+			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
+			$tmp = array();
 			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
-				if(isset($Customers[$row['Cs_Id']])) {
-					$Customers[$row['Cs_Id']]['Ci_Seq'] 							= $row['Ci_Seq'];
-					$Customers[$row['Cs_Id']]['Ci_MailAddress'] 			= $row['Ci_MailAddress'];
-					$Customers[$row['Cs_Id']]['Ci_Phone'] 						= $row['Ci_Phone'];
-					$Customers[$row['Cs_Id']]['Ci_InformationSend'] 	= $row['Ci_InformationSend'];
+				$tmp[$row['Cs_Id']] = $row;
+			}
+			//group1 と比較して group2にないものは除外する
+			foreach($Customers as $cs_id => $row){
+				if(array_key_exists($cs_id, $tmp) == true){
+					$Customers[$cs_id]['Ci_Seq']              = $tmp[$cs_id]['Ci_Seq'];
+					$Customers[$cs_id]['Ci_MailAddress']     = $tmp[$cs_id]['Ci_MailAddress'];
+					$Customers[$cs_id]['Ci_Mhone']           = $tmp[$cs_id]['Ci_Phone'];
+					$Customers[$cs_id]['Ci_InformationSend'] = $tmp[$cs_id]['Ci_InformationSend'];
+				}else{
+					unset($Customers[$cs_id]);
 				}
 			}
 
 			// PaymentInfoテーブル
 			// 同上
-			$sql = "SELECT PyI.* FROM PaymentInfo AS PyI
+			/*$sql = "SELECT PyI.* FROM PaymentInfo AS PyI
 			LEFT JOIN PaymentInfo AS PyI2 ON PyI.gmo_id = PyI2.gmo_id AND PyI.seq < PyI2.seq
-			WHERE PyI2.seq IS NULL";
+			WHERE PyI2.seq IS NULL";*/
+			$sql = "select I.* from PaymentInfo as I inner join Customer as C on C.Cs_Id = I.gmo_id where I.seq in (SELECT min(seq) FROM `PaymentInfo` group by gmo_id)";
 			$db = $dbh->prepare($sql);
 			$db->execute();
+			$tmp = array();
 			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
-				if(isset($Customers[$row['gmo_id']])) {
-					$Customers[$row['gmo_id']]['card_limitdate'] 			= $row['card_limitdate'];
+				$tmp[$row['gmo_id']] = $row;
+			}
+			//group2 と比較して group3にないものは除外する
+			foreach($Customers as $cs_id => $row){
+				if(array_key_exists($cs_id, $tmp) == true){
+					//期限までの残月数
+					$target1 = date("Y-m-01");
+					$target2 = date("Y-m-01" , strtotime($tmp[$cs_id]['card_limitdate']."01"));
+					
+					$date1 = strtotime($target1);
+					$date2 = strtotime($target2);
+
+					$month1=date("Y",$date1)*12+date("m",$date1);
+					$month2=date("Y",$date2)*12+date("m",$date2);
+
+					$diff = $month1 - $month2;
+					if($diff < 3){
+						$Customers[$cs_id]['card_limitmonth'] = $diff;
+						$Customers[$cs_id]['card_limitdate'] = $tmp[$cs_id]['card_limitdate'];
+					}
+
+				}else{
+					unset($Customers[$cs_id]);
 				}
 			}
 		break;
