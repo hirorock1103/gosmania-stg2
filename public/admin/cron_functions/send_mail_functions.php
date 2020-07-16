@@ -77,6 +77,8 @@ function getSendMailTargetUsers($dbh, $Sm_Type) {
 					if($diff == 0){
 						$Customers[$cs_id]['card_limitmonth'] = $diff;
 						$Customers[$cs_id]['card_limitdate'] = $tmp[$cs_id]['card_limitdate'];
+					}else{
+						unset($Customers[$cs_id]);
 					}
 
 				}else{
