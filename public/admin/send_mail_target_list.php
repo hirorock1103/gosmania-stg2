@@ -131,6 +131,13 @@ function validate() {
 														<li> 2.メール送信希望フラグが1(送信希望)に設定されている会員
 														<li> 3.カードの有効期限残が2ヶ月を切っている
 													</ul>	
+													<?php }else if($selected_mail_type == 2){  ?>
+													<ul>
+														<li> ファンクラブ有効期限の抽出確認
+														<li> 条件：
+														<li> 1.現在Customerテーブルに存在する会員(会員有効期限が3ヶ月を切っている)が対象
+														<li> 2.メール送信希望フラグが1(送信希望)に設定されている会員
+													</ul>	
 													<?php } ?>
 												</div>
 											</div>
@@ -158,16 +165,25 @@ function validate() {
 											<table class="table table_result_client table_sp">
 												<thead>
 													<tr>
+													<?php if($selected_mail_type == 1){  ?>
 														<th class="listUser table_result_element" style="width: 10%;">会員ID</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">カード有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
+													<?php }else if($selected_mail_type == 2){  ?>
+														<th class="listUser table_result_element" style="width: 10%;">会員ID</th>
+														<th class="listUser table_result_element">名前</th>
+														<th class="listUser table_result_element">メールアドレス</th>
+														<th class="listUser table_result_element">会員有効期限</th>
+														<th class="listUser table_result_element">残月数</th>
+													<?php } ?>
 													</tr>
 												</thead>
 												<tbody>
 													<?php foreach ($list as $cs_seq => $customer) { //var_dump($customer);  ?>
 														<tr>
+														<?php if($selected_mail_type == 1){  ?>
 															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
 															<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
 															<td class="listUser">
@@ -179,6 +195,19 @@ function validate() {
 															</td>
 															<td class="listUser"><?php echo h($customer['card_limitdate']); ?></td>
 															<td class="listUser"><?php echo h($customer['card_limitmonth']); ?></td>
+														<?php }else if($selected_mail_type == 2){  ?>
+															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
+															<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
+															<td class="listUser">
+																<?php if(isset($customer['Ci_MailAddress']) && !empty($customer['Ci_MailAddress'])) {
+																	echo h($customer['Ci_MailAddress']);
+																} else { ?>
+																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
+																<?php } ?>
+															</td>
+															<td class="listUser"><?php echo h(date("Y年m月末日",strtotime($customer['Cs_Timelimit']))); ?></td>
+															<td class="listUser"><?php echo h($customer['member_limitmonth']); ?></td>
+														<?php } ?>
 														</tr>
 													<?php } ?>
 												</tbody>
