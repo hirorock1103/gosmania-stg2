@@ -213,6 +213,10 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 		mb_language("uni");
 		$mailHeader = "From: ".mb_encode_mimeheader('GOSMANIA事務局') ."<info@gosmania.amb-dev.com>\nReply-To: info@gosmania.amb-dev.com";
 
+
+		var_dump($sendMail);
+		var_dump($Customers);
+
 		// メール送信対象でループ
 		foreach($Customers as $Cs_Id => $customer) {
 

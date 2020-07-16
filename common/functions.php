@@ -385,11 +385,11 @@ function fncCheckFormDigit($num1, $num2)
 function fncSendMail($to, $title, $txt)
 {
 	// 申込者に届く差出人
-	$fromAddress		= constant('MAILADDRESS_INFO');
-	$returnAddress	= constant('MAILADDRESS_INFO');
+	$fromAddress   = constant('MAILADDRESS_INFO');
+	$returnAddress = constant('MAILADDRESS_INFO');
 	
-	$header		=	"From: ".$fromAddress."\nReply-To: ".$returnAddress."\nContent-Type: text/plain;charset=iso-2022-jp\nX-Mailer: PHP/".phpversion();
-	$para			=	"-f".$fromAddress;
+	$header        = "From: ".$fromAddress."\nReply-To: ".$returnAddress."\nContent-Type: text/plain;charset=iso-2022-jp\nX-Mailer: PHP/".phpversion();
+	$para          = "-f".$fromAddress;
 	
 	// 送信
 	if($to != ""){
