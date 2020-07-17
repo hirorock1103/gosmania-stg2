@@ -355,7 +355,7 @@ function _array_exists($id, &$arr_shop)
 										ファイル形式：CSV（半角カンマ区切り）<br>
 										文字エンコード：Shift-JIS<br>
 										<br>
-										<a href="files/template.csv" class="" style="color:#03F; text-decoration:underline;" download>記入用テンプレートのダウンロードはこちら</a>（Shift-JIS版）<br/>
+										<a href="files/gmo_result_template.csv" class="" style="color:#03F; text-decoration:underline;" download>記入用テンプレートのダウンロードはこちら</a>（Shift-JIS版）<br/>
 										<br>
 										※１行目は必ずカラムヘッダを記載してください。<br>
 										※入力内容は右表をご参照ください。
