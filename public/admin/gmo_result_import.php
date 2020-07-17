@@ -16,12 +16,11 @@ $arr_input_err = array();
 
 // CSVカラム
 $cols = array(
-	'Cs_ID'        => array('name' => "顧客番号",		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "重複不可です。", 'ex' => "00-00009"),
-	'Cs_Name'      => array('name' => "顧客名", 		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "", 'ex' => "テスト　太郎"),
-	'Cs_Zip'       => array('name' => "郵便番号",		'must' => 1, 'type' => "number", 'valid' => [],	 'memo' => "ハイフンを付けてください。", 'ex' => "177-0001"),
-	'Cs_Timelimit' => array('name' => "会員有効期限",	'must' => 1, 'type' => "date",	 'valid' => [],	 'memo' => "「yyyy/mm/dd」で入力してください。", 'ex' => "2020/01/01"),
-	'Cs_SendMail'  => array('name' => "メール送付フラグ",	'must' => 1, 'type' => "number",	 'valid' => [],	 'memo' => "0:送付不要 1:要送付 <br>※会員状態が在会員かつ支払方法がクレカの会員様を1:要送付とする。", 'ex' => "1"),
+//	'Cs_ID' => array('name' => "顧客番号",	'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "重複不可です。", 'ex' => "00-00009"),
 );
+
+$cols = array();
+
 //var_dump($cols);
 
 
@@ -62,10 +61,11 @@ if (isset($_POST['frm_submit'])) {
 	if ($ret) {
 		$ret = _save($dbh, $filefullname, $encoding, $cols, $arr_shop, $errmsg);
 	}
+
 	
 	// 登録成功ならリダイレクト
 	if ($ret) {
-		header("Location: customer_import.php?complete");
+		header("Location: gmo_result_import.php?complete");
 		exit;
 		
 	}
@@ -81,8 +81,7 @@ if (isset($_POST['frm_submit'])) {
 
 
 
-
-
+$cols = array();
 
 /**********************************************/
 // ファイル保存
@@ -122,12 +121,12 @@ function _validation(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$errm
 	
 	$row = 1;
 	$datacnt = 0;
-	$colnum = count($cols);
+	$colnum = 25;
 	
 	// ファイル読み込み
 	$file = new SplFileObject($filefullname); 
 	$file->setFlags(SplFileObject::READ_CSV | SplFileObject::READ_AHEAD | SplFileObject::SKIP_EMPTY | SplFileObject::DROP_NEW_LINE); 
-	
+
 	$id_list = [];
 	
 	// １行ごとに判定
@@ -136,16 +135,6 @@ function _validation(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$errm
 		if ($encoding != "UTF-8") {
 			mb_convert_variables('UTF-8', 'SJIS-win', $data);
 		}
-		
-		// 1行目のヘッダ？
-/* 		if ($row == 1) {
-			$header_txt = "";
-			foreach ($cols as $col_name => $col_info) {
-				$header_txt .= $col_info['name'];
-			}
-			$row++;
-			continue; // ヘッダにつきスキップ
-		} */
 		
 		// カラム数
 		if (count($data) != $colnum) {
@@ -156,106 +145,20 @@ function _validation(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$errm
 		
 		// データ数
 		$datacnt++;
+
+
+		$Cs_Id  = $data[9];
+		$ym     = mb_substr($data[22],0, 6);
+		$result = $data[24];
 		
-		// カラムバリデーション
-		foreach ($cols as $col_name => $col_info) { //列
-			$i = _i($col_name, $cols);
-			
-			// 必須？
-			if ($col_info['must']) {
-				if ($data[$i] == "") {
-					$errmsg[] = $row . "行目：".$col_info['name']."は必須です。";
-				}
-			}
-			
-			if ($data[$i] !== "") {
-				// 個別バリデーション
-				$col_validation = $col_info['valid'];
-				
-				if ($col_name == 'Cs_ID' && isset($id_list[$data[$i]])) {
-					$errmsg[] = $row . "行目：".$col_info['name']."の値が重複しています。";
-				}else{
-					if($col_name == 'Cs_ID'){
-						if(!preg_match('/[0-9]{2}-[0-9]{5}/', $data[$i])){
-							$errmsg[] = $row . "行目：".$data[$i]."は会員番号(00-00000)の正しい形式ではありません。";
-						}	
-					}
-				}
-				$id_list[$data[$i]] = $data[$i];
-				
-				// 数値バリデーション
-				if ($col_info['type'] == "int") {
-					$num = replace_hankaku($data[$i]);
-					$num = str_replace(array(' ',','), '', $num);
-					if (!is_numeric($num)) {
-						$errmsg[] = $row . "行目：".$col_info['name']."は数字を入力してください。";
-					} else {
-						foreach ($col_validation as $check_type => $check_value) {
-							if ($check_type == 'min') {
-								if ($num < $check_value) {
-									$errmsg[] = $row . "行目：".$col_info['name']."は".$check_value."以上の値を入力してください。";
-								}
-							} else if ($check_type == 'max') {
-								if ($num > $check_value) {
-									$errmsg[] = $row . "行目：".$col_info['name']."は".$check_value."以下の値を入力してください。";
-								}
-							}
-						}
-					}
-				}
-				
-				// 日付バリデーション
-				if ($col_info['type'] == "date") {
-					if (!is_valid_date_string($data[$i])) {
-						$errmsg[] = $row . "行目：".$col_info['name']."は日付を入力してください。";
-					}
-				}
-				
-				// 時刻バリデーション
-				if ($col_info['type'] == "time") {
-					if (!is_valid_time_string($data[$i])) {
-						$errmsg[] = $row . "行目：".$col_info['name']."は時刻（HH:MM形式）を入力してください。";
-					}
-				}
-				
-				// 数字（ハイフン可）バリデーション
-				if ($col_info['type'] == "number") {
-					$num = replace_hankaku($data[$i]);
-					if (!preg_match('/^[0-9-]+$/', $num)) {
-						$errmsg[] = $row . "行目：".$col_info['name']."は数字とハイフンで入力してください。";
-					} else {
-						foreach ($col_validation as $check_type => $check_value) {
-							if ($check_type == 'minlen') {
-								if (mb_strlen($data[$i]) < (int)$check_value) {
-									$errmsg[] = $row . "行目：".$col_info['name']."は".$check_value."文字以上で入力してください。";
-								}
-							} else if ($check_type == 'maxlen') {
-								if (mb_strlen($data[$i]) > (int)$check_value) {
-									$errmsg[] = $row . "行目：".$col_info['name']."は".$check_value."文字以下で入力してください。";
-								}
-							}
-						}
-					}
-				}
-				
-				// 文字列？
-				if ($col_info['type'] == "text") {
-					$len = mb_strlen($data[$i]);
-					foreach ($col_validation as $check_type => $check_value) {
-						if ($check_type == 'minlen') {
-							if ($len < (int)$check_value) {
-								$errmsg[] = $row . "行目：".$col_info['name']."は".$check_value."文字以上で入力してください。";
-							}
-						} else if ($check_type == 'maxlen') {
-							if ($len > (int)$check_value) {
-								$errmsg[] = $row . "行目：".$col_info['name']."は".$check_value."文字以下で入力してください。";
-							}
-						}
-					}
-				}
-			}
-		}
-		
+		$cols[] = array(
+			"Cs_Id" => $Cs_Id,
+			"ym" => $ym,
+			"result" => $result,
+		);
+
+
+		$err_msg = [];
 		
 		// エラーが100を超えたら終了
 		if (count($errmsg) > 100) {
@@ -280,131 +183,42 @@ function _validation(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$errm
 /**********************************************/
 function _save(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$err_msg)
 {
-	define("CLIENT_INSERT_LEN", 100);// 100件ごとにSQL発行
-	
 	$row = 0;
 	
-	$creator = $_SESSION[SESSION_BASE_NAME]['login_info']['Ad_Name'];
 	
-	$sql_head = "INSERT INTO Customer (";
-	foreach ($cols as $key => $val) {
-		$sql_head .= $key . ", ";
-	}
-	$sql_head .= "Cs_Creator ) VALUES ";
-	$sql_val	= "";
-	
-	try {
-		// トランザクションを開始する。オートコミットがオフになる
-		$dbh->beginTransaction();
+	// １行ごとに判定
+	foreach ($cols as $data) {
 		
-		$truncate = 'TRUNCATE Customer';
-		$stmt = $dbh->prepare($truncate);
-		$stmt->execute();
-		
-		// ファイル読み込み
-		$file = new SplFileObject($filefullname); 
-		$file->setFlags(SplFileObject::READ_CSV | SplFileObject::READ_AHEAD | SplFileObject::SKIP_EMPTY | SplFileObject::DROP_NEW_LINE); 
-		
-		// １行ごとに判定
-		foreach ($file as $data) {
-			// SJISの場合、UTF8に変換
-			if ($encoding != "UTF-8") {
-				mb_convert_variables('UTF-8', 'SJIS-win', $data);
-			}
-			
-			// 1行目のヘッダ？
-/* 			if ($row === 0) {
-				$header_txt = "";
-				foreach ($cols as $col_name => $col_info) {
-					$header_txt .= $col_info['name'];
-				}
-				$row++;
-				continue; // ヘッダにつきスキップ
-			} */
-			
-			$row++;
-			
-			$sql_val .= "(";
-			$sp_seq = 0;
-			
-			// カラムバリデーション
-			foreach ($cols as $col_name => $col_info) {
-				$i = _i($col_name, $cols);
-				
-				if ($col_info['type'] == "int") {
-					$num = 0;
-					if ($data[$i]) {
-						$num = replace_hankaku($data[$i]);
-						$num = str_replace(array('-',','), '', $num);
-					}
-					$sql_val .= "" . $num . ",";
-					
-				// 日付？
-				} else if ($col_info['type'] == "date") {
-					if ($data[$i]) {
-						$sql_val .= "'" . $data[$i] . "',";
-					} else {
-						$sql_val .= "NULL,";
-					}
-					
-				// 数字型？
-				} else if ($col_info['type'] == "number") {
-					$num = replace_hankaku($data[$i]);
-					$sql_val .= "'" . $num . "',";
-					
-				// 文字列？
-				} else if ($col_info['type'] == "text") {
-					$sql_val .= "'" . $data[$i] . "',";
-					
-				// テーブル参照カラム？
-				} else if ($col_info['type'] == "ref_key") {
-					$num = 0;
-					if ($data[$i]) {
-						$num = replace_hankaku($data[$i]);
-					}
-					$sql_val .= "" . $num . ",";
-					
-				// その他
-				} else {
-					$sql_val .= "'" . $data[$i] . "',";
-				}
-			}
-			$sql_val .= "'" . $creator . "'"; //Cs_Creator
-			$sql_val .= "),";
-			
-			// n行単位にSQL発行
-			if ($row % CLIENT_INSERT_LEN == 0) {
-				// SQL
-				$sql = $sql_head . $sql_val = rtrim($sql_val, ",") . ";";
-				echo $sql;
-				$db = $dbh->prepare($sql);
-				$db->execute();
-				
-				$sql_val = "";
-				
-			}
-		}
-		
-		// 残りのSQLを実行
-		if ($sql_val) {
-			// SQL
-			$sql = $sql_head . $sql_val = rtrim($sql_val, ",") . ";";
-			$db = $dbh->prepare($sql);
+		try{
+
+			//同年月、同顧客で存在するかチェック
+			$query = "select * from GmoResult where Cs_Id = :Cs_Id and ym = :ym";	
+			$db = $dbh->prepare($query);	
+			$db->bindValue(":Cs_Id", $data['Cs_Id'], PDO::PARAM_STR);	
+			$db->bindValue(":ym", $data['ym'], PDO::PARAM_INT);	
 			$db->execute();
+			if($db->rowCount() > 0){
+				throw new Exception("同一レコードが存在します:".$data['Cs_Id']."/".$data['ym']);	
+			}
+
+			$query = "INSERT INTO GmoResult ( Cs_Id, ym, result, created_at  ) values( :Cs_Id, :ym, :result, Now() )";	
+			$db = $dbh->prepare($query);	
+			$db->bindValue(":Cs_Id", $data['Cs_Id'], PDO::PARAM_STR);	
+			$db->bindValue(":ym", $data['ym'], PDO::PARAM_INT);	
+			$db->bindValue(":result", $data['result'], PDO::PARAM_STR);	
+			$db->execute();
+		}catch(Exception $e){
+			$err_msg[] = $e->getMessage();
 		}
 		
-		// 成功ならコミット
-		$dbh->commit();
-		
-		// 登録件数をSESSION保存
-		$_SESSION[SESSION_BASE_NAME]['customer_info']['csv_cnt'] = $row;
-		
-		
-	} catch (Exception $e) {
-		$dbh->rollBack();
-		$err_msg[] = "DB登録に失敗しました。" . $e->getMessage();
-		
+		$row++;
 	}
+	
+	
+	// 成功ならコミット
+	
+	// 登録件数をSESSION保存
+	$_SESSION[SESSION_BASE_NAME]['customer_info']['csv_cnt'] = $row;
 	
 	
 	return (count($err_msg) == 0 ? true : false);
@@ -494,7 +308,7 @@ function _array_exists($id, &$arr_shop)
 	<div class="">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content_wrapper">
-			<h3 class="detail-title">ログイン会員情報データ一括登録</h3>
+			<h3 class="detail-title">結果データ登録</h3>
 			<!-- Content Header (Page header) -->
 			<section class="content-header"></section>
 			<!-- Main content -->
@@ -527,7 +341,7 @@ function _array_exists($id, &$arr_shop)
 
 				<div class="flex-area mt10">
 					<div class="f" >
-						<form enctype="multipart/form-data" action="customer_import.php" accept-charset="" method="post">
+						<form enctype="multipart/form-data" action="gmo_result_import.php" accept-charset="" method="post">
 							<div class="table" style="margin-bottom: 10px;">
 								<div class="tr">
 								<div class="th">CSVファイルのアップロード</div>
@@ -554,27 +368,6 @@ function _array_exists($id, &$arr_shop)
 					</div>
 
 
-					<div class="f">
-						<div class="table-flex">
-							<div class="tr">
-								<div class="th">ファイル書式</div>
-							</div>
-							<div class="tr">
-								<div class="th">項目</div>
-								<div class="th">説明</div>
-								<div class="th">例</div>
-							</div>
-
-<?php foreach ($cols as $col => $val) { ?>
-							<div class="tr">
-								<div class="td"><?php echo $val['name']; ?></div>
-								<div class="td"><?php echo $val['memo']; ?></div>
-								<div class="td"><?php echo $val['ex']; ?></div>
-							</div>
-<?php } ?>
-
-						</div>
-					</div>
 				</div>
 			</section><!-- /.content -->
 		</div><!-- /.content-wrapper -->
