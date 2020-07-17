@@ -17,9 +17,18 @@
 					<i class="fa fa-users side_text_pos"></i> <span class="side_text_pos">各種認証管理</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="./customer_import.php" target="_blank"><i class="fa"></i>ログイン会員情報データ登録</a></li>
 					<li><a href="./customer_list.php"><i class="fa"></i>ログイン会員情報データ一覧</a></li>
+					<li><a href="./customer_import.php" target="_blank"><i class="fa"></i>ログイン会員情報データ登録</a></li>
 					<li><a href="./auth_list.php"><i class="fa"></i>会員支払方法データ一覧</a></li>
+				</ul>
+			</li>
+			<li class="treeview ">
+				<a href="#" style="border-bottom:solid 1px #fff;">
+					<i class="fa fa-users side_text_pos"></i> <span class="side_text_pos">GMO結果取込</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="./gmo_result_list.php"><i class="fa"></i>取込済結果データ一覧</a></li>
+					<li><a href="./gmo_result_import.php" target="_blank"><i class="fa"></i>結果データ登録</a></li>
 				</ul>
 			</li>
 			<li class="treeview ">
