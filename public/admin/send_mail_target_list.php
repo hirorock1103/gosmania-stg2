@@ -117,7 +117,7 @@ function validate() {
 												<div class="col-md-12" style="margin-top:10px;">
 													<input type="submit" name="search" class="btn import_btn large" value="検索">
 													<?php if(isset($_POST['search']) ) { ?>
-														<?php if($selected_mail_type == 1 || $selected_mail_type == 2){  ?>
+														<?php if($selected_mail_type == 1 || $selected_mail_type == 2 || $selected_mail_type == 3 ){  ?>
 														<input type="hidden" name="check" value="true">
 														<input type="submit" name="send_mail" id="mail_send_button" class="btn import_btn large" value="メール送信" style="margin-left:10px;">
 														<?php } ?>
@@ -140,6 +140,14 @@ function validate() {
 														<li> 条件：
 														<li> 1.現在Customerテーブルに存在する会員(会員有効期限が3ヶ月を切っている)が対象
 														<li> 2.メール送信希望フラグが1(送信希望)に設定されている会員
+													</ul>	
+													<?php }else if($selected_mail_type == 3){  ?>
+													<ul>
+														<li> 決済登録完了メール
+														<li> 条件：
+														<li> 1.GMO決済登録が完了した顧客
+														<li> 2.メールアドレスが登録されていてメール送信希望フラグが1(送信希望)に設定されている会員
+														<li> 3.当月に連携したデータのみが対象
 													</ul>	
 													<?php } ?>
 												</div>
@@ -181,7 +189,9 @@ function validate() {
 														<th class="listUser table_result_element">会員有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
 													<?php }else if($selected_mail_type == 3){  ?>
-														<th class="listUser table_result_element">登録手続が終了した会員様が対象となります</th>
+														<th class="listUser table_result_element" style="width: 10%;">会員ID</th>
+														<th class="listUser table_result_element">名前</th>
+														<th class="listUser table_result_element">メールアドレス</th>
 													<?php } ?>
 													</tr>
 												</thead>
@@ -212,6 +222,22 @@ function validate() {
 															</td>
 															<td class="listUser"><?php echo h(date("Y年m月末日",strtotime($customer['Cs_Timelimit']))); ?></td>
 															<td class="listUser"><?php echo h($customer['member_limitmonth']); ?></td>
+														<?php }else if($selected_mail_type == 3){  ?>
+															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
+															<td class="listUser">
+																<?php if(isset($customer['Cs_Name']) && !empty($customer['Cs_Name'])) {
+																	echo h($customer['Cs_Name']);
+																} else { ?>
+																	<span class="text-danger">お名前の登録がありません(退会員の可能性があります)</span>
+																<?php } ?>
+															</td>
+															<td class="listUser">
+																<?php if(isset($customer['Ci_MailAddress']) && !empty($customer['Ci_MailAddress'])) {
+																	echo h($customer['Ci_MailAddress']);
+																} else { ?>
+																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
+																<?php } ?>
+															</td>
 														<?php } ?>
 														</tr>
 													<?php } ?>
