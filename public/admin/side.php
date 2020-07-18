@@ -5,6 +5,14 @@
 		<ul class="sidebar-menu tree" data-widget="tree">
 			<li class="treeview ">
 				<a href="#" style="border-bottom:solid 1px #fff;">
+					<i class="fas fa-chart-line side_text_pos"></i>&nbsp;&nbsp; <span class="side_text_pos">トップ</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="./index.php"><i class="fa"></i>ダッシュボード</a></li>
+				</ul>
+			</li>
+			<li class="treeview ">
+				<a href="#" style="border-bottom:solid 1px #fff;">
 					<i class="fa fa-user-circle side_text_pos"></i> <span class="side_text_pos">管理者管理</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
 				</a>
 				<ul class="treeview-menu">
