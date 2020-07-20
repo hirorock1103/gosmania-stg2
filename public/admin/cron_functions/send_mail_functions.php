@@ -138,15 +138,15 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 		break;
 		case 3:
 			// CustomerInfoテーブル
-			$sql = "select I.*, G.result, G.ym, C.Cs_Name from CustomerInfo as I
+			$sql = "select I.*, G.result, G.ym, C.Cs_Name, C.Cs_Timelimit from CustomerInfo as I
 				inner join GmoResult  as G on G.Cs_Id = I.Cs_Id
-				left join Customer  as C on G.Cs_Id = C.Cs_Id
+				inner join Customer  as C on G.Cs_Id = C.Cs_Id
 				where G.ym = date_format(Now(), '%Y%m') and  Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
 				$Customers[$row['Cs_Id']]                       = $row;
-				$Customers[$row['Cs_Id']]['Cs_Timelimit']       = "";
+				$Customers[$row['Cs_Id']]['Cs_Timelimit']       = $row['Cs_Timelimit'];
 				$Customers[$row['Cs_Id']]['member_limitmonth']  = "";
 				$Customers[$row['Cs_Id']]['card_limitdate']     = "";
 				$Customers[$row['Cs_Id']]['Ci_Seq']             = "";
@@ -312,6 +312,18 @@ function generateMailContent($send_mail, $customer) {
 		$return_text = str_replace('{LIMIT}', $limit_date->format('Y年m月'), $return_text);
 	}else{
 		$return_text = str_replace('{LIMIT}', "-※{LIMIT}は使用できません-", $return_text);
+	}
+
+	//以下は計算処理なので元になるデータがなければ空で返す
+	/**
+	 *{LIMIT-CALC-1-15}
+	 *{M_LIMIT-CALC-1-15}
+	*/
+	if( isset($customer['Cs_Timelimit']) && !empty( $customer['Cs_Timelimit'] ) ){
+		$limit_date = new DateTimeImmutable($customer['Cs_Timelimit']);
+		$return_text = str_replace('{M_LIMIT-CALC-1-15}', $limit_date->modify('first day of last month')->format('Y年m月15日'), $return_text);
+	}else{
+		$return_text = str_replace('{M_LIMIT-CALC-1-15}', "-※{M_LIMIT-CALC-1-15}は使用できません-", $return_text);
 	}
 
 

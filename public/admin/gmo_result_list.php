@@ -17,7 +17,7 @@ if( isset($_POST) && !empty($_POST) ) {
 	$data = $_POST;
 	
 	if(isset($data['ym']) && !empty($data['ym'])){
-		$query = "select * from GmoResult where ym = :ym order by Cs_Id ASC ";
+		$query = "select R.*, C.Cs_Name from GmoResult as R left join Customer as C on R.Cs_Id = C.Cs_Id  where ym = :ym order by Cs_Id ASC ";
 		$db = $dbh->prepare($query);
 		$db->bindValue(":ym", $data['ym'], PDO::PARAM_INT);
 		$db->execute();
@@ -84,6 +84,7 @@ if( isset($_POST) && !empty($_POST) ) {
 											<thead>
 												<tr>
 													<th class="listUser table_result_element">会員ID</th>
+													<th class="listUser table_result_element">名前</th>
 													<th class="listUser table_result_element">対象年月</th>
 													<th class="listUser table_result_element">結果</th>
 												</tr>
@@ -92,6 +93,7 @@ if( isset($_POST) && !empty($_POST) ) {
 <?php foreach ($list as $cs_seq => $customer) { ?>
 												<tr>
 													<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
+													<td class="listUser" ><?php echo !empty($customer['Cs_Name']) ? h($customer['Cs_Name']): "退会の可能性"; ?></td>
 													<td class="listUser"><?php echo h($customer['ym']); ?></td>
 													<td class="listUser"><?php echo h($customer['result']); ?></td>
 												</tr>

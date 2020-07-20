@@ -12,7 +12,7 @@
 			<div class="tr">
 				<div class="th"><?php echo $table_info['col_name'].$table_info['must']; ?></div>
 				<div class="td-edit">
-					<textarea name="<?php echo $col; ?>" placeholder="<?php echo $table_info['placeholder']; ?>" style="width: 100%; resize: vertical;"><?php echo isset($data[$col]) ? $data[$col] : ''; ?></textarea>
+					<textarea name="<?php echo $col; ?>" placeholder="<?php echo $table_info['placeholder']; ?>" style="width: 100%; height:300px;  resize: vertical;"><?php echo isset($data[$col]) ? $data[$col] : ''; ?></textarea>
 				</div>
 			</div>
 		<?php }else if($table_info['type'] == 'radio') { ?>

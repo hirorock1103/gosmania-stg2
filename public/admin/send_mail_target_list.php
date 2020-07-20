@@ -192,6 +192,7 @@ function validate() {
 														<th class="listUser table_result_element" style="width: 10%;">会員ID</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
+														<th class="listUser table_result_element">GMO年月</th>
 													<?php } ?>
 													</tr>
 												</thead>
@@ -238,6 +239,7 @@ function validate() {
 																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
 																<?php } ?>
 															</td>
+															<td class="listUser" ><?php echo h($customer['ym']); ?></td>
 														<?php } ?>
 														</tr>
 													<?php } ?>

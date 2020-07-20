@@ -283,6 +283,11 @@ function _param($data, $table_ary){
 												<div class="td">クレジットカード有効期限</div>
 												<div class="td">2020年11月</div>
 											</div>
+											<div class="tr">
+												<div class="th">{M_LIMIT-CALC-1-15}</div>
+												<div class="td">会員有効期限の1ヶ月前の15日を表示</div>
+												<div class="td">2020年11月→2020年10月15日</div>
+											</div>
 										</div>
 								<?php } ?>
 							</div>
