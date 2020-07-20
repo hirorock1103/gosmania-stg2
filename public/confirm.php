@@ -1,6 +1,8 @@
 <?php
 include_once dirname(__FILE__) . "/settings.php";
 
+echo "使ってない？";
+
 // GMO定義 --------------------------------------------------
 define("GMO_API_TOKEN_AUTH_JS", "https://static.mul-pay.jp/ext/js/token.js");// token取得JS
 define("GMO_API_SITE_ID", "mst2000019418");
