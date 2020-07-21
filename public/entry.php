@@ -51,13 +51,21 @@ $debug = false;
 $exists_customer_info = false;
 
 if(isset($_POST) && !empty($_POST)){
-	$data		 = $_POST;
-	$token		 = (isset($data['token']) ? $data['token'] : '');
+	$data                 = $_POST;
+	$token                = (isset($data['token']) ? $data['token'] : '');
+	$page_token           = (isset($data['page_token']) ? $data['page_token'] : '');
 	$exists_customer_info = isset($data['exists_customer_info']) ? $data['exists_customer_info'] : false;
 	
 	$data = _adjustParams($dbh, $data);
 	$validator = new Validator($dbh);
 	$validation = $validator->validate($data, "entry");
+
+	if(empty($page_token) || $_SESSION['page_token'] != $page_token){
+		//page tokenが不正の場合は処理を中断
+		unset($_SESSION['page_token']);
+		header('Location: ./select.php');
+		exit();
+	}
 
 	if( (!empty($validation) && $debug == false ) || (isset($data['action']) && $data['action'] == 'back') ){ //validationに引っかかるか、確認画面で戻る押した時
 		$mode = 'edit';
@@ -80,6 +88,8 @@ if(isset($_POST) && !empty($_POST)){
 				
 				InsCustomerInfo($dbh,$data);
 				
+				//page token delete	
+				unset($_SESSION['page_token']);
 				// 完了画面へ
 				header('Location: ./complete.php');
 				exit();
@@ -89,6 +99,9 @@ if(isset($_POST) && !empty($_POST)){
 		$mode = 'confirm';
 	}
 }else{ //一番最初
+	//page_token
+	$page_token = bin2hex(openssl_random_pseudo_bytes(32));
+	$_SESSION['page_token'] = $page_token;
 	$mode = 'edit';
 	$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
 	//顧客情報セット済の場合
@@ -327,9 +340,11 @@ function validate_alert($error, $_key){
 		<div id="aplly_kind00" class="app btn">
 		<?php if($mode == 'edit'){ //編集画面 ?>
 			<button type="submit" name="action" value="confirm" class="btn-sub" >確認</button>
+			<input type="hidden" name="page_token" value="<?php echo $page_token;  ?>" />
 		<?php }else{ ?>
 			<button type="submit" name="action" value="back" class="btn-sub return" style="margin-right:20px;" >戻る</button>
 			<!-- <button type="button" name="action" value="complete" class="btn-sub" id="btn_submit" >登録</button> -->
+			<input type="hidden" name="page_token" value="<?php echo $page_token;  ?>" />
 			<button class="btn-sub entry" type="button" id="btn_submit">登録</button>
 			<span class="loading"></span>
 		<?php } ?>

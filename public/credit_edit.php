@@ -49,25 +49,28 @@ $st_year = (int)date('Y');
 $debug = false;
 
 if(isset($_POST) && !empty($_POST)){
-	$data		 = $_POST;
-	$token		 = (isset($data['token']) ? $data['token'] : '');
+	$data       = $_POST;
+	$token      = (isset($data['token']) ? $data['token'] : '');
+	$page_token = (isset($data['page_token']) ? $data['page_token'] : '');
 	
 	$data = _adjustParams($dbh, $data);
 	$validator = new Validator($dbh);
 	$validation = $validator->validate($data, "credit-edit");
+
+        if(empty($page_token) || $_SESSION['page_token'] != $page_token){
+                //page tokenが不正の場合は処理を中断
+                unset($_SESSION['page_token']);
+                header('Location: ./select.php');
+                exit();
+        }
+
+
 
 	if( (!empty($validation) && $debug == false ) || (isset($data['action']) && $data['action'] == 'back') ){ //validationに引っかかるか、確認画面で戻る押した時
 		$mode = 'edit';
 		
 	}else if( !isset($data['action']) || $data['action'] != 'confirm'){ //更新はbuttonのnameもsubmitも無し
 		$mode = 'complete';
-		// $ret = _gmo_reg_member($dbh, $ses['cs_id'], NULL, $errmsg);
-		// if (!$ret && $debug == false) { //会員登録が失敗したら
-		// 	//var_dump($errmsg.'<br>Line:58');
-		// 	var_dump($errmsg);
-		// 	$mode = 'confirm';
-		// 	exit;
-		// }else{
 		$gmo_card_seq = GetFirstPaymentInfoCardSeq($dbh, $ses['cs_id']);
 		// $ret = _gmo_reg_card($dbh, $ses['cs_id'], $data['card_name'], $token, $errmsg);
 		$ret = _gmo_reg_card2($dbh, $ses['cs_id'], NULL, $data['card_limit'], $token, $gmo_card_seq, $errmsg);
@@ -75,18 +78,22 @@ if(isset($_POST) && !empty($_POST)){
 			var_dump($errmsg,'<br>',$token.'<br>Line:63');
 			$mode = 'confirm';
 		}else{
-			
+			//page token delete
+			unset($_SESSION['page_token']);
 			// 完了画面へ
 			header('Location: ./complete.php?status=' . rawurlencode(base64_encode('credit_update')) );
 			exit();
 		}
-		// }
 	}else{
 		$mode = 'confirm';
-		// var_dump("confirm");
 	}
 }else{ //一番最初
+        //page_token
+        $page_token = bin2hex(openssl_random_pseudo_bytes(32));
+        $_SESSION['page_token'] = $page_token;
+
 	$mode = 'edit';
+
 }
 
 /**********************************************/
@@ -252,9 +259,11 @@ function validate_alert($error, $_key){
 		<div id="aplly_kind00" class="app btn">
 			<?php if($mode == 'edit'){ //編集画面 ?>
 				<button type="submit" name="action" value="confirm" class="btn-sub" >確認</button>
+				<input type="hidden" name="page_token" value="<?php echo $page_token;  ?>" />
 			<?php }else{ ?>
 				<button type="submit" name="action" value="back" class="btn-sub return" style="margin-right:20px;" >戻る</button>
 				<!-- <button type="button" name="action" value="complete" class="btn-sub" id="btn_submit" >登録</button> -->
+				<input type="hidden" name="page_token" value="<?php echo $page_token;  ?>" />
 				<button class="btn-sub entry" type="button" id="btn_submit">更新</button>
 				<span class="loading"></span>
 			<?php } ?>
