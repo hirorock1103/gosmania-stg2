@@ -795,6 +795,8 @@ table {
     } 
      .section-list .flex-buttons .btn-select {
         width: 80%;
+	padding-right: 0;
+
     } 
     .sp{
         display: block;
