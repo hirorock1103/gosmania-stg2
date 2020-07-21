@@ -6,27 +6,47 @@ $def_informationSend = ['希望しない','希望する'];
 $customer = $error = []; // 同時に空配列で初期化
 
 if(isset($_POST['confirm']) && !empty($_POST['confirm'])) {
-	$customer = params();
-	$validator = new Validator($dbh);
-	$error = $validator->validate($customer, "customer-info" );
+        //token check
+        $token = isset($_POST['token']) && !empty($_POST['token']) ? $_POST['token']: "";
+        if(!empty($token) && $token == $_SESSION['token']){
+                $customer = params();
+                $validator = new Validator($dbh);
+                $error = $validator->validate($customer,"customer-info");
+        }else{
+                unset($_SESSION['token']);
+                header('Location: ./select.php');
+                exit();
+        }
+		
 
 }else if(isset($_POST['register']) && !empty($_POST['register'])) {
-	$customer = params();
-	$validator = new Validator($dbh);
-	$error = $validator->validate($customer, "customer-info" );
+        //token check
+        $token = isset($_POST['token']) && !empty($_POST['token']) ? $_POST['token']: "";
+        if(!empty($token) && $token == $_SESSION['token']){
+		$customer = params();
+		$validator = new Validator($dbh);
+		$error = $validator->validate($customer, "customer-info" );
 
-	$customer['Ci_Creator'] = $ses['cs_name'];
-	$result = insert_into_customer_info($dbh, $customer);
-	if($result==false) {
-		$error['general'] = '登録に失敗しました。';
-		$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
-	}else {
-		// 更新成功
-	}
+		$customer['Ci_Creator'] = $ses['cs_name'];
+		$result = insert_into_customer_info($dbh, $customer);
+		if($result==false) {
+			$error['general'] = '登録に失敗しました。';
+			$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
+		}else {
+			// 更新成功
+		}
+                unset($_SESSION['token']);
+        }else{
+                unset($_SESSION['token']);
+                header('Location: ./select.php');
+                exit();
+        }
 }else {
 	// 初回GETアクセス
 	$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
 	$customer['Ci_MailAddressConfirm'] = $customer['Ci_MailAddress'];
+	$token = bin2hex(openssl_random_pseudo_bytes(32));
+	$_SESSION['token'] = $token;
 }
 
 
@@ -165,6 +185,7 @@ function insert_into_customer_info($dbh, $data){
 					</table>
 					<div id="aplly_kind00" class="app btn">
 						<button type="submit" name="confirm" value="confirm" class="btn-sub">確認</button>
+						<input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
 					</div>
 				</form>
 			</section>
@@ -201,6 +222,7 @@ function insert_into_customer_info($dbh, $data){
 			
 				<form action="credit_done.html" method="post">
 				<div id="aplly_kind00" class="app btn">
+					<input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
 					<input type="hidden" name="mail_address" value="<?php echo htmlspecialchars($customer['Ci_MailAddress']); ?>">
 					<input type="hidden" name="mail_address_confirm" value="<?php echo htmlspecialchars($customer['Ci_MailAddress']); ?>">
 					<input type="hidden" name="n1" value="<?php echo htmlspecialchars($customer['Ci_InformationSend']); ?>">
