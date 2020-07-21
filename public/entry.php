@@ -75,7 +75,7 @@ if(isset($_POST) && !empty($_POST)){
 		$data['card_name'] = "";
 		$ret = _gmo_reg_member($dbh, $ses['cs_id'], $data['card_name'], $errmsg);
 		if (!$ret && $debug == false) { //会員登録が失敗したら
-			var_dump($errmsg);
+			//var_dump($errmsg);
 			$mode = 'confirm';
 		}else{
 			$gmo_card_seq = GetFirstPaymentInfoCardSeq($dbh, $ses['cs_id']);
