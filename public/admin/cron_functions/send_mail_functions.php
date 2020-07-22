@@ -186,7 +186,7 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 		$sendMail = getSendMailData($dbh, $Sm_Type);
 		ini_set("mbstring.internal_encoding","UTF-8");
 		mb_language("uni");
-		$mailHeader = "From: ".mb_encode_mimeheader('GOSMANIA事務局') ."<gosmania_system@gospellers.tv>\nReply-To: gosmania_system@gospellers.tv";
+		$mailHeader = "From: ".mb_encode_mimeheader('GOSMANIAシステム') ."<gosmania_system@gospellers.tv>\nReply-To: gosmania_system@gospellers.tv";
 
 
 		// メール送信対象でループ
