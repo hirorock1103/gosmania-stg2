@@ -2,7 +2,7 @@
 include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
 
-$arr_mode = array(1=>"連絡先履歴", 2=>"GMO連携履歴");
+$arr_mode = array( 2=>"決済履歴", 1=>"連絡先履歴");
 $arr_mailsend_flg = array(0 => "希望しない", 1 => "希望する");
 $Cs_Id = "";
 $list = [];
@@ -17,7 +17,7 @@ if( isset($_POST) && !empty($_POST) ) {
 	$mode = isset($_POST['mode']) ? $_POST['mode'] : array();
 	
 	if($Cs_Id == ""){
-		$error[] = "会員IDは必須です。";
+		$error[] = "会員番号は必須です。";
 	}
 	if(empty($mode) ){
 		$error[] = "履歴タイプを選択してください。";
@@ -92,7 +92,7 @@ if( isset($_POST) && !empty($_POST) ) {
 												<div class="col-md-12 search-box">
 													<table class="nowrap">
 														<tr>
-															<th>GOSMANIA会員ID</th>
+															<th>GOSMANIA会員番号</th>
 															<td>
 																<input type="text" name="Cs_Id" value="<?php echo htmlspecialchars($Cs_Id);  ?>" class=""  style=""> 
 															</td>
@@ -130,7 +130,7 @@ if( isset($_POST) && !empty($_POST) ) {
 											<table class="table table_result_client table_sp">
 												<thead>
 													<tr>
-														<th class="listUser table_result_element">GOSMANIA会員ID</th>
+														<th class="listUser table_result_element">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">有効期限</th>
 														<th class="listUser table_result_element">更新日</th>
 														<!-- <th class="listUser table_result_element"></th> -->
@@ -163,7 +163,7 @@ if( isset($_POST) && !empty($_POST) ) {
 											<table class="table table_result_client table_sp">
 												<thead>
 													<tr>
-														<th class="listUser table_result_element">GOSMANIA会員ID</th>
+														<th class="listUser table_result_element">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">メール</th>
 														<th class="listUser table_result_element">電話番号</th>
 														<th class="listUser table_result_element">連絡希望</th>
