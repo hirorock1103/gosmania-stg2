@@ -46,11 +46,11 @@ if(isset($data['export'])){
 		}
 		$dbh->commit();
 		// CSV出力
-		$csv = '会員ID(ここに出力される会員IDはアクセス連携時に支払方法：クレカに更新される)' . "\n";
+		$csv = '会員ID(ここに出力される会員IDはアクセス連携時に支払方法：クレカに更新される),カード有効期限' . "\n";
 		// 2行目以降
 		foreach($list as $key => $row) {
 			if(empty($row['Cs_Seq'])){continue;}
-			$csv .= $row['gmo_id'];
+			$csv .= $row['gmo_id'].",".$row['card_limitdate'];
 			$csv .= "\n";
 		}
 
