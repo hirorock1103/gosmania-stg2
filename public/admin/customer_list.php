@@ -5,6 +5,7 @@ include_once dirname(__FILE__) . "/functions.php";
 $list = [];
 $data = [];
 
+
 if( isset($_POST) && !empty($_POST) ) {
 	
 	$data = $_POST;
@@ -12,15 +13,15 @@ if( isset($_POST) && !empty($_POST) ) {
 	$condition = [];
 	
 	if(isset($data['Cs_Id']) && !empty($data['Cs_Id'])){
-		$condition['Cs_Id'] = array('column' => 'Cs_Id', 'value' => trim_into_all($arr_input['Cs_Id']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
+		$condition['Cs_Id'] = array('column' => 'Cs_Id', 'value' => trim_into_all($data['Cs_Id']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
 	}
 	
 	if(isset($data['Cs_Name']) && !empty($data['Cs_Name'])){
-		$condition['Cs_Name'] = array('column' => 'Cs_Name', 'value' => trim_into_all($arr_input['Cs_Name']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
+		$condition['Cs_Name'] = array('column' => 'Cs_Name', 'value' => trim_into_all($data['Cs_Name']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
 	}
 	
 	if(isset($data['Cs_Zip']) && !empty($data['Cs_Zip'])){
-		$condition['Cs_Zip'] = array('column' => 'Cs_Zip', 'value' => trim_into_all($arr_input['Cs_Zip']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
+		$condition['Cs_Zip'] = array('column' => 'Cs_Zip', 'value' => trim_into_all($data['Cs_Zip']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
 	}
 	
 	$list = SearchListCommon($dbh, $condition, null, 'Customer', 'Cs_Seq');
@@ -73,13 +74,13 @@ if( isset($_POST) && !empty($_POST) ) {
 													<table class="nowrap">
 														<tr>
 															<th>会員ID</th>
-															<td><input type="text" name="Cs_Id" value="<?php echo isset($arr_input['Cs_Id']) ? $arr_input['Cs_Id'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
+															<td><input type="text" name="Cs_Id" value="<?php echo isset($data['Cs_Id']) ? $data['Cs_Id'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
 															
 															<th>名前</th>
-															<td><input type="text" name="Cs_Name" value="<?php echo isset($arr_input['Cs_Name']) ? $arr_input['Cs_Name'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
+															<td><input type="text" name="Cs_Name" value="<?php echo isset($data['Cs_Name']) ? $data['Cs_Name'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
 															
 															<th>郵便番号</th>
-															<td><input type="text" name="Cs_Zip" value="<?php echo isset($arr_input['Cs_Zip']) ? $arr_input['Cs_Zip'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
+															<td><input type="text" name="Cs_Zip" value="<?php echo isset($data['Cs_Zip']) ? $data['Cs_Zip'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
 														</tr>
 													</table>
 												</div>
