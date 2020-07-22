@@ -106,7 +106,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 
 				$diff = $month2 - $month1;
 
-				if($diff < 3){
+				if($diff < 2 && $diff > 0){
 					$Customers[$row['Cs_Id']] = $row;
 					$Customers[$row['Cs_Id']]['member_limitmonth'] = $diff;
 					$Customers[$row['Cs_Id']]['card_limitdate'] = "";
