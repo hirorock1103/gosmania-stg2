@@ -47,6 +47,7 @@ if(isset($data['export'])){
 		$dbh->commit();
 		// CSV出力
 		// 2行目以降
+		$csv = "";
 		foreach($list as $key => $row) {
 			if(empty($row['Cs_Seq'])){continue;}
 			$csv .= $row['gmo_id'].",".$row['card_limitdate'];
