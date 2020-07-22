@@ -51,7 +51,7 @@ if(isset($data['export'])){
 		foreach($list as $key => $row) {
 			if(empty($row['Cs_Seq'])){continue;}
 			$csv .= $row['gmo_id'].",".$row['card_limitdate'];
-			$csv .= "\n";
+			$csv .= "\r\n";
 		}
 
 		$str = $includeOutputted ? "（出力済）" : "";
