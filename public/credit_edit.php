@@ -81,16 +81,11 @@ if(isset($_POST) && !empty($_POST)){
 			//page token delete
 			unset($_SESSION['page_token']);
 
-			//send mail
-			$card_brand  = isset($data['card_brand']) && !empty($data['card_brand']) ? $data['card_brand'] : "";
-			$card_number = isset($data['card_number']) && !empty($data['card_number']) ? $data['card_number'] : "";
-			$card_code   = isset($data['card_code']) && !empty($data['card_code']) ? $data['card_code'] : "";
-			$card_limit  = isset($data['card_limit']) && !empty($data['card_limit']) ? $data['card_limit'] : "";
 
 			//独自本文フォーマット取得
 			$sendMail = getSendMailData($dbh, $sm_type = 5);
 			$customer = getSendMailTargetByCsId($dbh, $sm_type = 5, $ses['cs_id']);
-			$result = executeSendMailtoTarget2($dbh, $sm_type = 5, $data, $customer); 
+			$result   = executeSendMailtoTarget2($dbh, $sm_type = 5, $data, $customer);
 
 			// 完了画面へ
 			header('Location: ./complete.php?status=' . rawurlencode(base64_encode('credit_update')) );
