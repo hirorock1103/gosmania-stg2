@@ -288,6 +288,21 @@ function _param($data, $table_ary){
 												<div class="td">会員有効期限の1ヶ月前の15日を表示</div>
 												<div class="td">2020年11月→2020年10月15日</div>
 											</div>
+											<div class="tr">
+												<div class="th">{CARD_CORP}</div>
+												<div class="td">カード会社(※カード登録・更新時のみ使用可能)</div>
+												<div class="td">VISA etc</div>
+											</div>
+											<div class="tr">
+												<div class="th">{CARD_NUMBER}</div>
+												<div class="td">カード番号(※カード登録・更新時のみ使用可能)</div>
+												<div class="td">4**************2</div>
+											</div>
+											<div class="tr">
+												<div class="th">{CARD_SECURITY}</div>
+												<div class="td">セキュリティコード(※カード登録・更新時のみ使用可能)</div>
+												<div class="td">1**</div>
+											</div>
 										</div>
 								<?php } ?>
 							</div>
