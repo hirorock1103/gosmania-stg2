@@ -4,7 +4,7 @@ include_once dirname(__FILE__) . "/functions.php";
 
 $list = [];
 $data = [];
-
+$total_rows = 0;
 
 if( isset($_POST) && !empty($_POST) ) {
 	
@@ -23,9 +23,8 @@ if( isset($_POST) && !empty($_POST) ) {
 	if(isset($data['Cs_Zip']) && !empty($data['Cs_Zip'])){
 		$condition['Cs_Zip'] = array('column' => 'Cs_Zip', 'value' => trim_into_all($data['Cs_Zip']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
 	}
-	
-	$list = SearchListCommon($dbh, $condition, null, 'Customer', 'Cs_Seq');
-	
+	//$list = SearchListCommon($dbh, $condition, null, 'Customer', 'Cs_Seq');
+	$list = SearchListCommon2($dbh, $condition, null, 'Customer', 'Cs_Seq',null, 100, $total_rows);
 	if( isset($data['export']) ) {
 		$csv = '会員ID,名前,郵便番号,メール送付フラグ' . PHP_EOL;
 		//2行目以降
@@ -94,6 +93,8 @@ if( isset($_POST) && !empty($_POST) ) {
 								</div><!-- box1 -->
 							</form>
 							<div class="">
+							<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
+							<p>※100件のみ表示</p>
 								<div class="search_results">
 									<div id="" class="wrap_scroll">
 										<table class="table table_result_client table_sp">

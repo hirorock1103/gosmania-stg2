@@ -213,6 +213,56 @@ function GetListCommon($dbh, $condition = null, $column = null, $table = null, $
 }
 
 
+function SearchListCommon2($dbh, $condition = null, $column = null, $table = null, $pri_key = null, $sort_col = null, $limit = 0 , &$total_rows)
+{
+	$ret = array();
+	
+	// SQL
+	$sql	= "SELECT SQL_CALC_FOUND_ROWS " . ($column ? implode(",", $column) : '*') . " FROM " . $table . " ";
+	$sql .= "WHERE " . $pri_key . " != '' "; //$pri_keyは必ずしもintとは限らない
+	foreach ($condition as $key => $val) {
+		$sql .= "AND " . $val['column'] .' '. $val['method'] . " :" . $key . " ";
+	}
+	if ($sort_col) {
+		$sql .= "ORDER BY " . $sort_col . " ";
+	} else {
+		$sql .= "ORDER BY " . $pri_key . " ASC ";
+	}
+
+	if($limit > 0){
+		$sql .= " LIMIT :limit ";
+	}
+	//echo $sql;
+/* 	echo $sql;
+	var_dump($condition);
+	exit; */
+	
+	$db = $dbh->prepare($sql);
+	foreach ($condition as $key => $val) {
+		if($val['method'] == ' LIKE'){
+			$db->bindValue(':' . $key, '%'.$val['value'].'%', $val['type']);
+		}else{
+			$db->bindValue(':' . $key, $val['value'], $val['type']);
+		}
+	}
+	
+	if($limit > 0){
+		$db->bindValue(":limit" , $limit, PDO::PARAM_INT);
+	}
+	if($db->execute()){
+		while ($row = $db->fetch(PDO::FETCH_ASSOC)){
+			$ret[$row[$pri_key]] = $row;
+		}
+	}
+
+	//calc rows
+	$db = $dbh->prepare("SELECT FOUND_ROWS()");
+	$db->execute();
+	$total_rows = $db->fetchColumn();
+
+	return $ret;
+}
+
 function SearchListCommon($dbh, $condition = null, $column = null, $table = null, $pri_key = null, $sort_col = null)
 {
 	$ret = array();
