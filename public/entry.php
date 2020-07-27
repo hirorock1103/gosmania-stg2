@@ -1,5 +1,6 @@
 <?php
 include_once dirname(__FILE__) . "/settings.php";
+include_once dirname(__FILE__) . "/admin/cron_functions/send_mail_functions.php";
 include_once dirname(__FILE__) . "/class/Validator.class.php";
 
 // GMO定義 --------------------------------------------------
@@ -90,6 +91,12 @@ if(isset($_POST) && !empty($_POST)){
 				
 				//page token delete	
 				unset($_SESSION['page_token']);
+
+				//独自本文フォーマット取得
+				$sendMail = getSendMailData($dbh, $sm_type = 4);
+				$customer = getSendMailTargetByCsId($dbh, $sm_type = 4, $ses['cs_id']);
+				$result   = executeSendMailtoTarget2($dbh, $sm_type = 4, $data, $customer);
+
 				// 完了画面へ
 				header('Location: ./complete.php');
 				exit();
