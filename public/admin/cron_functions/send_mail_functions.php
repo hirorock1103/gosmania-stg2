@@ -141,7 +141,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 			$sql = "select I.*, G.result, G.ym, C.Cs_Name, C.Cs_Timelimit from CustomerInfo as I
 				inner join GmoResult  as G on G.Cs_Id = I.Cs_Id
 				inner join Customer  as C on G.Cs_Id = C.Cs_Id
-				where G.ym = date_format(Now(), '%Y%m') and  Ci_Seq in (SELECT min(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+				where G.ym = date_format(Now(), '%Y%m') and  Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
@@ -158,6 +158,46 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 				$Customers[$row['Cs_Id']]['Ci_Mhone']           = $row['Ci_Phone'];
 				$Customers[$row['Cs_Id']]['Ci_InformationSend'] = $row['Ci_InformationSend'];
 
+			}
+
+		break;
+		default:
+			$Customers = [];
+	}
+	return $Customers;
+}
+/*
+ * Sm_type 4 , 5専用
+ *
+ */
+function getSendMailTargetByCsId($dbh, $Sm_Type, $Cs_Id, $option_data = array()) {
+	$Customers = [];
+
+	// メール種別ごとにユーザーの抽出方法が異なる
+	// 対象ユーザーを絞り込む場合は 各case 内を修飾していく
+	switch ($Sm_Type) {
+		case 4:
+		case 5:
+			// CustomerInfoテーブル
+			$sql = "select I.*, C.Cs_Name, C.Cs_Timelimit from CustomerInfo as I
+				inner join Customer  as C on I.Cs_Id = C.Cs_Id
+				where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id Having Cs_Id = :Cs_Id) and Ci_InformationSend = 1 limit 1";
+			$db = $dbh->prepare($sql);
+			$db->bindValue("Cs_Id", $Cs_Id, PDO::PARAM_STR);
+			$db->execute();
+			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
+				$Customers[$row['Cs_Id']]                       = $row;
+				$Customers[$row['Cs_Id']]['Cs_Timelimit']       = $row['Cs_Timelimit'];
+				$Customers[$row['Cs_Id']]['member_limitmonth']  = "";
+				$Customers[$row['Cs_Id']]['card_limitdate']     = "";
+				$Customers[$row['Cs_Id']]['Ci_Seq']             = "";
+				$Customers[$row['Cs_Id']]['Ci_MailAddress']     = "";
+				$Customers[$row['Cs_Id']]['Ci_Mhone']           = "";
+				$Customers[$row['Cs_Id']]['Ci_InformationSend'] = "";
+				$Customers[$row['Cs_Id']]['Ci_Seq']             = $row['Ci_Seq'];
+				$Customers[$row['Cs_Id']]['Ci_MailAddress']     = $row['Ci_MailAddress'];
+				$Customers[$row['Cs_Id']]['Ci_Mhone']           = $row['Ci_Phone'];
+				$Customers[$row['Cs_Id']]['Ci_InformationSend'] = $row['Ci_InformationSend'];
 			}
 
 		break;
@@ -216,6 +256,7 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 			// 顧客情報に基づいてメール本文を生成
 			$mailContent = generateMailContent($sendMail, $customer);
 
+
 			// メール送信実行
 			$sendCount += mb_send_mail(
 				$customer['Ci_MailAddress'],
@@ -240,6 +281,74 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 
 		//管理者にメール送信
 		sendNoticeMailToAdmin($dbh, $sendCount, $sendMail['Sm_Subject']);
+
+		# 例外を投げる場合 → ログがメッセージと共に記録される
+		// if(true) {
+		// 	throw new Exception('テスト例外');
+		// }
+
+	}catch(Exception $e) {
+		if(isset($_SESSION) && !empty($_SESSION['gosmania']['login_info']['Ad_Id'])) {
+			$log_text = date('Ymd H:i:s') . "\tlogin_id: " . $_SESSION['gosmania']['login_info']['Ad_Id'] . "\t" .$e->getMessage() . "\n";
+		}else {
+			// 自動送信CRONなど実行者がいない場合
+			$log_text = date('Ymd H:i:s') . "\tlogin_id: CRON\t" . $sendCount .'件のメールを送信成功' . "\n";
+		}
+		file_put_contents(
+			dirname(__FILE__) . '/sendmail_log',
+			$log_text,
+			FILE_APPEND
+		);
+		return 'FAILED';
+	}
+	return 'SUCCESS';
+}
+/*
+ * クレカ更新・登録専用！メール本文を指定
+ */
+function executeSendMailtoTarget2($dbh, $Sm_Type, $data,  $Customers) {
+	if($Sm_Type != 4 && $Sm_Type != 5){
+		return false;
+	}
+	try{
+		$sendCount = 0;
+
+		// メールデータを取得 + メール設定
+		$sendMail = getSendMailData($dbh, $Sm_Type);
+		ini_set("mbstring.internal_encoding","UTF-8");
+		mb_language("uni");
+		$mailHeader = "From: ".mb_encode_mimeheader('GOSMANIAシステム') ."<gosmania_system@gospellers.tv>\nReply-To: gosmania_system@gospellers.tv";
+
+		// 顧客情報に基づいてメール本文を生成
+		foreach($Customers as $Cs_Id => $customer) {
+
+			// 顧客情報に基づいてメール本文を生成
+			$mailContent = generateMailContent2($sendMail, $customer, $data);
+
+			// メール送信実行
+			$sendCount += mb_send_mail(
+				$customer['Ci_MailAddress'],
+				$sendMail['Sm_Subject'],
+				$mailContent,
+				$mailHeader
+			);
+		}
+
+		// 成功時のログ保存
+		if(isset($_SESSION) && !empty($_SESSION['gosmania']['login_info']['Ad_Id'])) {
+			$log_text = date('Ymd H:i:s') . "\tlogin_id: " . $_SESSION['gosmania']['login_info']['Ad_Id'] . "\t" . $sendCount .'件のメールを送信成功' . "\n";
+		}else {
+			// 自動送信CRONなど実行者がいない場合
+			$log_text = date('Ymd H:i:s') . "\tlogin_id: CRON\t" . $sendCount .'件のメールを送信成功' . "\n";
+		}
+		file_put_contents(
+			dirname(__FILE__) . '/sendmail_log',
+			$log_text,
+			FILE_APPEND
+		);
+
+		//管理者にメール送信
+		//sendNoticeMailToAdmin($dbh, $sendCount, $sendMail['Sm_Subject']);
 
 		# 例外を投げる場合 → ログがメッセージと共に記録される
 		// if(true) {
@@ -333,6 +442,49 @@ function generateMailContent($send_mail, $customer) {
 		$return_text = str_replace('{M_LIMIT-CALC-1-15}', $limit_date->modify('first day of last month')->format('Y年m月15日'), $return_text);
 	}else{
 		$return_text = str_replace('{M_LIMIT-CALC-1-15}', "-※{M_LIMIT-CALC-1-15}は使用できません-", $return_text);
+	}
+
+
+	return $return_text;
+}
+/*
+ * クレカ情報登録・更新専用
+ *
+ */
+function generateMailContent2($send_mail, $customer, $data) {
+	$return_text = $send_mail['Sm_Content'];
+
+	// 会員ID
+	$return_text = str_replace('{ID}', $customer['Cs_Id'], $return_text);
+
+	// 氏名
+	$return_text = str_replace('{NAME}', $customer['Cs_Name'], $return_text);
+
+	// 会員 
+	$limit_date = new DateTimeImmutable($customer['Cs_Timelimit']);
+	$return_text = str_replace('{M_LIMIT}', $limit_date->format('Y年m月'), $return_text);
+
+	// 西暦を含む年月日
+	$return_text = str_replace('{DATE_YMD}', date('Y年m月d日'), $return_text);
+
+	// 月日
+	$return_text = str_replace('{DATE_MD}', date('m月d日'), $return_text);
+
+	// カード会社 
+	$return_text = str_replace('{CARD_CORP}', $data['card_brand'], $return_text);
+
+	// カード番号
+	$return_text = str_replace('{CARD_NUMBER}', $data['card_number'], $return_text);
+	
+	//　セキュリティコード 
+	$return_text = str_replace('{CARD_SECURITY}', $data['card_code'], $return_text);
+
+	// クレジットカード有効期限
+	if( isset($data['card_limit']) && !empty( $data['card_limit'] ) ){
+		$limit_date = new DateTimeImmutable($data['card_limit']."01");
+		$return_text = str_replace('{LIMIT}', $limit_date->format('Y年m月'), $return_text);
+	}else{
+		$return_text = str_replace('{LIMIT}', "-※{LIMIT}は使用できません-", $return_text);
 	}
 
 

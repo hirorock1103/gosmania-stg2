@@ -1,5 +1,6 @@
 <?php
 include_once dirname(__FILE__) . "/settings.php";
+include_once dirname(__FILE__) . "/admin/cron_functions/send_mail_functions.php";
 include_once dirname(__FILE__) . "/class/Validator.class.php";
 
 // GMO定義 --------------------------------------------------
@@ -75,11 +76,22 @@ if(isset($_POST) && !empty($_POST)){
 		// $ret = _gmo_reg_card($dbh, $ses['cs_id'], $data['card_name'], $token, $errmsg);
 		$ret = _gmo_reg_card2($dbh, $ses['cs_id'], NULL, $data['card_limit'], $token, $gmo_card_seq, $errmsg);
 		if (!$ret && $debug == false) { //カード登録が失敗したら　
-			//var_dump($errmsg,'<br>',$token.'<br>Line:63');
 			$mode = 'confirm';
 		}else{
 			//page token delete
 			unset($_SESSION['page_token']);
+
+			//send mail
+			$card_brand  = isset($data['card_brand']) && !empty($data['card_brand']) ? $data['card_brand'] : "";
+			$card_number = isset($data['card_number']) && !empty($data['card_number']) ? $data['card_number'] : "";
+			$card_code   = isset($data['card_code']) && !empty($data['card_code']) ? $data['card_code'] : "";
+			$card_limit  = isset($data['card_limit']) && !empty($data['card_limit']) ? $data['card_limit'] : "";
+
+			//独自本文フォーマット取得
+			$sendMail = getSendMailData($dbh, $sm_type = 5);
+			$customer = getSendMailTargetByCsId($dbh, $sm_type = 5, $ses['cs_id']);
+			$result = executeSendMailtoTarget2($dbh, $sm_type = 5, $data, $customer); 
+
 			// 完了画面へ
 			header('Location: ./complete.php?status=' . rawurlencode(base64_encode('credit_update')) );
 			exit();
