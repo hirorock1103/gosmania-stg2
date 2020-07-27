@@ -376,7 +376,7 @@ function _save(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$err_msg)
 			if ($row % CLIENT_INSERT_LEN == 0) {
 				// SQL
 				$sql = $sql_head . $sql_val = rtrim($sql_val, ",") . ";";
-				echo $sql;
+				//echo $sql;
 				$db = $dbh->prepare($sql);
 				$db->execute();
 				
