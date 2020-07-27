@@ -94,7 +94,7 @@ if( isset($_POST) && !empty($_POST) ) {
 							</form>
 							<div class="">
 							<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
-							<p>※100件のみ表示</p>
+							<p>※最大100件表示</p>
 								<div class="search_results">
 									<div id="" class="wrap_scroll">
 										<table class="table table_result_client table_sp">
