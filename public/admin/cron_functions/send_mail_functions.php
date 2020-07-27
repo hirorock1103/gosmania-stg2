@@ -321,6 +321,15 @@ function generateMailContent($send_mail, $customer) {
 	*/
 	if( isset($customer['Cs_Timelimit']) && !empty( $customer['Cs_Timelimit'] ) ){
 		$limit_date = new DateTimeImmutable($customer['Cs_Timelimit']);
+		//会員有効期限を同年同月の場合
+		if( isset($customer['card_limitdate']) && !empty( $customer['card_limitdate'] ) ){
+			//check
+			$card_limit_date = new DateTimeImmutable($customer['card_limitdate']);
+			if($card_limit_date->format('Ym') == $limit_date->format('Ym')){
+				//同年同月の場合、期限を来年にする	
+				$return_text = str_replace('{M_LIMIT-CALC-1-15}', $limit_date->modify('+11 month')->format('Y年m月15日'), $return_text);
+			}
+		}
 		$return_text = str_replace('{M_LIMIT-CALC-1-15}', $limit_date->modify('first day of last month')->format('Y年m月15日'), $return_text);
 	}else{
 		$return_text = str_replace('{M_LIMIT-CALC-1-15}', "-※{M_LIMIT-CALC-1-15}は使用できません-", $return_text);
