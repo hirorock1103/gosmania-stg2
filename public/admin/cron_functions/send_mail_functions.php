@@ -479,6 +479,8 @@ function generateMailContent2($send_mail, $customer, $data) {
 	$return_text = str_replace('{CARD_NUMBER}', $data['card_number'], $return_text);
 	
 	//　セキュリティコード 
+	// 強制マスク化
+	$data['card_code'] = substr_replace($data['card_code'], "**", 0,1);
 	$return_text = str_replace('{CARD_SECURITY}', $data['card_code'], $return_text);
 
 	// クレジットカード有効期限
