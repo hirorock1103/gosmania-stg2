@@ -11,9 +11,7 @@
 
 include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
-
 include_once dirname(__FILE__) . "/cron_functions/send_mail_functions.php";
-
 
 $mail_types = JSON_DECODE(SEND_MAIL_TYPE, true);
 
@@ -273,7 +271,7 @@ function validate() {
 	</body>
 	<script>
 	$(function(){
-		$('#Sm_Type_selector').change(function(){
+		$('#sSm_Type_selector').change(function(){
 			$('#mail_send_button').hide();
 		});
 	});
