@@ -252,11 +252,11 @@ function validate() {
 												<thead>
 													<tr><th class="text-danger">開発用本文プレビュー(1件目の中身)</th></tr>
 												</thead>
-												<tr>
-													<td><span style="white-space: pre-wrap; word-break: break-all;"><?php if(isset($list[array_key_first($list)])) {
-														echo generateMailContent(getSendMailData($dbh, $selected_mail_type), $list[array_key_first($list)]);
-													} ?></span></td>
-												</tr>
+<tr>
+	<td><span style="white-space: pre-wrap; word-break: break-all;"><?php if(isset($list[array_key_first($list)])) {
+		echo generateMailContent(getSendMailData($dbh, $selected_mail_type), $list[array_key_first($list)]);
+	} ?></span></td>
+</tr>
 										</div>
 									</div><?php // .row ?>
 								</div>
