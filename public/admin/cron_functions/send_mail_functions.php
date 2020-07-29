@@ -181,7 +181,7 @@ function getSendMailTargetByCsId($dbh, $Sm_Type, $Cs_Id, $option_data = array())
 			// CustomerInfoテーブル
 			$sql = "select I.*, C.Cs_Name, C.Cs_Timelimit from CustomerInfo as I
 				inner join Customer  as C on I.Cs_Id = C.Cs_Id
-				where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id Having Cs_Id = :Cs_Id) and Ci_InformationSend = 1 limit 1";
+				where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id Having Cs_Id = :Cs_Id) limit 1";
 			$db = $dbh->prepare($sql);
 			$db->bindValue("Cs_Id", $Cs_Id, PDO::PARAM_STR);
 			$db->execute();
