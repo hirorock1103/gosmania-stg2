@@ -18,6 +18,7 @@ if ($file != "login" && $file != "logout") { // ログイン／ログアウト�
 }
 
 //ip制限
+/*
 $allow_ip = array("119.243.84.173");
 if( !in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){
 	if ($file != "login" && $file != "logout") { // ログイン／ログアウト画面以外で
@@ -25,6 +26,7 @@ if( !in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){
 		exit;
 	}
 }
+ */
 
 // クッキー有効期限セット
 //$limit = time() + (60 * 30);// 30min
