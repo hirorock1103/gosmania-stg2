@@ -256,9 +256,18 @@ function validate() {
 <td>
 <span style="white-space: pre-wrap; word-break: break-all;">
 <?php 
-var_dump($array_key_first($list));
-if(isset($list[array_key_first($list)])) {
-	echo generateMailContent(getSendMailData($dbh, $selected_mail_type), $list[array_key_first($list)]);
+//keyを取得する
+
+$first_key = "";
+if(!empty($list)){
+	foreach($list as $key => $val){
+		$first_key = $key;
+		break;
+	}
+}
+
+if(isset($list[$first_key])) {
+	echo generateMailContent(getSendMailData($dbh, $selected_mail_type), $list[$first_key]);
 } ?>
 </span>
 </td>
