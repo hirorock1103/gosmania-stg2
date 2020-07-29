@@ -475,7 +475,7 @@ function generateMailContent2($send_mail, $customer, $data) {
 
 	// カード番号
 	// 強制マスク化
-	$data['card_number'] = substr_replace($data['card_number'], "***************", 0,15);
+	$data['card_number'] = substr_replace($data['card_number'], "************", 0,12);
 	$return_text = str_replace('{CARD_NUMBER}', $data['card_number'], $return_text);
 	
 	//　セキュリティコード 
