@@ -9,15 +9,18 @@ define("GMO_API_TOKEN_AUTH_JS", "https://pt01.mul-pay.jp/ext/js/token.js");// to
 
 //define("GMO_API_SITE_ID", "mst2000019418");
 //define("GMO_API_SITE_ID", "tsite00039116"); //テスト環境
-define("GMO_API_SITE_ID", "tsite00039815"); //テスト環境
+//define("GMO_API_SITE_ID", "tsite00039815"); //テスト環境
+define("GMO_API_SITE_ID", "tsite00039926"); //テスト環境
 
 //define("GMO_API_SITE_PASS", "fcbmanzy");
 //define("GMO_API_SITE_PASS", "d8k7xrmz"); //　テスト環境
-define("GMO_API_SITE_PASS", "qkmwt3rv"); //　テスト環境
+//define("GMO_API_SITE_PASS", "qkmwt3rv"); //　テスト環境
+define("GMO_API_SITE_PASS", "wgchbxbh"); //　テスト環境
 
 //define("GMO_API_TOKEN_AUTH_SHOP_ID", "9200000464142");//暫定でinstimeのshopIDを設定。下に切り替える。
 //define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00044681"); //テスト環境
-define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00045544"); //テスト環境
+//define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00045544"); //テスト環境
+define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00045677"); //テスト環境
 
 //define("GMO_API_MEMBER_SEARCH_URL", "https://p01.mul-pay.jp/payment/SearchMember.idPass");// 会員参照
 //define("GMO_API_MEMBER_REGIST_URL", "https://p01.mul-pay.jp/payment/SaveMember.idPass");
