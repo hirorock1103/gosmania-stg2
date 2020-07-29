@@ -6,7 +6,7 @@ session_name(constant("SESSION_BASE_NAME"));
 session_start();
 
 //ip制限
-$allow_ip = array("119.243.84.173");
+$allow_ip = array("119.243.84.174");
 if( !in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){
 	header("Location: logout.php?logout");
 	exit;
