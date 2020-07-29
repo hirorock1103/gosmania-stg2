@@ -119,7 +119,7 @@ function validate() {
 													<?php if(isset($_POST['search']) ) { ?>
 														<?php if($selected_mail_type == 1 || $selected_mail_type == 2 || $selected_mail_type == 3 ){  ?>
 														<input type="hidden" name="check" value="true">
-														<input type="submit" name="send_mail" id="mail_send_button" class="btn import_btn large" value="メール送信" style="margin-left:10px;">
+														<input type="submit" name="send_mail" onclick="return confirm('メールを送信します。よろしいですか？');"  id="mail_send_button" class="btn import_btn large" value="メール送信" style="margin-left:10px;">
 														<?php } ?>
 													<?php } ?>
 												</div>
