@@ -192,6 +192,7 @@ function validate() {
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">GMO年月</th>
+														<th class="listUser table_result_element">結果</th>
 													<?php } ?>
 													</tr>
 												</thead>
@@ -239,6 +240,7 @@ function validate() {
 																<?php } ?>
 															</td>
 															<td class="listUser" ><?php echo h($customer['ym']); ?></td>
+															<td class="listUser" ><?php echo h($customer['result']);  ?></td>
 														<?php } ?>
 														</tr>
 													<?php } ?>

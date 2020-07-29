@@ -141,7 +141,7 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 			$sql = "select I.*, G.result, G.ym, C.Cs_Name, C.Cs_Timelimit from CustomerInfo as I
 				inner join GmoResult  as G on G.Cs_Id = I.Cs_Id
 				inner join Customer  as C on G.Cs_Id = C.Cs_Id
-				where G.ym = date_format(Now(), '%Y%m') and  Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+				where G.result = 'COMPLETE' and  G.ym = date_format(Now(), '%Y%m') and  Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
