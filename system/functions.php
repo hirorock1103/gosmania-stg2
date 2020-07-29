@@ -185,7 +185,7 @@ function _gmo_reg_member($dbh, $apply_id, $member_name, &$errmsg)
 		}
 		@curl_close($curl);
 		
-		// var_dump($member_exist,$arr_res);
+		//var_dump($member_exist,$arr_res);
 
 
 

@@ -145,7 +145,7 @@ function validate_alert($error, $_key){
 	}
 }
 
-// var_dump($mode,$_POST);
+//var_dump($mode,$_POST);
 
 
 

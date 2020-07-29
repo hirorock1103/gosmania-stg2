@@ -88,7 +88,7 @@ if(isset($_POST) && !empty($_POST)){
 //			$ret = _gmo_reg_card($dbh, $ses['cs_id'], $data['card_name'], $token, $errmsg);
 			$ret = _gmo_reg_card2($dbh, $ses['cs_id'], $data['card_name'], $data['card_limit'], $token, $gmo_card_seq, $errmsg);
 			if (!$ret && $debug == false) { //カード登録が失敗したら　
-				var_dump($errmsg,'<br>',$token.'<br>Line:63');
+				//var_dump($errmsg,'<br>',$token.'<br>Line:63');
 				$mode = 'confirm';
 			}else{
 				

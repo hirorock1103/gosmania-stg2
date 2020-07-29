@@ -242,6 +242,6 @@ function insert_into_customer_info($dbh, $data){
 
 	<footer></footer>
 </div><!-- .wrap -->
-<pre><?php var_dump($_POST, $customer);?></pre>
+<pre><?php //var_dump($_POST, $customer);?></pre>
 </body>
 </html>
