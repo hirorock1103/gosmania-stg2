@@ -55,9 +55,9 @@ if(isset($data['export'])){
 		}
 
 		$str = $includeOutputted ? "（出力済）" : "";
-		$filename = "会員支払方法データ".$str;
+		$filename = "payment".$str."_";
 		header('Content-Type: application/octet-stream; charset=sjis-win');
-		header('Content-Disposition: attachment; filename='.$filename.date('YmdHis').'.csv');
+		header('Content-Disposition: attachment; filename='.$filename.date('Ymd').'.csv');
 		//header('Content-Transfer-Encoding: binary');
 		echo mb_convert_encoding($csv, 'sjis-win', 'UTF-8');
 		exit();
