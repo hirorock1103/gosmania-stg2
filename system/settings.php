@@ -1,6 +1,8 @@
 <?php 
 define("SESSION_BASE_NAME", "gosmania_auth");
 
+ini_set( 'display_errors', 1 );
+
 session_name(constant("SESSION_BASE_NAME"));
 session_cache_limiter('none');
 session_start();
