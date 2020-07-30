@@ -204,7 +204,7 @@ function validate() {
 															<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
 															<td class="listUser">
 																<?php if(isset($customer['Ci_MailAddress']) && !empty($customer['Ci_MailAddress'])) {
-																	echo h($customer['Ci_MailAddress']);
+																	echo h(mb_strimwidth($customer['Ci_MailAddress'], 0, 20, '...'));
 																} else { ?>
 																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
 																<?php } ?>
@@ -216,7 +216,8 @@ function validate() {
 															<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
 															<td class="listUser">
 																<?php if(isset($customer['Ci_MailAddress']) && !empty($customer['Ci_MailAddress'])) {
-																	echo h($customer['Ci_MailAddress']);
+																	//メールは省略する
+																	echo h(mb_strimwidth($customer['Ci_MailAddress'], 0, 20, '...'));
 																} else { ?>
 																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
 																<?php } ?>
@@ -234,7 +235,7 @@ function validate() {
 															</td>
 															<td class="listUser">
 																<?php if(isset($customer['Ci_MailAddress']) && !empty($customer['Ci_MailAddress'])) {
-																	echo h($customer['Ci_MailAddress']);
+																	echo h(mb_strimwidth($customer['Ci_MailAddress'], 0, 20, '...'));
 																} else { ?>
 																	<span class="text-danger">メールアドレス情報が1件もなかったため取得できませんでした。</span>
 																<?php } ?>
