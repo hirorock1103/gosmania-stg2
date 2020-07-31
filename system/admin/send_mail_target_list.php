@@ -156,6 +156,8 @@ function validate() {
 								</div><!-- box1 -->
 							</form>
 							<div class="">
+                                                        <h3>検索結果数：<?php echo !empty($list) ? number_format(count($list)) : 0  ;  ?>件</h3>
+
 								<div class="search_results">
 									<?php if(!empty($error)) { ?>
 										<div class="alert alert-danger">

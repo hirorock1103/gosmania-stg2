@@ -21,7 +21,7 @@ if ($file != "login" && $file != "logout" ) {
 
 
 //$limit = time() + (60 * 30);// 30min
-$limit = time() + (60 * 30 * 24);// debug
+$limit = time() + (60 * 60);// 60分
 setcookie(session_name(), session_id(), $limit, '/');
 
 include_once dirname(__FILE__) . "/../common/config.php";
