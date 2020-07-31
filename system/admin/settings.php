@@ -18,7 +18,7 @@ if ($file != "login" && $file != "logout") { // ログイン／ログアウト�
 }
 
 //ip制限
-$allow_ip = array("119.243.84.173", "150.246.95.195","119.173.75.71");
+$allow_ip = array("119.243.84.173", "150.246.95.195","119.173.75.71", "139.101.72.150");
 if( !in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){
 	if ($file != "login" && $file != "logout") { // ログイン／ログアウト画面以外で
 		header("Location: logout.php?logout");
