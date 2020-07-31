@@ -36,7 +36,7 @@ if( isset($_POST) && !empty($_POST) ) {
 	//$list = SearchListCommon2($dbh, $condition, null, 'Customer', 'Cs_Seq',null, 100, $total_rows);
 	$list = getListByQuery($dbh, $query, $pdo,  $total_rows);
 	if( isset($data['export']) ) {
-		$csv = 'GOSMANIA員番号,名前,郵便番号,支払方法' . PHP_EOL;
+		$csv = 'GOSMANIA会員番号,名前,郵便番号,支払方法' . PHP_EOL;
 		//2行目以降
 		foreach($list as $key => $row) {
 			foreach($row as $col => $value) {
@@ -82,7 +82,7 @@ if( isset($_POST) && !empty($_POST) ) {
 												<div class="col-md-12 search-box">
 													<table class="nowrap">
 														<tr>
-															<th>GOSMANIA員番号</th>
+															<th>GOSMANIA会員番号</th>
 															<td><input type="text" name="Cs_Id" value="<?php echo isset($data['Cs_Id']) ? $data['Cs_Id'] : ''; ?>" placeholder="入力してください" class="form_corpcode" style="width: 200px;"></td>
 															
 															<th>名前</th>
@@ -110,7 +110,7 @@ if( isset($_POST) && !empty($_POST) ) {
 										<table class="table table_result_client table_sp">
 											<thead>
 												<tr>
-													<th class="listUser table_result_element">GOSMANIA員番号</th>
+													<th class="listUser table_result_element">GOSMANIA会員番号</th>
 													<th class="listUser table_result_element">名前</th>
 													<th class="listUser table_result_element">郵便番号</th>
 													<th class="listUser table_result_element">有効期限</th>

@@ -178,19 +178,19 @@ function validate() {
 												<thead>
 													<tr>
 													<?php if($selected_mail_type == 1){  ?>
-														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA員番号</th>
+														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">カード有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
 													<?php }else if($selected_mail_type == 2){  ?>
-														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA員番号</th>
+														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">会員有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
 													<?php }else if($selected_mail_type == 3){  ?>
-														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA員番号</th>
+														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">GMO年月</th>
