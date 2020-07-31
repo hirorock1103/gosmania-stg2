@@ -259,7 +259,21 @@ function validate_alert($error, $_key){
 		<p class="txt-credit">
 			設定したクレジットカードはGOSMANIA年会費決済にご利用いただけます。<br>
 ※クレジットカード情報は、カード決済代行会社(GMOペイメントゲートウェイ株式会社)で安全に保存されます。
-			<span style="color:red;" ><?php echo isset($errmsg[0]) ? '<br>'.$errmsg[0] : ''; ?></span>
+			<span style="color:red;" >
+			<?php
+				if(isset($errmsg[0])){
+					echo '<br>'.$errmsg[0];
+					//特定のエラーコード含んでいる場合はエラーmsg表示
+					$errors = (json_decode(GMO_ERROR_CODE, true));
+					foreach($errors as $error_code => $error_msg ){
+						if(strpos($errmsg[0],$error_code) !== false){
+							echo '<br>'.$error_msg;
+						}
+					}
+				}
+			?>
+			</span>
+
 		</p>
 			<table class="entry_form">
 				<tbody>
