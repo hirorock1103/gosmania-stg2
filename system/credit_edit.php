@@ -211,7 +211,7 @@ function validate_alert($error, $_key){
 						<tr>
 							<th>カード番号<span>必須</span></th>
 							<td>
-								<input type="number" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
+								<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
 								<?php echo isset($validation['card_number']) ? '<p class="error-msg">'.$validation['card_number'].'</p>' : ''; ?>
 							</td>
 						</tr>
