@@ -28,7 +28,7 @@ if( isset($_POST) && !empty($_POST) ) {
 		$pdo[] = array(":Cs_Zip" , "%".$data['Cs_Zip']."%",  PDO::PARAM_STR );
 	}
 	//query
-	$query = "select  SQL_CALC_FOUND_ROWS *,C.Cs_Id as Cs_Id from Customer as C LEFT JOIN (select * from CustomerInfo where Ci_Seq in (select max(Ci_Seq) from CustomerInfo group by Cs_Id)) as CI ON C.Cs_Id = CI.Cs_Id";
+	$query = "select  SQL_CALC_FOUND_ROWS *,C.Cs_Id as Cs_Id from Customer as C LEFT JOIN (select * from CustomerInfo where Ci_Seq in (select max(Ci_Seq) from CustomerInfo group by Cs_Id)) as CI ON C.Cs_Id = CI.Cs_Id limit 100";
 
 	$query .= $where;
 
