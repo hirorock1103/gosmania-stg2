@@ -83,7 +83,7 @@ if( isset($_POST) && !empty($_POST) ) {
 										<table class="table table_result_client table_sp">
 											<thead>
 												<tr>
-													<th class="listUser table_result_element">会員ID</th>
+													<th class="listUser table_result_element">GOSMANIA員番号</th>
 													<th class="listUser table_result_element">名前</th>
 													<th class="listUser table_result_element">対象年月</th>
 													<th class="listUser table_result_element">結果</th>
