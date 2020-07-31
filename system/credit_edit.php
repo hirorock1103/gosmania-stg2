@@ -145,10 +145,6 @@ function validate_alert($error, $_key){
 	}
 }
 
-//var_dump($mode,$_POST);
-
-
-
 
 
 ?>
@@ -175,7 +171,20 @@ function validate_alert($error, $_key){
 				<p class="txt-credit">設定したクレジットカードはGOSMANIA年会費決済にご利用いただけます。<br>
 					※クレジットカード情報は、カード決済代行会社(GMOペイメントゲートウェイ株式会社)で安全に保存されます。
 				</p>
-				<span style="color:red;" ><?php echo isset($errmsg[0]) ? '<br>'.$errmsg[0] : ''; ?></span>
+				<span style="color:red;" >
+				<?php 
+					if(isset($errmsg[0])){
+						echo '<br>'.$errmsg[0];
+						//特定のエラーコード含んでいる場合はエラーmsg表示
+						$errors = (json_decode(GMO_ERROR_CODE, true));
+						foreach($errors as $error_code => $error_msg ){
+							if(strpos($errmsg[0],$error_code) !== false){
+								echo '<br>'.$error_msg;
+							}	
+						}
+					}
+				?>
+				</span>
 			<?php } ?>
 			<table class="entry_form">
 				<tbody>
@@ -202,7 +211,7 @@ function validate_alert($error, $_key){
 						<tr>
 							<th>カード番号<span>必須</span></th>
 							<td>
-								<input type="text" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
+								<input type="number" style="border-radius: 3px; padding: 10px;" name="card_number" placeholder="例）1111222233334444" value="<?php echo isset($data['card_number']) ? $data['card_number'] : '';?>">
 								<?php echo isset($validation['card_number']) ? '<p class="error-msg">'.$validation['card_number'].'</p>' : ''; ?>
 							</td>
 						</tr>

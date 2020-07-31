@@ -614,6 +614,7 @@ table.entry_form {
     display: inline-block;
 }
 
+.entry_form td input[type="number"],
 .entry_form td input[type="text"],
 .entry_form td input[type="email"],
 .entry_form td input[type="password"] {

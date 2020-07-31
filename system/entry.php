@@ -119,7 +119,7 @@ if(isset($_POST) && !empty($_POST)){
 	//顧客情報セット済の場合
 	$data['Ci_MailAddress'] = isset($customer['Ci_MailAddress']) ? $customer['Ci_MailAddress'] : "";
 	$data['Ci_MailAddressConfirm'] = isset($customer['Ci_MailAddress']) ? $customer['Ci_MailAddress'] : "";
-	$data['Ci_InformationSend'] = isset($customer['Ci_InformationSend']) ? $customer['Ci_InformationSend'] : "";
+	$data['Ci_InformationSend'] = isset($customer['Ci_InformationSend']) ? $customer['Ci_InformationSend'] : 1;
 	$data['Ci_Phone'] = isset($customer['Ci_Phone']) ? $customer['Ci_Phone'] : "";
 	$data['card_brand'] = isset($customer['card_brand']) ? $customer['card_brand'] : "";
 	if(!empty($data['Ci_MailAddress'])){
