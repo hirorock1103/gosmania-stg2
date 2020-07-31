@@ -20,7 +20,7 @@ $cols = array(
 	'Cs_Name'      => array('name' => "顧客名", 		'must' => 1, 'type' => "text",	 'valid' => [],	 'memo' => "", 'ex' => "テスト　太郎"),
 	'Cs_Zip'       => array('name' => "郵便番号",		'must' => 1, 'type' => "number", 'valid' => [],	 'memo' => "ハイフンを付けてください。", 'ex' => "177-0001"),
 	'Cs_Timelimit' => array('name' => "会員有効期限",	'must' => 1, 'type' => "date",	 'valid' => [],	 'memo' => "「yyyy/mm/dd」で入力してください。", 'ex' => "2020/01/01"),
-	'Cs_SendMail'  => array('name' => "メール送付フラグ",	'must' => 1, 'type' => "number",	 'valid' => [],	 'memo' => "0:送付不要 1:要送付 <br>※会員状態が在会員かつ支払方法がクレカの会員様を1:要送付とする。", 'ex' => "1"),
+	'Cs_SendMail'  => array('name' => "支払方法",	'must' => 1, 'type' => "number",	 'valid' => [],	 'memo' => "0:クレカ以外 1:クレジットカード <br>※会員状態が在会員かつ支払方法がクレカの会員様を1とする。", 'ex' => "1"),
 );
 //var_dump($cols);
 

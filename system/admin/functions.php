@@ -213,6 +213,28 @@ function GetListCommon($dbh, $condition = null, $column = null, $table = null, $
 }
 
 
+function getListByQuery($dbh, $sql,  $pdo = array() , &$total_rows)
+{
+	$ret = array();
+	
+	$db = $dbh->prepare($sql);
+	foreach($pdo as $k => $row ){
+		$db->bindValue($row[0], $row[1], $row[2]);
+	}
+
+	if($db->execute()){
+		while ($row = $db->fetch(PDO::FETCH_ASSOC)){
+			$ret[] = $row;
+		}
+	}
+
+	//calc rows
+	$db = $dbh->prepare("SELECT FOUND_ROWS()");
+	$db->execute();
+	$total_rows = $db->fetchColumn();
+
+	return $ret;
+}
 function SearchListCommon2($dbh, $condition = null, $column = null, $table = null, $pri_key = null, $sort_col = null, $limit = 0 , &$total_rows)
 {
 	$ret = array();

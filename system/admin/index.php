@@ -134,7 +134,7 @@ function get_latest_csv_outputted_date($dbh) {
 						</div>
 					</div><!-- flexarea -->
 
-					<div class="flex-area">
+					<div class="flex-area" style="display:none;">
 						<div class="bg">
 							<div class="index_table_title">
 								<p>クレカ情報連携履歴（最終履歴）</p>

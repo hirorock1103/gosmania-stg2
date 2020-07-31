@@ -10,30 +10,40 @@ if( isset($_POST) && !empty($_POST) ) {
 	
 	$data = $_POST;
 	
-	$condition = [];
+	$where = "";
+	$pdo = array();
 	
 	if(isset($data['Cs_Id']) && !empty($data['Cs_Id'])){
-		$condition['Cs_Id'] = array('column' => 'Cs_Id', 'value' => trim_into_all($data['Cs_Id']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
+		$where .= (empty($where) ? " where " : " and ") . "C.Cs_Id like :Cs_Id ";
+		$pdo[] = array(":Cs_Id" , "%".$data['Cs_Id']."%",  PDO::PARAM_STR );
 	}
 	
 	if(isset($data['Cs_Name']) && !empty($data['Cs_Name'])){
-		$condition['Cs_Name'] = array('column' => 'Cs_Name', 'value' => trim_into_all($data['Cs_Name']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
+		$where .= (empty($where) ? " where " : " and ") . "C.Cs_Name like :Cs_Name ";
+		$pdo[] = array(":Cs_Name" , "%".$data['Cs_Name']."%",  PDO::PARAM_STR );
 	}
 	
 	if(isset($data['Cs_Zip']) && !empty($data['Cs_Zip'])){
-		$condition['Cs_Zip'] = array('column' => 'Cs_Zip', 'value' => trim_into_all($data['Cs_Zip']), 'type' => PDO::PARAM_STR ,'method' => ' LIKE');
+		$where .= (empty($where) ? " where " : " and ") . "C.Cs_Zip like :Cs_Zip ";
+		$pdo[] = array(":Cs_Zip" , "%".$data['Cs_Zip']."%",  PDO::PARAM_STR );
 	}
+	//query
+	$query = "select  SQL_CALC_FOUND_ROWS *,C.Cs_Id as Cs_Id from Customer as C LEFT JOIN (select * from CustomerInfo where Ci_Seq in (select max(Ci_Seq) from CustomerInfo group by Cs_Id)) as CI ON C.Cs_Id = CI.Cs_Id";
+
+	$query .= $where;
+
 	//$list = SearchListCommon($dbh, $condition, null, 'Customer', 'Cs_Seq');
-	$list = SearchListCommon2($dbh, $condition, null, 'Customer', 'Cs_Seq',null, 100, $total_rows);
+	//$list = SearchListCommon2($dbh, $condition, null, 'Customer', 'Cs_Seq',null, 100, $total_rows);
+	$list = getListByQuery($dbh, $query, $pdo,  $total_rows);
 	if( isset($data['export']) ) {
-		$csv = '会員ID,名前,郵便番号,メール送付フラグ' . PHP_EOL;
+		$csv = '会員ID,名前,郵便番号,支払方法' . PHP_EOL;
 		//2行目以降
 		foreach($list as $key => $row) {
 			foreach($row as $col => $value) {
 				if($col == 'Cs_Id' || $col == 'Cs_Name' || $col == 'Cs_Zip' ){
 					$csv .= $value.',';
 				} else if($col == 'Cs_SendMail') {
-					$csv .= ($value == 0 ? '送付不要' : '要送付' ) . ',';
+					$csv .= ($value == 0 ? '-' : 'クレジットカード' ) . ',';
 				}
 			}
 		$csv = rtrim($csv, ',');
@@ -104,7 +114,9 @@ if( isset($_POST) && !empty($_POST) ) {
 													<th class="listUser table_result_element">名前</th>
 													<th class="listUser table_result_element">郵便番号</th>
 													<th class="listUser table_result_element">有効期限</th>
-													<th class="listUser table_result_element">メール送付フラグ</th>
+													<th class="listUser table_result_element">支払方法</th>
+													<th class="listUser table_result_element">web履歴</th>
+													<th class="listUser table_result_element">メール配信</th>
 													<th class="listUser table_result_element">作成者</th>
 												</tr>
 											</thead>
@@ -115,7 +127,13 @@ if( isset($_POST) && !empty($_POST) ) {
 													<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
 													<td class="listUser"><?php echo h($customer['Cs_Zip']); ?></td>
 													<td class="listUser"><?php echo date( "Y年m月",strtotime($customer['Cs_Timelimit'])).'末日'; ?></td>
-													<td class="listUser"><?php echo ($customer['Cs_SendMail'] == 0) ? '送付不要' : '要送付'; ?></td>
+													<td class="listUser"><?php echo ($customer['Cs_SendMail'] == 0) ? '-' : 'クレジットカード'; ?></td>
+													<td class="listUser"><?php echo ($customer['Ci_Seq'] == null) ? '-' : 'あり'; ?></td>
+													<?php if($customer['Ci_Seq'] != null) {  ?>
+													<td class="listUser"><?php echo ($customer['Ci_InformationSend'] == 0) ? '希望しない' : '希望する'; ?></td>
+													<?php }else{ ?>
+													<td class="listUser">-</td>
+													<?php } ?>
 													<td class="listUser"><?php echo h($customer['Cs_Creator']); ?></td>
 												</tr>
 <?php } ?>										</tbody>
