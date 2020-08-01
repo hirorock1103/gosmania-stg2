@@ -39,3 +39,6 @@
 	z-index: 999 !important;
 }
 </style>
+	<?php if(strpos($_SERVER["REQUEST_URI"],'gosmania-stg') !== false){  ?>
+	ステージング
+	<?php } ?>
