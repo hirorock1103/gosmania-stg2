@@ -1,5 +1,5 @@
 <?php if(strpos($_SERVER["REQUEST_URI"],'gosmania-stg') !== false){  ?>
-	<div style="background:red; color:yellow; font-size:30px;" >ステージング</div>
+	<div style="display:inline-block; background:red; color:yellow; font-size:30px;" >ステージング</div>
 <?php } ?>
 <div class="pc">
 	<a href="./select.php"><img src="./image/gos_logo2.png" class="img1"></a>
