@@ -87,6 +87,9 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 <html lang="ja">
 <head><?php include_once dirname(__FILE__) . "/head.php"; ?></head>
 <body>
+<?php if(strpos($_SERVER["REQUEST_URI"],'gosmania-stg') !== false){  ?>
+	<div style="display:inline-block; background:red; color:yellow; font-size:30px;" >ステージング</div>
+<?php } ?>
 <div class="wrap">
 <!--<header></header>-->
 <form action="" method="post">
