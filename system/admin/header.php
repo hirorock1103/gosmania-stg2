@@ -40,5 +40,5 @@
 }
 </style>
 	<?php if(strpos($_SERVER["REQUEST_URI"],'gosmania-stg') !== false){  ?>
-	ステージング
+	<div style="background:red; color:yellow; font-size:30px;" >ステージング</div>
 	<?php } ?>
