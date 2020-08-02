@@ -6,7 +6,7 @@ $one_week_ago = new DateTimeImmutable('-7 day');
 $thirty_days_ago = new DateTimeImmutable('-30 day');
 $paymentInfo_sammary = [
 	'weekly' =>		 count(getPaymentInfoRecords($dbh, true, $one_week_ago->format('Y-m-d'))),
-	'monthly' =>	 count(getPaymentInfoRecords($dbh, true, $thirty_days_ago->format('Y-m-d')))
+//	'monthly' =>	 count(getPaymentInfoRecords($dbh, true, $thirty_days_ago->format('Y-m-d')))
 ];
 
 echo "ss";
