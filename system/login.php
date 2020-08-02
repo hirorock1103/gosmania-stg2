@@ -117,14 +117,17 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 
 
 <footer>
-<?php if(strpos($_SERVER["REQUEST_URI"],'gosmania-stg') !== false){  ?>
+<?php
+$allow_ip = array("119.243.84.173", "139.101.72.150");
+if( !in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){ ?>
 	<ul>
 		<li>GMO_API_TOKEN_AUTH_JS:<?=GMO_API_TOKEN_AUTH_JS?>
 		<li>GMO_API_SITE_ID:<?=GMO_API_SITE_ID?>
 		<li>GMO_API_SITE_PASS:<?=GMO_API_SITE_PASS?>
 		<li>GMO_API_TOKEN_AUTH_SHOP_ID:<?=GMO_API_TOKEN_AUTH_SHOP_ID?>
 	</ul>
-<?php } ?>
+<?php }
+?>
 </footer>
 
 
