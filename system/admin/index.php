@@ -12,7 +12,7 @@ $paymentInfo_sammary = [
 
 $customer_upload_summary = getLatestInsertDateFromCustomer($dbh);
 
-$payment_info_output_summary = get_latest_csv_outputted_date($dbh);
+//$payment_info_output_summary = get_latest_csv_outputted_date($dbh);
 
 /**
  * 認証データアップロード履歴を調べる
@@ -134,17 +134,6 @@ function get_latest_csv_outputted_date($dbh) {
 						</div>
 					</div><!-- flexarea -->
 
-					<div class="flex-area" style="display:none;">
-						<div class="bg">
-							<div class="index_table_title">
-								<p>クレカ情報連携履歴（最終履歴）</p>
-							</div>
-							<div class="alert <?php echo ($payment_info_output_summary['alert']) ? 'alert-danger' : 'alert-info';?>">
-								<p><?php echo '最終連携履歴 : ' . $payment_info_output_summary['csv_output_date']; ?></p>
-								<strong><?php echo htmlspecialchars($payment_info_output_summary['message']);?></strong>
-							</div>
-						</div>
-					</div><!-- flexarea -->
 				</section><!-- /.content -->
 			</div><!-- /.content-wrapper -->
 			
