@@ -21,7 +21,7 @@ include_once dirname(__FILE__) . "/log.php";
 //
 // アプリケーション定義
 //
-if(strpos($_SERVER["REQUEST_URI"],"gracias-inc.com/gosmania") !== false){
+if(strpos($_SERVER["REQUEST_URI"],"gosmania/system") !== false){
 	include_once dirname(__FILE__) . "/app.php";
 }else{
 	include_once dirname(__FILE__) . "/app_stg.php";
