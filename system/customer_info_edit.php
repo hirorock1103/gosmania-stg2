@@ -153,6 +153,7 @@ function insert_into_customer_info($dbh, $data){
 							<tr>
 								<th>メール配信<span>必須</span></th>
 								<td class="radioArea">
+									<input type="radio" name="n1" value="1" id="r1" <?php echo $customer['Ci_InformationSend'] == 1 ? 'checked' : '';?>>
 									<label class="mr10"  for="r1">希望する</label>
 									<input type="radio" name="n1" value="0" id="r2" <?php echo $customer['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
 									<label for="r2">希望しない</label>
