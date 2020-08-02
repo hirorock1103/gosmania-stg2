@@ -9,7 +9,8 @@ $paymentInfo_sammary = [
 	'monthly' =>	 count(getPaymentInfoRecords($dbh, true, $thirty_days_ago->format('Y-m-d')))
 ];
 
-
+echo "ss";
+exit();
 $customer_upload_summary = getLatestInsertDateFromCustomer($dbh);
 
 //$payment_info_output_summary = get_latest_csv_outputted_date($dbh);
