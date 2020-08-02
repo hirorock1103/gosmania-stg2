@@ -67,7 +67,7 @@ define("GMO_API_TOKEN_AUTH_JS", "https://pt01.mul-pay.jp/ext/js/token.js");// to
 //define("GMO_API_SITE_ID", "mst2000023293");
 //define("GMO_API_SITE_ID", "tsite00039116"); //テスト環境
 //define("GMO_API_SITE_ID", "tsite00039815"); //テスト環境
-define("GMO_API_SITE_ID", "STG-tsite00039926"); //テスト環境
+define("GMO_API_SITE_ID", "tsite00039926"); //テスト環境
 
 //define("GMO_API_SITE_PASS", "rne26yef");
 //define("GMO_API_SITE_PASS", "d8k7xrmz"); //　テスト環境
