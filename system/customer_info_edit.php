@@ -45,7 +45,7 @@ if(isset($_POST['confirm']) && !empty($_POST['confirm'])) {
 	// 初回GETアクセス
 	$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
 	$customer['Ci_MailAddressConfirm'] = $customer['Ci_MailAddress'];
-	$customer['Ci_InformationSend'] = 1;
+	$customer['Ci_InformationSend'] = isset($customer['Ci_InformationSend']) ? $customer['Ci_InformationSend'] : 1;
 	$token = bin2hex(openssl_random_pseudo_bytes(32));
 	$_SESSION['token'] = $token;
 }
