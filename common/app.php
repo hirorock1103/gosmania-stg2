@@ -61,33 +61,33 @@ define(
 
 //GMO設定ファイル
 // GMO定義 --------------------------------------------------
-//define("GMO_API_TOKEN_AUTH_JS", "https://static.mul-pay.jp/ext/js/token.js");// token取得JS(本番)
-define("GMO_API_TOKEN_AUTH_JS", "https://pt01.mul-pay.jp/ext/js/token.js");// token取得JS
+define("GMO_API_TOKEN_AUTH_JS", "https://static.mul-pay.jp/ext/js/token.js");// token取得JS(本番)
+//define("GMO_API_TOKEN_AUTH_JS", "https://pt01.mul-pay.jp/ext/js/token.js");// token取得JS
 
-//define("GMO_API_SITE_ID", "mst2000023293");
+define("GMO_API_SITE_ID", "mst2000023293");
 //define("GMO_API_SITE_ID", "tsite00039116"); //テスト環境
 //define("GMO_API_SITE_ID", "tsite00039815"); //テスト環境
-define("GMO_API_SITE_ID", "tsite00039926"); //テスト環境
+//define("GMO_API_SITE_ID", "tsite00039926"); //テスト環境
 
-//define("GMO_API_SITE_PASS", "rne26yef");
+define("GMO_API_SITE_PASS", "rne26yef");
 //define("GMO_API_SITE_PASS", "d8k7xrmz"); //　テスト環境
 //define("GMO_API_SITE_PASS", "qkmwt3rv"); //　テスト環境
-define("GMO_API_SITE_PASS", "wgchbxbh"); //　テスト環境
+//define("GMO_API_SITE_PASS", "wgchbxbh"); //　テスト環境
 
-//define("GMO_API_TOKEN_AUTH_SHOP_ID", "9200002583315");//暫定でinstimeのshopIDを設定。下に切り替える。
+define("GMO_API_TOKEN_AUTH_SHOP_ID", "9200002583315");//本番
 //define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00044681"); //テスト環境
 //define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00045544"); //テスト環境
-define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00045677"); //テスト環境
-/*
+//define("GMO_API_TOKEN_AUTH_SHOP_ID", "tshop00045677"); //テスト環境
 define("GMO_API_MEMBER_SEARCH_URL", "https://p01.mul-pay.jp/payment/SearchMember.idPass");// 会員参照
 define("GMO_API_MEMBER_REGIST_URL", "https://p01.mul-pay.jp/payment/SaveMember.idPass");
 define("GMO_API_MEMBER_UPDATE_URL", "https://p01.mul-pay.jp/payment/UpdateMember.idPass");
 define("GMO_API_CARD_REGIST_URL", "https://p01.mul-pay.jp/payment/SaveCard.idPass");
-*/
 //テスト環境
+/*
 define("GMO_API_MEMBER_SEARCH_URL", "https://pt01.mul-pay.jp/payment/SearchMember.idPass");// 会員参照
 define("GMO_API_MEMBER_REGIST_URL", "https://pt01.mul-pay.jp/payment/SaveMember.idPass");
 define("GMO_API_MEMBER_UPDATE_URL", "https://pt01.mul-pay.jp/payment/UpdateMember.idPass");
 define("GMO_API_CARD_REGIST_URL", "https://pt01.mul-pay.jp/payment/SaveCard.idPass");
+ */
 //------------------------------------------------------------
   
