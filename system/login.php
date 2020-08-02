@@ -119,7 +119,7 @@ function _login($dbh, $cs_id, $cs_zip, &$errmsg) {
 <footer>
 <?php
 $allow_ip = array("119.243.84.173", "139.101.72.150");
-if( !in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){ ?>
+if( in_array($_SERVER["REMOTE_ADDR"], $allow_ip)  ){ ?>
 	<ul>
 		<li>GMO_API_TOKEN_AUTH_JS:<?=GMO_API_TOKEN_AUTH_JS?>
 		<li>GMO_API_SITE_ID:<?=GMO_API_SITE_ID?>
