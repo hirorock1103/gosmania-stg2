@@ -45,6 +45,7 @@ if(isset($_POST['confirm']) && !empty($_POST['confirm'])) {
 	// 初回GETアクセス
 	$customer = fetch_customer_info_record($dbh, $ses['cs_id']);
 	$customer['Ci_MailAddressConfirm'] = $customer['Ci_MailAddress'];
+	$customer['Ci_InformationSend'] = 1;
 	$token = bin2hex(openssl_random_pseudo_bytes(32));
 	$_SESSION['token'] = $token;
 }
@@ -152,7 +153,6 @@ function insert_into_customer_info($dbh, $data){
 							<tr>
 								<th>メール配信<span>必須</span></th>
 								<td class="radioArea">
-									<?php var_dump($customer['Ci_InformationSend']);  ?>
 									<label class="mr10"  for="r1">希望する</label>
 									<input type="radio" name="n1" value="0" id="r2" <?php echo $customer['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
 									<label for="r2">希望しない</label>
