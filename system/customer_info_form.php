@@ -200,7 +200,7 @@ function insert_into_customer_info($dbh, $data){
 								<td class="radioArea">
 									<input type="radio" name="n1" value="1" id="r1" <?php echo $customer['Ci_InformationSend'] == 1 ? 'checked' : '';?>>
 									<label class="mr10" for="r1">希望する</label>
-									<input type="radio" name="n1" value="0" id="r2" <?php echo $customer['Ci_InformationSend'] == 1 ? '' : 'checked';?>>
+									<input type="radio" name="n1" value="0" id="r2" <?php echo $customer['Ci_InformationSend'] == 0 ? 'checked' : '';?>>
 									<label for="r2">希望しない</label>
 									<span class="float_box">年会費決済完了時、GOSMANIA会員有効期限・クレジットカード有効期限が近くなりましたら、ご案内メールをお送りいたします。</span>
 									<span class="float_box">※必ず「gospellers.tv」(ドメイン)を受信できるように設定をお願いいたします。</span>
