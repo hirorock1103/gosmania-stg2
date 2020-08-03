@@ -354,10 +354,13 @@ function DefineColumns($dbh, $table, $not_use_columns)
  * @return Array PaymentInfo レコード + 同じIDを持つCustomer レコード
  */
 function getPaymentInfoRecords($dbh, $includeOutputted = false, $since = NULL, $until = NULL) {
-	$sql = "SElECT Pi.*, Cs.* FROM PaymentInfo AS Pi
+	/*$sql = "SElECT Pi.*, Cs.* FROM PaymentInfo AS Pi
 	LEFT JOIN PaymentInfo AS Pi2 ON Pi.gmo_id = Pi2.gmo_id AND Pi.seq < Pi2.seq
 	LEFT JOIN Customer  AS Cs ON Pi.gmo_id = Cs.Cs_Id
-	WHERE Pi2.seq IS NULL ";
+	WHERE Pi2.seq IS NULL ";*/
+	$sql = "SELECT Pi.*, Cs.* FROM PaymentInfo AS Pi 
+		left join Customer as Cs ON Pi.gmo_id = Cs.Cs_Id
+where Pi.seq in (select max(seq) from PaymentInfo group by gmo_id )";
 
 	// クエリの埋め込み
 	if($includeOutputted ) {
