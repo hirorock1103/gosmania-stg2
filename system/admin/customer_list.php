@@ -28,10 +28,10 @@ if( isset($_POST) && !empty($_POST) ) {
 		$pdo[] = array(":Cs_Zip" , "%".$data['Cs_Zip']."%",  PDO::PARAM_STR );
 	}
 	//query
-	$query = "select  SQL_CALC_FOUND_ROWS *,C.Cs_Id as Cs_Id from Customer as C LEFT JOIN (select * from CustomerInfo where Ci_Seq in (select max(Ci_Seq) from CustomerInfo group by Cs_Id)) as CI ON C.Cs_Id = CI.Cs_Id ORDER BY C.Cs_Id ASC ";
+	$query = "select  SQL_CALC_FOUND_ROWS *,C.Cs_Id as Cs_Id from Customer as C LEFT JOIN (select * from CustomerInfo where Ci_Seq in (select max(Ci_Seq) from CustomerInfo group by Cs_Id)) as CI ON C.Cs_Id = CI.Cs_Id ";
 
 	$query .= $where;
-	$query .= " limit 100  ";
+	$query .= " ORDER BY C.Cs_Id ASC limit 100  ";
 	//$list = SearchListCommon($dbh, $condition, null, 'Customer', 'Cs_Seq');
 	//$list = SearchListCommon2($dbh, $condition, null, 'Customer', 'Cs_Seq',null, 100, $total_rows);
 	$list = getListByQuery($dbh, $query, $pdo,  $total_rows);
