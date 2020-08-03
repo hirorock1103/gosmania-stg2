@@ -46,6 +46,7 @@ if(isset($_POST) && !empty($_POST)){
 	}else if( !isset($data['action']) || $data['action'] != 'confirm'){ //更新はbuttonのnameもsubmitも無し
 		$mode = 'complete';
 		$gmo_card_seq = GetFirstPaymentInfoCardSeq($dbh, $ses['cs_id']);
+		$gmo_card_seq = 0;
 		// $ret = _gmo_reg_card($dbh, $ses['cs_id'], $data['card_name'], $token, $errmsg);
 		$ret = _gmo_reg_card2($dbh, $ses['cs_id'], NULL, $data['card_limit'], $token, $gmo_card_seq, $errmsg);
 		if (!$ret && $debug == false) { //カード登録が失敗したら　
