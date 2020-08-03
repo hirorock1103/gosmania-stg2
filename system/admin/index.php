@@ -6,11 +6,9 @@ $one_week_ago = new DateTimeImmutable('-7 day');
 $thirty_days_ago = new DateTimeImmutable('-30 day');
 $paymentInfo_sammary = [
 	'weekly' =>		 count(getPaymentInfoRecords($dbh, true, $one_week_ago->format('Y-m-d'))),
-//	'monthly' =>	 count(getPaymentInfoRecords($dbh, true, $thirty_days_ago->format('Y-m-d')))
+	'monthly' =>	 count(getPaymentInfoRecords($dbh, true, $thirty_days_ago->format('Y-m-d')))
 ];
 
-echo "ss";
-exit();
 $customer_upload_summary = getLatestInsertDateFromCustomer($dbh);
 
 //$payment_info_output_summary = get_latest_csv_outputted_date($dbh);
