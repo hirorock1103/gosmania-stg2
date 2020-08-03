@@ -360,7 +360,7 @@ function getPaymentInfoRecords($dbh, $includeOutputted = false, $since = NULL, $
 	WHERE Pi2.seq IS NULL ";*/
 	$sql = "SELECT Pi.*, Cs.* FROM PaymentInfo AS Pi 
 		left join Customer as Cs ON Pi.gmo_id = Cs.Cs_Id
-where Pi.seq in (select max(seq) from PaymentInfo group by gmo_id )";
+where Pi.seq in (select max(seq) from PaymentInfo group by gmo_id having token is not null )";
 
 	// クエリの埋め込み
 	if($includeOutputted ) {
