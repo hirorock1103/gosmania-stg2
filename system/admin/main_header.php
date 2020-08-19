@@ -23,7 +23,7 @@
 				</a>
 			</div>
 			<div>
-				<a class="header_text" href="./login.php?logout"><i class="fas fa-sign-out-alt"></i>
+				<a class="header_text" href="./logout.php"><i class="fas fa-sign-out-alt"></i>
 				</a>
 			</div>
 		</div>
