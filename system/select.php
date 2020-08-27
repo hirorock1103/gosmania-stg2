@@ -15,7 +15,7 @@ $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['
 <div class="wrap">
 	<?php include_once dirname(__FILE__) . "/header.php"; ?>
 	<section class="section-list page-news GOSMANIA">
-
+		<div class="block-gosmania2--comment2"><a class="link-type-1" href="riyou.php">ご利用に関する注意事項</a></div>
 		<div class="block-gosmania2">
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 					<?php $class = ($entry_mode == false) ? "disable" : "";  ?>
