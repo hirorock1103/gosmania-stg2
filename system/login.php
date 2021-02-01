@@ -27,10 +27,11 @@ if (!empty($_POST['login'])) {
 
 	if($ret) {
 		session_regenerate_id(true);
+		// ショッピングサイトから認証ログインの場合はステータスを保持
+		$_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] = filter_input(INPUT_GET, 'from') === 'shop' ? true : false;
 		// TOPへ
 		header('Location: ./select.php');
 		exit();
-		
 	}
 }
 

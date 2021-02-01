@@ -264,6 +264,27 @@ input[type="radio"]{
 
 }
 
+/* select.php 上部用のボタン群 */
+button.btn-sub.select_button{
+    font-size: 12px;
+    min-width: 90px;
+    padding: 0 0;
+    line-height: 25px;
+    color: #A0A0A0;
+    border-color: #A0A0A0;
+}
+button.btn-sub.select_button:disabled{
+    color: #e0e0e0;
+    border-color: #e0e0e0;
+}
+button.btn-sub.select_button:disabled:hover{
+    background: transparent;
+
+}
+button.btn-sub.select_button:not(:first-child){
+    margin-left: 15px;
+}
+
 .btn a{
 	background: transparent;
     color: #e0e0e0;
@@ -363,7 +384,8 @@ a {
 }
 
 .block-gosmania2--comment2{
-    display: block;
+    display: flex;
+    justify-content: space-between;
     width:74%;
     text-align:right;
     margin: 30px auto 20px;
@@ -684,7 +706,16 @@ table {
     }
     .block-gosmania2--comment2{
 	    text-align:center;
-	    margin-bottom:-34px;
+        margin-bottom:-34px;
+        display: flex;
+        flex-direction: column;
+    }
+    .block-gosmania2--comment2 .link-type-1, .block-gosmania2--comment2 span{
+        display: block;
+        width: 100%;
+    }
+    .block-gosmania2--comment2 span{
+        order: 1;
     }
 
     /* select */
