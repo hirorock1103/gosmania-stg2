@@ -3,6 +3,93 @@ include_once dirname(__FILE__) . "/../functions.php";
 // 呼び出し元でsettingsを読む必要あり
 // include_once dirname(__FILE__) . "/../settings.php"; // cronの場合SESSIONの設定でコケるためコメント
 
+//メール送信に時間かかるためタイムアウトまでの時間を延長
+ini_set('max_execution_time', 300);
+
+//php mailer 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require  dirname(__FILE__). '/../../../vendor/autoload.php';
+
+//言語、内部エンコーディングを指定
+mb_language("japanese");
+mb_internal_encoding("UTF-8");
+
+//smtp経由でメールを送る
+function sendSmtpMail( $mailto, $mail_subject, $mail_content  ){
+
+    $mail = new PHPMailer(true);
+
+    //日本語用設定
+    //$mail->CharSet = "iso-2022-jp";//←この設定だとタイトルが文字化けする
+    $mail->CharSet = "UTF-8";
+    $mail->Encoding = "7bit";
+
+    //送信先
+    //$mailto   = "kobayashi@ambi-tious.com";
+    $mailfrom = "gosmania_system@gospellers.tv";
+
+    $host     = "mail.silvermouse9.sakura.ne.jp";
+    $user     = "gosmania@silvermouse9.sakura.ne.jp";
+    $pass     = "Wc7UQiAH";
+
+    $send_limit = 50;
+
+    try {
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host       = $host;                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = $user;                     // SMTP username
+            $mail->Password   = $pass;                               // SMTP password
+            //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->SMTPSecure = false;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+                )
+            );
+            //Recipients
+            $mail->setFrom($mailfrom, 'GOSMANIAシステム');
+
+        try{
+
+            $mail->addAddress($mailto);     // Add a recipient
+            //$mail->addReplyTo('info@example.com', 'Information');
+            //$mail->addCC('cc@example.com');
+            //$mail->addBCC('bcc@example.com');
+
+            // Attachments
+            //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+            // Content
+            $mail->isHTML(false);                                  // Set email format to HTML
+            $mail->Subject = $mail_subject;
+            $mail->Body    = $mail_content;
+
+            $mail->send();
+            //echo 'Message has been sent';
+            
+            return true;
+
+        }catch(Exception $e){
+            //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return false;
+        }
+
+    } catch (Exception $e) {
+            //echo "Setting Error: {$mail->ErrorInfo}";
+            return false;
+    }
+
+
+}
+
 /**
  * SendMailテーブルのSm_Typeカラムをキーにメール送信対象のユーザーを抽出する
  * @param PDOObject $dbh
@@ -256,14 +343,19 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 			// 顧客情報に基づいてメール本文を生成
 			$mailContent = generateMailContent($sendMail, $customer);
 
+			//var_dump($mailContent);
 
 			// メール送信実行
+
+            $sendCount += sendSmtpMail( $customer['Ci_MailAddress'], $sendMail['Sm_Subject'], $mailContent );
+            /*
 			$sendCount += mb_send_mail(
 				$customer['Ci_MailAddress'],
 				$sendMail['Sm_Subject'],
 				$mailContent,
 				$mailHeader
 			);
+             */
 		}
 
 		// 成功時のログ保存
@@ -325,13 +417,16 @@ function executeSendMailtoTarget2($dbh, $Sm_Type, $data,  $Customers) {
 			// 顧客情報に基づいてメール本文を生成
 			$mailContent = generateMailContent2($sendMail, $customer, $data);
 
-			// メール送信実行
+            // メール送信実行
+            $sendCount += sendSmtpMail( $customer['Ci_MailAddress'], $sendMail['Sm_Subject'], $mailContent  );
+            /*
 			$sendCount += mb_send_mail(
 				$customer['Ci_MailAddress'],
 				$sendMail['Sm_Subject'],
 				$mailContent,
 				$mailHeader
 			);
+             */
 		}
 
 		// 成功時のログ保存
@@ -515,13 +610,15 @@ function sendNoticeMailToAdmin($dbh, $successCount = 0, $mailDetail = '') {
 	// メール送信実行
 	foreach($admins as $Ad_Seq => $admin) {
 		if(filter_var($admin['Ad_MailAddress'], FILTER_VALIDATE_EMAIL)) {
-
+            sendSmtpMail( $admin['Ad_MailAddress'], "GOSMANIAシステムでメール送信完了", $mailText  );
+            /*
 			mb_send_mail(
 				$admin['Ad_MailAddress'],
 				"GOSMANIAシステムでメール送信完了",
 				$mailText,
 				$mailHeader
 			);
+             */
 		}
 	}
 }

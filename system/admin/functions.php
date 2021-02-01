@@ -358,7 +358,12 @@ function getPaymentInfoRecords($dbh, $includeOutputted = false, $since = NULL, $
 	LEFT JOIN PaymentInfo AS Pi2 ON Pi.gmo_id = Pi2.gmo_id AND Pi.seq < Pi2.seq
 	LEFT JOIN Customer  AS Cs ON Pi.gmo_id = Cs.Cs_Id
 	WHERE Pi2.seq IS NULL ";*/
-	$sql = "SELECT Pi.*, Cs.* FROM PaymentInfo AS Pi 
+		$sql = "SELECT Pi.*, Cs.*,
+			case when Cs.Cs_Id is null 
+			then 0 
+			else 1 
+			end as exists_check
+		       	FROM PaymentInfo AS Pi 
 		left join Customer as Cs ON Pi.gmo_id = Cs.Cs_Id
 		where Pi.seq in (
 		select max(seq) from (select * from PaymentInfo where card_seq is not null) as Tmp group by gmo_id
@@ -380,6 +385,8 @@ function getPaymentInfoRecords($dbh, $includeOutputted = false, $since = NULL, $
 	if(!empty($until)) {
 		$sql .= " AND Pi.createdate <= :until ";
 	}
+
+	$sql .= " order by  exists_check DESC, Pi.createdate DESC";
 
 	$db = $dbh->prepare($sql);
 

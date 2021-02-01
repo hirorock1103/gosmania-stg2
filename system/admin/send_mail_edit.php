@@ -205,7 +205,7 @@ function _param($data, $table_ary){
 	<div class="wrapper">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content_wrapper">
-			<h3 class="detail-title">クレカメール更新</h3>
+			<h3 class="detail-title">メール内容の更新</h3>
 			<!-- Content Header (Page header) -->
 			<section class="content-header"></section>
 			<!-- Main content -->
@@ -255,7 +255,7 @@ function _param($data, $table_ary){
 											</div>
 											<div class="tr">
 												<div class="th">{ID}</div>
-												<div class="td">会員ID</div>
+												<div class="td">会員番号</div>
 												<div class="td">CSV_TEST001</div>
 											</div>
 											<div class="tr">

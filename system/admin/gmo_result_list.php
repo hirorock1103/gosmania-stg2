@@ -4,6 +4,7 @@ include_once dirname(__FILE__) . "/functions.php";
 
 $list = [];
 $data = [];
+$total_rows = 0;
 
 //group byで年月を取得する
 $query = "select ym from GmoResult group by ym Order by ym DESC";
@@ -22,6 +23,7 @@ if( isset($_POST) && !empty($_POST) ) {
 		$db->bindValue(":ym", $data['ym'], PDO::PARAM_INT);
 		$db->execute();
 		$list = $db->fetchAll(PDO::FETCH_ASSOC);
+		$total_rows = count($list);
 	}
 	
 	
@@ -78,6 +80,7 @@ if( isset($_POST) && !empty($_POST) ) {
 								</div><!-- box1 -->
 							</form>
 							<div class="">
+								<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
 								<div class="search_results">
 									<div id="" class="wrap_scroll">
 										<table class="table table_result_client table_sp">

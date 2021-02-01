@@ -174,7 +174,7 @@ function validate() {
 									<?php } ?>
 									<div class="row">
 										<div id="" class="col-sm-6 wrap_scroll">
-											<table class="table table_result_client table_sp">
+											<table class="table table_result_client table_sp" style="float:left;">
 												<thead>
 													<tr>
 													<?php if($selected_mail_type == 1){  ?>
@@ -251,7 +251,7 @@ function validate() {
 											</table>
 										</div>
 										<div class="col-sm-6">
-											<table class="table table_result_client table_sp">
+											<table class="table table_result_client table_sp" style="float:right; width:70%;">
 												<thead>
 													<tr><th class="text-danger">開発用本文プレビュー(1件目の中身)</th></tr>
 												</thead>
@@ -275,6 +275,8 @@ if(isset($list[$first_key])) {
 </span>
 </td>
 </tr>
+</table>
+<div style="clear:both;"></div>
 										</div>
 									</div><?php // .row ?>
 								</div>

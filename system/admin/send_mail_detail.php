@@ -89,7 +89,7 @@ function params() {
 	<div class="wrapper">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content_wrapper">
-			<h3 class="detail-title">クレカメール詳細</h3>
+			<h3 class="detail-title">メール詳細</h3>
 			<!-- Content Header (Page header) -->
 			<section class="content-header"></section>
 			<!-- Main content -->

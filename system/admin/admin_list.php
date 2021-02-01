@@ -4,6 +4,7 @@ include_once dirname(__FILE__) . "/functions.php";
 
 $search_flag = false;
 $arr_admin = array();
+$total_rows = 0;
 
 // 検索条件
 $param = $_POST;
@@ -20,6 +21,7 @@ if (isset($_POST['frm_submit'])) {
 	$search_flag = true;
 	// 顧客情報取得
 	$arr_admin = _search($dbh, $arr_input);
+	$total_rows = count($arr_admin);
 }
 //var_dump($arr_admin);
 //echo $total_data_cnt . "<br />";
@@ -68,7 +70,7 @@ function _search($dbh, $arr_input)
 			<?php include 'side.php';?>
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-				<!--<h1><span>一覧</span></h1>
+				<!--<h1><span>一覧</span></h1>-->
 				<!-- Content Header (Page header) -->
 				<section class="content-header"></section>
 				<!-- Main content -->
@@ -116,6 +118,7 @@ function _search($dbh, $arr_input)
 							</form>
 							<form action="admin_detail.php" name="frm_admin_list" method="post" target="_blank">
 								<div class="">
+									<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
 									<div class="search_results">
 										<div id="" class="wrap_scroll">
 											<table class="table table_result_client table_sp">

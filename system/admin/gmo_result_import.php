@@ -148,7 +148,9 @@ function _validation(&$dbh, $filefullname, $encoding, &$cols, &$arr_shop, &$errm
 
 
 		$Cs_Id  = $data[9];
-		$ym     = mb_substr($data[22],0, 6);
+		$datetime = new DateTimeImmutable($data[22]);
+		$ym     = $datetime->modify('+ 1month')->format('Ym'); 
+		//$ym     = mb_substr($data[22],0, 6);
 		$result = $data[24];
 		
 		$cols[] = array(

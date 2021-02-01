@@ -5,6 +5,7 @@ include_once dirname(__FILE__) . "/functions.php";
 $list = [];
 $data = [];
 $includeOutputted = false;
+$total_rows = 0;
 if( isset($_POST) && !empty($_POST) ) {
 	
 	$data = $_POST;
@@ -25,6 +26,8 @@ if( isset($_POST) && !empty($_POST) ) {
 	$since = filter_input(INPUT_POST, 'At_Date_From');
 	$until = filter_input(INPUT_POST, 'At_Date_To');
 	$list = getPaymentInfoRecords($dbh, $includeOutputted, $since, $until);
+
+	$total_rows = count($list);
 
 }
 
@@ -132,6 +135,7 @@ if(isset($data['export'])){
 							</form>
 							<form action="admin_detail.php" name="frm_admin_list" method="post" target="_blank">
 								<div class="">
+								<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
 									<div class="search_results">
 										<div id="" class="wrap_scroll">
 											<table class="table table_result_client table_sp">
@@ -145,9 +149,9 @@ if(isset($data['export'])){
 													</tr>
 												</thead>
 												<tbody>
-												<?php foreach ($list as $at_seq => $record) { ?>
+												<?php foreach ($list as $at_seq => $record) { //if(empty($record['Cs_Name'])){var_dump($record);}  ?>
 													<tr>
-														<td class="listUser" ><?php echo !empty($record['Cs_Name']) ? htmlspecialchars($record['Cs_Name']) : "会員情報が存在しないため出力対象外"; ?></td>
+														<td class="listUser" ><?php echo !empty($record['Cs_Name']) ? htmlspecialchars($record['Cs_Name']) : "会員情報(".$record['gmo_id'].")が存在しないため出力対象外"; ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['Cs_Id']); ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['csv_output_date']); ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['createdate']); ?></td>
@@ -166,7 +170,7 @@ if(isset($data['export'])){
 			</div><!-- /.content-wrapper -->
 
 		</div><!-- ./wrapper -->
-		<pre><?php  var_dump(getPaymentInfoRecords($dbh, true, '2020-06-05')); ?></pre>
+		<pre><?php  //var_dump(getPaymentInfoRecords($dbh, true, '2020-06-05')); ?></pre>
 		<?php include 'script.php';?>
 	<script>
 	$(function () {
