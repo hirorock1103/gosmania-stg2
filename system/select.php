@@ -77,13 +77,13 @@ $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['
 			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
-				<a href="" class="btn-sub btn-select <?php echo $class;?>" style="width:90%;">
-					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>グッスの購入はこちら
+				<a href="" class="btn-sub btn-select <?php echo $class;?>">
+					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>グッズの購入はこちら
 				</a>
 			</div>
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
-				<a href="" class="btn-sub btn-select <?php echo $class;?>" style="width:90%;">
-					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>グッスの購入はこちら
+				<a href="" class="btn-sub btn-select <?php echo $class;?>">
+					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>グッズの購入はこちら
 				</a>
 			</div>
 		</div>

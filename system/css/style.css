@@ -266,7 +266,7 @@ input[type="radio"]{
 
 /* select.php 上部用のボタン群 */
 button.btn-sub.select_button{
-    font-size: 12px;
+    font-size: 14px;
     min-width: 90px;
     padding: 0 0;
     line-height: 25px;
