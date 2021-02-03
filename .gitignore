@@ -1,2 +1,4 @@
 /common/db_config.php
 /system/admin/csv_upload/*
+/mysql
+/*.swp
