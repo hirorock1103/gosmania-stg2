@@ -30,7 +30,7 @@ $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['
 					data-target="shopping_link"
 				>通信販売</button>
 			</span>
-			<a class="link-type-1" href="riyou.php">ご利用に関する注意事項</a>
+			<a class="link-type-1" style="margin-top: 3px;" href="riyou.php">ご利用に関する注意事項</a>
 		</div>
 
 		<div
@@ -78,12 +78,12 @@ $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<a href="" class="btn-sub btn-select <?php echo $class;?>">
-					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>グッズの購入はこちら
+					<i class="fas fa-shopping-cart" style="position: absolute; left: 35px;"></i>会員限定グッズの購入はこちら
 				</a>
 			</div>
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
 				<a href="" class="btn-sub btn-select <?php echo $class;?>">
-					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>グッズの購入はこちら
+					<i class="fas fa-shopping-cart" style="position: absolute; left: 35px;"></i>会員限定グッズの購入はこちら
 				</a>
 			</div>
 		</div>
