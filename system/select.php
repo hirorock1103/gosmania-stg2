@@ -22,6 +22,7 @@ $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['
 					class="btn-sub select_button"
 					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'disabled');?>
 					data-target="user_data"
+i                   style="padding-left: 3px;"
 				>継続手続き</button>
 				<button
 					type="button"
