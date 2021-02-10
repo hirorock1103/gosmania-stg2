@@ -78,12 +78,12 @@ i                   style="padding-left: 3px;"
 			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
-				<a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select <?php echo $class;?>">
+				<a href="https://store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select <?php echo $class;?>">
 					<i class="fas fa-shopping-cart" style="position: absolute; left: 35px;"></i>会員限定グッズの購入はこちら
 				</a>
 			</div>
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
-				<a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select <?php echo $class;?>" style="width:90%;">
+				<a href="https://store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select <?php echo $class;?>" style="width:90%;">
 					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>会員限定グッズの<br>購入はこちら
 				</a>
 			</div>
