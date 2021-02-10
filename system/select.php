@@ -31,7 +31,7 @@ i                   style="padding-left: 3px;"
 					data-target="shopping_link"
 				>通信販売</button>
 			</span>
-			<a class="link-type-1" style="margin-top: 3px; margin-bottom:5px;" href="riyou.php">ご利用に関する注意事項</a>
+			<a class="link-type-1" style="margin-top: 3px; margin-bottom:5px;" href="riyou.php">継続手続きご利用に関する注意事項</a>
 		</div>
 
 		<div
