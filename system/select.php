@@ -31,7 +31,7 @@ i                   style="padding-left: 3px;"
 					data-target="shopping_link"
 				>通信販売</button>
 			</span>
-			<a class="link-type-1" style="margin-top: 3px;" href="riyou.php">ご利用に関する注意事項</a>
+			<a class="link-type-1" style="margin-top: 3px; margin-bottom:5px;" href="riyou.php">ご利用に関する注意事項</a>
 		</div>
 
 		<div
@@ -83,8 +83,8 @@ i                   style="padding-left: 3px;"
 				</a>
 			</div>
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
-				<a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select <?php echo $class;?>">
-					<i class="fas fa-shopping-cart" style="position: absolute; left: 35px;"></i>会員限定グッズの購入はこちら
+				<a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select <?php echo $class;?>" style="width:90%;">
+					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>会員限定グッズの<br>購入はこちら
 				</a>
 			</div>
 		</div>
