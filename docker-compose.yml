@@ -30,7 +30,7 @@ services:
        - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: gosmania-stg #案件名
+      MYSQL_DATABASE: gosmania-stg2 #案件名
       MYSQL_USER: user
       MYSQL_PASSWORD: 11032189
   phpmyadmin:
