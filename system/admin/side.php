@@ -56,6 +56,15 @@
 					<li><a href="./customer_info.php"><i class="fa"></i>各種変更履歴</a></li>
 				</ul>
 			</li>
+			<li class="treeview ">
+				<a href="#" style="border-bottom:solid 1px #fff;">
+					<i class="fa fa-user side_text_pos"></i> <span class="side_text_pos">コンテンツ管理</span><i class="fa fa-chevron-circle-left pull-right side_text_pos"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="./contents_list.php"><i class="fa"></i>コンテンツ一覧</a></li>
+					<li><a href="./contents_new.php" target="_blank"><i class="fa"></i>コンテンツ登録</a></li>
+				</ul>
+			</li>
 		</ul>
 	</section>
 </aside>
