@@ -36,6 +36,7 @@ i                   style="padding-left: 3px;"
 					class="btn-sub select_button"
 					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
 					data-target="shopping_link"
+					style="display:none;"
 				>通信販売</button>
 				<button
 					type="button"
