@@ -34,18 +34,20 @@ if(isset($_POST) && !empty($_POST)){
 		$params = _param($data, $table_ary);
 		
 		//insert処理
-		UpdateCommon($dbh, 'contents', $params['param'], $params['condition'] );
-		
+		$navalue = $data["contents_name"];
+		$stvalue = $data["status"];
+		$idvalue = $_SESSION['back_data'];
+		contentsupdate($dbh,$navalue,$stvalue,$idvalue);
 		//select処理
-		$condition['id'] = ['placeholder' => 'id' , 'value' => $data['id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
-		$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['id']];
+		$condition['id'] = ['placeholder' => 'id' , 'value' => $_SESSION['back_data'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+		$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$_SESSION['back_data']];
 		$data['submit'] = '更新';
 		
 	}else if(isset($data['back'])){ //戻るでサブミットされたPOST値で$dataを作る
 	
 	}else{ //一番最初に来たとき(戻るでサブミットされたPOST値ではなく、selectして$dataを作る)
-		$condition['id'] = ['placeholder' => 'id' , 'value' => $data['contents_id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
-		$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['contents_id']];
+		$condition['id'] = ['placeholder' => 'id' , 'value' => $data['id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+		$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['id']];
 	}
 }
 
@@ -129,6 +131,9 @@ function _param($data, $table_ary){
 						<?php }else if(isset($data['submit']) && $data['submit'] == '更新' ){ //更新画面 ?>
 							<button type="submit" name="back" class="btn" form="back_detail" >戻る</button><!-- 完了画面の戻るは、contents_detail.php行き -->
 						<?php }else{ //完了画面?>
+							<?php 
+								$_SESSION['back_data'] = $_POST["id"] ?? $_SESSION['back_data'];
+							?>
 							<button type="submit" name="back" class="btn" form="back_detail" >戻る</button><!-- 入力画面の戻るは、contents_detail.php行き -->
 							<input type="submit" name="submit" class="btn btn-success" value="確認" style="margin-left:10px;" >
 						<?php } ?>

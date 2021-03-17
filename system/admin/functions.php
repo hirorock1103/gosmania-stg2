@@ -404,3 +404,42 @@ function getPaymentInfoRecords($dbh, $includeOutputted = false, $since = NULL, $
 	}
 	return $data;
 }
+
+function _allshow($dbh)
+{
+	$condition = array();
+	$column = array('id', 'contents_id', 'file_name', 'status');
+	return GetListCommon($dbh, $condition, $column, 'contentsfile', 'id');
+}
+
+function contentsupdate($dbh,$navalue,$stvalue,$idvalue){
+	$sql = "UPDATE `contents` SET ";
+	$sql .= "`contents_name` = '";
+	$sql .= $navalue;
+	$sql .= "', `status` = '";
+	$sql .= $stvalue;
+	$sql .= "' WHERE `contents`.`id` = ";
+	$sql .= $idvalue;
+	$sql .= " ; ";
+	$db = $dbh->prepare($sql);
+	$db->execute();
+}
+
+// function file_chenge($dbh,$navalue,$stvalue,$idvalue){
+function file_chenge($dbh,$fileid,$stval ){
+	$sql = "UPDATE `contentsfile` SET `status` = '";
+	$sql .= $stval;
+	$sql .= "' WHERE `contentsfile`.`id` = ";
+	$sql .= $fileid;
+	$sql .= " ; ";
+	$db = $dbh->prepare($sql);
+	$db->execute();
+}
+
+function file_delite($dbh,$fileid){
+	$sql = "DELETE FROM `contentsfile` WHERE `contentsfile`.`id` = ";
+	$sql .= $fileid;
+	// var_dump($sql);
+	$db = $dbh->prepare($sql);
+	$db->execute();
+}

@@ -3,6 +3,8 @@ include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
 
 //初期化 各種定義
+$file_data = array();
+
 //エラーメッセージ
 $err = [];
 
@@ -17,41 +19,74 @@ $table_ary['html']['contents_name']			= ['col_name' => 'コンテンツ名',		 '
 $table_ary['html']['status']		 		= ['col_name' => 'ステータス',	 'must' => $must_label,	'type' => 'radio', 'arr' => $def_status ,	'placeholder' => ''];
 
 // 基本情報(DBからの表示)(最初に遷移)
-if(isset($_POST) && !empty($_POST) && !isset($_POST["fileupload"])){
+if(isset($_POST) && !empty($_POST) && !isset($_POST["fileupload"]) && !isset($_POST["back"]) && !isset($_POST["filechange"])){
 	$data = $_POST;
 	$condition['id'] = ['placeholder' => 'id' , 'value' => $data['id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
 	$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['id']];
-}
-if (true) {
 	$allshow_flag = true;
 	$arr_files = _allshow($dbh);
+	// ファイル一覧の表示
+	$file_data = $_POST;
+	$file_condition['contents_id'] = ['placeholder' => 'contents_id' , 'value' => $file_data["id"], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+	$file_data = GetListCommon($dbh, $file_condition, null, 'contentsfile', 'contents_id');
 }
-function _allshow($dbh)
-{
-	$condition = array();
-	$column = array('id', 'contents_id', 'file_name', 'status');
-	return GetListCommon($dbh, $condition, $column, 'contentsfile', 'id');
+// 編集から戻ってきたとき
+if(isset($_POST["back"]) && !isset($_POST["fileupload"])){
+	$data["id"] = $_SESSION['back_data'];
+	$condition['id'] = ['placeholder' => 'id' , 'value' => $data['id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+	$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['id']];
+	$allshow_flag = true;
+	$arr_files = _allshow($dbh);
+	// ファイル一覧の表示
+	$file_condition['contents_id'] = ['placeholder' => 'contents_id' , 'value' => $_SESSION['back_data'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+	$file_data = GetListCommon($dbh, $file_condition, null, 'contentsfile', 'contents_id');
 }
+
 // ファイルアップロード
 if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 	// 基本情報の表示
 	$data = $_POST;
-	var_dump($_POST);
 	$condition['id'] = ['placeholder' => 'id' , 'value' => $data['contents_id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
 	$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['contents_id']];
+	// ファイル一覧の表示
+	$file_condition['contents_id'] = ['placeholder' => 'contents_id' , 'value' => $_SESSION['back_data'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+	$file_data = GetListCommon($dbh, $file_condition, null, 'contentsfile', 'contents_id');
 	// バリデーション処理
 	// エラーがなければで分岐
 	$fileendmag = "ファイルのアップロードが完了しました";
 	$fileendmag = "入力エラーがあります";
 	$fileendmag = "ファイルのアップロードが失敗しました";
-	save_upload_file("contents_folder",$_POST["file_name"],$_POST["file_name"]);
+	$folderplace = "C:\xampp\htdocs\gosmania\system\admin\image\contents_folder\app.jpg";
+	// save_upload_file($folderplace,$_POST["file_name"],$_POST["file_name"]);
 }
-// ファイル一覧
-if(!isset($_POST["fileupload"])){
+
+// ファイル一覧　内容変更
+if(isset($_POST["filechange"]) && !empty($_POST["filechange"])){
+	switch ($_POST["filechange"]) {
+		case "有効化":
+			$fileid = $_POST["fileid"];
+			$stval = 0;
+			file_chenge($dbh,$fileid,$stval);
+			break;
+		case "無効化":
+			$fileid = $_POST["fileid"];
+			$stval = 1;
+			file_chenge($dbh,$fileid,$stval);
+			break;
+		case "削除":
+			$fileid = $_POST["fileid"];
+			file_delite($dbh,$fileid);
+			break;
+	}
+	// 情報表示
+	$data["id"] = $_SESSION['back_data'];
+	$condition['id'] = ['placeholder' => 'id' , 'value' => $data['id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+	$data = GetListCommon($dbh, $condition, null, 'contents', 'id')[$data['id']];
+	$allshow_flag = true;
+	$arr_files = _allshow($dbh);
 	// ファイル一覧の表示
-	$file_data = $_POST;
-	$file_condition['id'] = ['placeholder' => 'id' , 'value' => $file_data['id'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
-	$file_data = GetListCommon($dbh, $file_condition, null, 'contentsfile', 'id')[$file_data['id']];
+	$file_condition['contents_id'] = ['placeholder' => 'contents_id' , 'value' => $_SESSION['back_data'], 'type' => PDO::PARAM_INT, 'method' => ' ='];
+	$file_data = GetListCommon($dbh, $file_condition, null, 'contentsfile', 'contents_id');
 }
 ?>
 <html>
@@ -72,7 +107,7 @@ if(!isset($_POST["fileupload"])){
 						<div class="f" >
 							<?php include 'template_detail.php'; ?>
 							<button type="button" name="frm_close"class="btn" onClick="window.close();" >閉じる</button>
-							<input type="hidden" name="contents_id" value="<?= $data['id'] ?>">
+							<input type="hidden" name="id" value="<?= $data['id'] ?>">
 							<input type="submit" name="submit" class="btn btn-success" value="編集" style="margin-left:10px;" >
 						</div>
 					</div>
@@ -94,6 +129,10 @@ if(!isset($_POST["fileupload"])){
 									<div class="td"><input type="file" name="file"></div>
 								</div>
 								<div class="tr">
+									<div class="th">サムネイル</div>
+									<div class="td"><input type="file" name="thum"></div>
+								</div>
+								<div class="tr">
 									<div class="th">ステータス</div>
 									<div class="td">
 										<div class="btn-group" data-toggle="buttons">
@@ -105,6 +144,7 @@ if(!isset($_POST["fileupload"])){
 								<div class="tr">
 									<div class="th">操作</div>
 									<div class="td">
+										<?= $data['id'] ?>
 										<input type="hidden" name="contents_id" value="<?= $data['id'] ?>">
 										<input type="submit" name="fileupload" class="btn btn-success" value="追加" style="margin-left:10px;" >
 									</div>
@@ -114,35 +154,53 @@ if(!isset($_POST["fileupload"])){
 					</div>
 				</form>
 				<!-- ファイル一覧 -->
-				<form action="contents_edit.php" name="frm_contents" method="POST">
-					<div class="flex-area">
-						<div class="f" >
-							<?php $hoge="ファイル一覧" ?>
-							<div class="table" style="margin-bottom: 10px;">
-								<div class="tr"><div class="th"><?php echo $hoge ?? '基本情報'; ?></div></div>
-								<table class="table table_result_client table_sp">
-									<thead>
-										<tr>
-											<th class="listUser table_result_element" style="background: #F8F4ED;">ファイル名</th>
-											<th class="listUser table_result_element" style="background: #F8F4ED;">ステータス</th>
-											<th class="listUser table_result_element" style="background: #F8F4ED;">詳細</th>
-										</tr>
-									</thead>
-									<tbody>
-									<?php foreach ($arr_files as $seq => $value) { ?>
+				<div class="flex-area">
+					<div class="f" >
+						<?php $hoge="ファイル一覧" ?>
+						<div class="table" style="margin-bottom: 0px;">
+							<div class="tr"><div class="th"><?php echo $hoge ?? '基本情報'; ?></div></div>
+							<table class="table table_result_client table_sp" style="margin-bottom: 0px;">
+								<thead>
+									<tr>
+											<th class="listUser table_result_element" style="color: #fff; background: #1abc9c;">ファイル名</th>
+											<th class="listUser table_result_element" style="color: #fff; background: #1abc9c;">ファイルリンク</th>
+											<th class="listUser table_result_element" style="color: #fff; background: #1abc9c;">サムネイルリンク</th>
+											<th class="listUser table_result_element" style="color: #fff; background: #1abc9c;">ステータス</th>
+											<th class="listUser table_result_element" style="color: #fff; background: #1abc9c;">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php foreach ($file_data as $seq => $value) { ?>
+									<form action="contents_detail.php" method="post">
 										<tr>
 											<!-- <td class="listUser" ><?php //echo h($value['contents_name']); ?></td> -->
 											<td class="listUser" ><?php echo h($value['file_name']); ?></td>
+											<td class="listUser"><a href="image/contents_folder/<?php echo $value["file_name"]; ?>" target="_blank"><?php echo $value["file_name"]; ?></a></td>
+											<td class="listUser">
+												<?php if($value['thumbnail_name']=="0" || empty($value['thumbnail_name'])){ ?>
+													サムネイルはありません
+												<?php } else {  ?>
+													<a href="image/contents_folder/<?php echo $value['thumbnail_name']; ?>" target="_blank"><?php echo $value['thumbnail_name']; ?></a>
+												<?php } ?>
+											</td>
 											<td class="listUser"><?php echo $def_status[$value['status']]; ?></td>
-											<td class="listUser" style="padding:8px 10px" ><button type="submit" name="id" class="btn" value="<?php echo h($value['id']); ?>" style="padding:3px 20px">詳細</button></td>
+											<td class="listUser" style="padding:8px 10px" >
+												<input type="hidden" name="fileid" value="<?= $value["id"] ?>">
+												<?php if($value['status']==0){ ?>
+													<input type="submit" name="filechange" class="btn btn-success" value="無効化" style="display:inline-block;">
+												<?php } else { ?>
+														<input type="submit" name="filechange" class="btn btn-success" value="有効化" style="display:inline-block;">
+												<?php } ?>
+												<input type="submit" name="filechange" class="btn btn-success" value="削除" style="display:inline-block;">
+											</td>
 										</tr>
-									<?php } ?>
-									</tbody>
-								</table>
-							</div>
+									</form>
+								<?php } ?>
+								</tbody>
+							</table>
 						</div>
 					</div>
-				</form>
+				</div>
 			</section><!-- /.content -->
 		</div><!-- /.content-wrapper -->
 	</div><!-- ./wrapper -->
