@@ -12,6 +12,14 @@ $arr_input = array(
 	"contents_name"											=> isset($param['contents_name']) ? $param['contents_name'] : "",
 	"status"												=> isset($param['status']) ? $param['status'] : "",
 );
+
+//一覧
+$sql = "select * from contents order by id asc";
+$db = $dbh->prepare($sql);
+/* $db->bindValue(':id', $contents_id, PDO::PARAM_INT); */
+$db->execute();
+$arr_content = $db->fetchAll();
+
 // 検索する？
 if (isset($_POST['frm_submit'])) {
 	$search_flag = true;

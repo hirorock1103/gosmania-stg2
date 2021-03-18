@@ -1,5 +1,6 @@
 /common/db_config.php
 /mysql
+/system/admin/image/contents_folder
 /*.swp
 /system/admin/csv_upload/*
 /mysql
