@@ -102,6 +102,19 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 		$th_filename = $contents_id."_".time()."_th.".$kaku; 
 		$th_filepath = "image/contents_folder/".$th_filename;
 
+		//ファイルアップロード
+		if (is_uploaded_file($th_tempfile)) {
+			if ( move_uploaded_file($th_tempfile , $th_filepath )) {
+				//echo $filename . "をアップロードしました。";
+
+			} else {
+				//$error[] = "ファイルをアップロードできません。";
+				$error['main_image'] = "ファイルをアップロードできませんでした。";
+			}
+		}else {
+			//$error[] = "ファイルが選択されていません。";
+			$error['main_image'] = "ファイルが選択されていません。";
+		} 
 	}
 
 
@@ -115,8 +128,8 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 					$params = [];
 					$params['contents_id'] = ['placeholder' => 'contents_id' , 'value' => $contents_id, 'type' => PDO::PARAM_INT, 'method' => ' ='];
 					$params['file_name'] = ['placeholder' => 'file_name' , 'value' => $filename, 'type' => PDO::PARAM_STR, 'method' => ' ='];
-					if($thumnail != ""){
-						$params['thumbnail_name'] = ['placeholder' => 'thumbnail_name' , 'value' => $filename, 'type' => PDO::PARAM_STR, 'method' => ' ='];
+					if($th_filename != ""){
+						$params['thumbnail_name'] = ['placeholder' => 'thumbnail_name' , 'value' => $th_filename, 'type' => PDO::PARAM_STR, 'method' => ' ='];
 					}
 					$ins_ret = InsertCommon($dbh, 'contentsfile', $params, 'id');
 				}catch(Exception $e){

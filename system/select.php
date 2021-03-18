@@ -6,6 +6,40 @@ $entry_mode = (find_record_by($dbh, 'PaymentInfo', 'seq', 'gmo_id', $ses['cs_id'
 // true -> 顧客情報あり 
 $cus_edit_mode = (find_record_by($dbh, 'CustomerInfo', 'Ci_Seq', 'Cs_Id', $ses['cs_id'], 'desc') == true);
 
+//image
+$sql = "select contentsfile.* from contentsfile
+where status = 0 order by id asc";
+$db = $dbh->prepare($sql);
+$db->execute();
+$fil_array = [];
+while($row = $db->fetch(PDO::FETCH_ASSOC)){
+	$fil_array[] = array(
+		'id' => $row['id'],
+		'contents_id' => $row['contents_id'],
+		'file_name' => $row['file_name'],
+		'thumbnail_name' => $row['thumbnail_name'],
+		'status' => $row['status'],
+	);
+}
+
+
+//contents titles
+$sql = "select * from contents where status = 0 order by id asc";
+$db = $dbh->prepare($sql);
+$db->execute();
+$con_array = [];
+$con_titles = [];
+while($row = $db->fetch(PDO::FETCH_ASSOC)){
+	$con_array[] = array(
+		'id' => $row['id'],
+		'contents_name' => $row['contents_name'],
+		'status' => $row['status'],
+	);
+	$con_titles[$row['id']] = $row['contents_name'];
+}
+$con_titles_json = json_encode($con_titles);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -110,22 +144,14 @@ i                   style="padding-left: 3px;"
 			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
 		>
 			<?php 
-			// DB（コンテンツ情報）
-			$con_array = [
-				["id"=>1, "contents_name"=>"イベント", "status"=>0 ],
-				["id"=>2, "contents_name"=>"全国ツアー2021", "status"=>0 ],
-				["id"=>3, "contents_name"=>"ファンの集い", "status"=>0 ],
-				["id"=>3, "contents_name"=>"Test1", "status"=>0 ],
-				["id"=>3, "contents_name"=>"Test2", "status"=>0 ],
-				["id"=>3, "contents_name"=>"Test3", "status"=>0 ],
-			];
 			// 表示
 			echo '<!-- PC -->';
 			echo '<div id="aplly_kind00" class="app btn sp_none" style="box-sizing: border-box;">';
 			foreach($con_array as $value){
 				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button1" style="margin: 5px 5px;"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
-				echo 'data-target="file" >';
+				echo 'data-target="file" ';
+				echo 'data-id="'.$value['id'].'" >';
 				echo $value["contents_name"];
 				echo '</button>';
 			}
@@ -135,7 +161,8 @@ i                   style="padding-left: 3px;"
 			foreach($con_array as $value){
 				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button1"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
-				echo 'data-target="file" >';
+				echo 'data-target="file" ';
+				echo 'data-id="'.$value['id'].'" >';
 				echo $value["contents_name"];
 				echo '</button>';
 			}
@@ -150,17 +177,7 @@ i                   style="padding-left: 3px;"
 			id="file"
 			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
 		>
-		<?php 
-			// DB（ファイル情報）→コンテンツIDで紐付けて取得してくる
-			$fil_array = [
-				["id"=>1, "contents_id"=>"1", "file_name"=>"sample.jpg", "status"=>0 ],
-				["id"=>2, "contents_id"=>"1", "file_name"=>"sample.jpg", "status"=>0 ],
-				["id"=>3, "contents_id"=>"1", "file_name"=>"sample.jpg", "status"=>0 ],
-				["id"=>3, "contents_id"=>"1", "file_name"=>"sample.jpg", "status"=>0 ],
-				["id"=>3, "contents_id"=>"1", "file_name"=>"sample.jpg", "status"=>0 ],
-			];
-		?>
-		<?= $con_array[1]["contents_name"] ?>
+		<span id="contents-name"><?= $con_array[1]["contents_name"] ?></span>
 		<!-- PC表示 -->
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
@@ -168,13 +185,14 @@ i                   style="padding-left: 3px;"
 				<div class="imagearea">
 					<?php 
 						foreach($fil_array as $value){
-							echo '<figure>';
+							echo '<figure class="contents-image target-'.$value['contents_id'].'">';
 							echo '<a href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
+							//thumnail
 							echo '<div calss="photo">';
 							echo '<img src="admin/image/contents_folder/';
-							echo $value["file_name"];
+							echo !empty($value['thumbnail_name']) ? $value['thumbnail_name'] : $value["file_name"];
 							echo '" alt="写真" width="220px" height="130px"></div></a>';
 							echo '<figcaption>';
 							echo $value["file_name"];
@@ -183,7 +201,7 @@ i                   style="padding-left: 3px;"
 					?>
 <!-- 					<figure><a href="admin/image/contents_folder/sample.mp4" data-lity="data-lity"><div calss="photo"><video src="admin/image/contents_folder/sample.mp4" width="220px" height="130px" loop autoplay muted></video></div></a><figcaption>sample.mp4</figcaption></figure> -->
 					<!-- <figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><iframe src="admin/image/contents_folder/no1.pdf#page=1&scrollbar=0" width="220px" height="130px" ></iframe ></div></a><figcaption>sample.pdf</figcaption></figure> -->
-					<figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></div></a><figcaption>sample.pdf</figcaption></figure>
+<!-- 					<figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></div></a><figcaption>sample.pdf</figcaption></figure> -->
 				</div>
 			</div>
 			<!-- スマホ表示 -->
@@ -205,8 +223,8 @@ i                   style="padding-left: 3px;"
 							echo '</figcaption></div>';
 						}
 					?>
-					<div><a href="admin/image/contents_folder/sample.mp4" data-lity="data-lity"><video src="admin/image/contents_folder/sample.mp4" width="220px" height="130px" loop autoplay muted></video></a><figcaption>sample.mp4</figcaption></div>
-					<div><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></a><figcaption>sample.pdf</figcaption></div>
+<!-- 					<div><a href="admin/image/contents_folder/sample.mp4" data-lity="data-lity"><video src="admin/image/contents_folder/sample.mp4" width="220px" height="130px" loop autoplay muted></video></a><figcaption>sample.mp4</figcaption></div> -->
+<!-- 					<div><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></a><figcaption>sample.pdf</figcaption></div> -->
 				</div>
 			</div>
 		</div>
@@ -217,6 +235,9 @@ i                   style="padding-left: 3px;"
 </div><!-- .wrap -->
 <script src="./js/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script>
+
+var titles = JSON.parse('<?php echo $con_titles_json; ?>');
+
 $(function(){
 	$('.select_button').click(function(){
 		console.log($(this).text(), $(this).data('target'));
@@ -233,6 +254,15 @@ $(function(){
 
 		$('.select_button1').prop('disabled', false);
 		$(this).prop('disabled', true);
+
+		var contents_id = $(this).data('id');
+
+		$("#contents-name").text(titles[contents_id]);
+
+		//対象の画像を表示 --その他は非表示
+		$(".contents-image").hide();
+		$(".target-"+contents_id).show();
+
 	});
 });
 </script>
