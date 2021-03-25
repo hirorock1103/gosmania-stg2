@@ -80,6 +80,8 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 	$filepath = "";
 	$th_filepath = "";
 
+	$is_pdf = false;
+
 	if(isset($_FILES['file']['tmp_name'])){
 
 		$tempfile = $_FILES['file']['tmp_name']; // 一時ファイル名
@@ -89,32 +91,52 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 		$filename = $contents_id."_".time().".".$kaku; 
 		$filepath = "image/contents_folder/".$filename;
 
+		if($kaku == 'pdf'){
+			$is_pdf = true;
+		}
+
 	}else{
 		$error['main_image'] = "メイン画像は必須です！";
 	}
+
 
 	/** thum image */
 	if( !empty($tempfile) && isset($_FILES['thum']['tmp_name'])){
 
 		$th_tempfile = $_FILES['thum']['tmp_name']; // 一時ファイル名
-		$list = explode('.',$_FILES['thum']['name']);
-		$kaku = $list[(count($list)-1)];
-		$th_filename = $contents_id."_".time()."_th.".$kaku; 
-		$th_filepath = "image/contents_folder/".$th_filename;
 
-		//ファイルアップロード
-		if (is_uploaded_file($th_tempfile)) {
-			if ( move_uploaded_file($th_tempfile , $th_filepath )) {
-				//echo $filename . "をアップロードしました。";
+		if(!empty($th_tempfile)){
 
-			} else {
-				//$error[] = "ファイルをアップロードできません。";
-				$error['main_image'] = "ファイルをアップロードできませんでした。";
+			//thumnail画像あり
+			$list = explode('.',$_FILES['thum']['name']);
+			$kaku = $list[(count($list)-1)];
+			$th_filename = $contents_id."_".time()."_th.".$kaku; 
+			$th_filepath = "image/contents_folder/".$th_filename;
+			//ファイルアップロード
+			if (is_uploaded_file($th_tempfile)) {
+				if ( move_uploaded_file($th_tempfile , $th_filepath )) {
+					//echo $filename . "をアップロードしました。";
+
+				} else {
+					//$error[] = "ファイルをアップロードできません。";
+					$error['thumnail'] = "ファイルをアップロードできませんでした。";
+				}
+			}else {
+				//$error[] = "ファイルが選択されていません。";
+				$error['thumnail'] = "ファイルが選択されていません。";
+			} 
+
+		}else{
+
+			//thumnailなし　※pdfのときは必須！
+			if($is_pdf == true){
+				$error['thumnail'] = "ファイルが選択されていません。";
 			}
-		}else {
-			//$error[] = "ファイルが選択されていません。";
-			$error['main_image'] = "ファイルが選択されていません。";
-		} 
+
+		}
+
+
+
 	}
 
 
@@ -243,7 +265,12 @@ if($contents_id == ""){
 										</div>
 										<div class="tr">
 											<div class="th">サムネイル</div>
-											<div class="td"><input type="file" name="thum"></div>
+											<div class="td">
+												<input type="file" name="thum">
+												<?php if(isset($error['thumnail'])){ ?>
+												<p class="error"><?=$error['thumnail']?></p>
+												<?php } ?>
+											</div>
 										</div>
 										<div class="tr">
 											<div class="th">ステータス</div>
