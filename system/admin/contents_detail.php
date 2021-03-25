@@ -223,6 +223,7 @@ if(isset($_POST["filechange"]) && !empty($_POST["filechange"])){
 
 }
 
+
 //
 if($contents_id == ""){
 	header('Location: ./contents_list.php');
@@ -284,7 +285,7 @@ if($contents_id == ""){
 												<?php } ?>
 											</div>
 										</div>
-										<div class="tr">
+<!-- 										<div class="tr">
 											<div class="th">ステータス</div>
 											<div class="td">
 												<div class="btn-group" data-toggle="buttons">
@@ -292,7 +293,7 @@ if($contents_id == ""){
 													<label class="btn btn-default "><input type="radio" name="status" autocomplete="off" value="1"> 無効</label>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<div class="tr">
 											<div class="th">操作</div>
 											<div class="td">
@@ -333,7 +334,10 @@ if($contents_id == ""){
 														<a href="image/contents_folder/<?php echo $value['thumbnail_name']; ?>" target="_blank"><?php echo $value['thumbnail_name']; ?></a>
 													<?php } ?>
 												</td>
-												<td class="listUser"><?php echo $def_status[$value['status']]; ?></td>
+												<td class="listUser">
+												<?php $style = $value['status'] == 1 ? 'red' : ''; ?>
+												<span style="color:<?=$style?>;"><?php echo $def_status[$value['status']]; ?></span>
+												</td>
 												<td class="listUser" style="padding:8px 10px" >
 													<input type="hidden" name="fileid" value="<?= $value["id"] ?>">
 													<?php if($value['status']==0){ ?>

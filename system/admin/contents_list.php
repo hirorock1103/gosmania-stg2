@@ -2,6 +2,16 @@
 include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
 // 初期化
+
+//削除
+if (isset($_POST['delete'])) {
+	$contents_id = isset($_POST['id']) ? $_POST['id'] : 0;
+	$sql = "delete from contents where id = :id";
+	$db = $dbh->prepare($sql);
+	$db->bindValue(':id', $contents_id, PDO::PARAM_INT);
+	$db->execute();
+}
+
 $search_flag = false;
 $arr_content = array();
 $total_rows = 0;
@@ -19,6 +29,7 @@ $db = $dbh->prepare($sql);
 /* $db->bindValue(':id', $contents_id, PDO::PARAM_INT); */
 $db->execute();
 $arr_content = $db->fetchAll();
+	$total_rows = count($arr_content);
 
 // 検索する？
 if (isset($_POST['frm_submit'])) {
@@ -93,7 +104,6 @@ function _search($dbh, $arr_input)
 									</div>
 								</div><!-- box1 -->
 							</form>
-							<form action="contents_detail.php" name="frm_contents_list" method="post" target="_blank">
 								<div class="">
 									<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
 									<div class="search_results">
@@ -111,14 +121,22 @@ function _search($dbh, $arr_input)
 													<tr>
 														<td class="listUser" ><?php echo h($value['contents_name']); ?></td>
 														<td class="listUser"><?php echo $def_status[$value['status']]; ?></td>
-														<td class="listUser" style="padding:8px 10px" ><button type="submit" name="id" class="btn" value="<?php echo h($value['id']); ?>" style="padding:3px 20px">詳細</button></td>
+														<td class="listUser" style="display:flex; padding:8px 10px" >
+														
+							<form action="contents_detail.php" name="frm_contents_list" method="post" style="margin-right:5px;" target="_blank">
+														<button type="submit" name="id" class="btn" value="<?php echo h($value['id']); ?>" style="padding:3px 20px">詳細</button>
+							</form>
+							<form action=""  method="post" >
+														<button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('削除します。よろしいですか？')" value="<?php echo h($value['id']); ?>" style="padding:3px 20px">削除</button>
+														<input type="hidden" name="id" value="<?=$value['id']?>">
+							</form>
+														</td>
 													</tr>
 <?php } ?>										</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
-							</form>
 						</div><!-- col-xs-12 -->
 					</div><!-- row -->
 				</section><!-- /.content -->

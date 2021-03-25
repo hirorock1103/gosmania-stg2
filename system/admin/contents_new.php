@@ -112,9 +112,9 @@ function _param($data, $table_ary){
 						<?php }else if(isset($data['submit']) && $data['submit'] == '確認' && !empty($err) ) { //確認画面だがエラーがある時?>
 							<button type="submit" name="back"class="btn" >戻る</button>
 						<?php }else if(isset($data['submit']) && $data['submit'] == '登録' ){ //登録画面 ?>
-							<button type="button" name="frm_close"class="btn" onClick="window.close();" >閉じる</button>
+							<button type="button" name="frm_close" class="btn" onclick="window.close();" >閉じる</button>
 						<?php }else{ //完了画面?>
-							<button type="button" name="frm_close"class="btn" onClick="window.close();" >閉じる</button>
+							<button type="button" name="frm_close" class="btn" onclick="window.close();" >閉じるss</button>
 							<input type="submit" name="submit" class="btn btn-success" value="確認" style="margin-left:10px;" >
 						<?php } ?>
 						</div>
