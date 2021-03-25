@@ -641,6 +641,22 @@ table {
     text-align: center;
 }
 
+.app2{
+    justify-content: space-between;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.app2 button{
+    width:45% !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    height: 80px;
+    line-height: 20px;
+}
+
+
 @media screen and (max-width:639px) {
     /*スマホ用のcssを記述*/
 	.mobile{
@@ -886,6 +902,21 @@ table {
     .img2{
         width:90px;
     }
+
+    .app2{
+        justify-content: space-between;
+        box-sizing: border-box;
+        display: flex ;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .app3 button{
+        word-wrap: break-word;
+        height: 80px;
+        line-height: 20px;
+        padding:10px !important;
+    }
+
 
 }
 

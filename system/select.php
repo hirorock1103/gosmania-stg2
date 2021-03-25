@@ -146,24 +146,26 @@ i                   style="padding-left: 3px;"
 			<?php 
 			// 表示
 			echo '<!-- PC -->';
-			echo '<div id="aplly_kind00" class="app btn sp_none" style="box-sizing: border-box;">';
+			echo '<div id="aplly_kind00" class="app app2 btn sp_none" style="box-sizing: border-box;">';
 			foreach($con_array as $value){
-				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button1" style="margin: 5px 5px;"';
+				echo '<button type="button" class="btn-sub btn-select  select_button1" style="margin:15px;"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
 				echo 'data-target="file" ';
 				echo 'data-id="'.$value['id'].'" >';
-				echo $value["contents_name"];
+				$contents_name = mb_strimwidth( $value['contents_name'], 0, 44, '…', 'UTF-8' );
+				echo $contents_name;
 				echo '</button>';
 			}
 			echo '</div>';
 			echo '<!-- スマホ -->';
-			echo '<div id="aplly_kind00" class="app btn pc_none flex-buttons">';
+			echo '<div id="aplly_kind00" class="app app3 btn pc_none flex-buttons">';
 			foreach($con_array as $value){
 				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button1"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
 				echo 'data-target="file" ';
 				echo 'data-id="'.$value['id'].'" >';
-				echo $value["contents_name"];
+				$contents_name = mb_strimwidth( $value['contents_name'], 0, 30, '…', 'UTF-8' );
+				echo $contents_name;
 				echo '</button>';
 			}
 			echo '</div>';
@@ -180,8 +182,6 @@ i                   style="padding-left: 3px;"
 		<span id="contents-name"><?= $con_array[1]["contents_name"] ?></span>
 		<!-- PC表示 -->
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
-				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
-					data-target="contents" style="margin:0 0 20px 0;">一覧に戻る</button>
 				<div class="imagearea">
 					<?php 
 						foreach($fil_array as $value){
@@ -203,11 +203,13 @@ i                   style="padding-left: 3px;"
 					<!-- <figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><iframe src="admin/image/contents_folder/no1.pdf#page=1&scrollbar=0" width="220px" height="130px" ></iframe ></div></a><figcaption>sample.pdf</figcaption></figure> -->
 <!-- 					<figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></div></a><figcaption>sample.pdf</figcaption></figure> -->
 				</div>
+				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
+					data-target="contents" style="margin:10px 0 20px 0;">一覧に戻る</button>
 			</div>
 			<!-- スマホ表示 -->
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
 				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
-					data-target="contents" style="margin:0 0 20px 0;">一覧に戻る</button>
+					data-target="contents" style="margin:0 0 20px 0;     width: 150px;">一覧に戻る</button>
 				<div class="imagearea">
 					<?php 
 						foreach($fil_array as $value){
@@ -217,7 +219,7 @@ i                   style="padding-left: 3px;"
 							echo '" data-lity="data-lity">';
 							echo '<img src="admin/image/contents_folder/';
 							echo $value["file_name"];
-							echo '" alt="写真" width="220px" height="130px"></a>';
+							echo '" alt="写真" width="218px" height="130px"></a>';
 							echo '<figcaption>';
 							echo $value["file_name"];
 							echo '</figcaption></div>';
