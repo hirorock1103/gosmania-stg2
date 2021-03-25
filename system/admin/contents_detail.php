@@ -88,12 +88,19 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 		//拡張子
 		$list = explode('.',$_FILES['file']['name']);
 		$kaku = $list[(count($list)-1)];
-		$filename = $contents_id."_".time().".".$kaku; 
-		$filepath = "image/contents_folder/".$filename;
 
-		if($kaku == 'pdf'){
-			$is_pdf = true;
+		if( in_array($kaku, $allow) ) {
+			$filename = $contents_id."_".time().".".$kaku; 
+			$filepath = "image/contents_folder/".$filename;
+
+			if($kaku == 'pdf'){
+				$is_pdf = true;
+			}
+		} else{
+			//許可されていない拡張子
+			$error['main_image'] = "許可されていないファイルです";
 		}
+
 
 	}else{
 		$error['main_image'] = "メイン画像は必須です！";
@@ -110,21 +117,26 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 			//thumnail画像あり
 			$list = explode('.',$_FILES['thum']['name']);
 			$kaku = $list[(count($list)-1)];
-			$th_filename = $contents_id."_".time()."_th.".$kaku; 
-			$th_filepath = "image/contents_folder/".$th_filename;
-			//ファイルアップロード
-			if (is_uploaded_file($th_tempfile)) {
-				if ( move_uploaded_file($th_tempfile , $th_filepath )) {
-					//echo $filename . "をアップロードしました。";
+			if( in_array($kaku, $allow) ) {
+				$th_filename = $contents_id."_".time()."_th.".$kaku; 
+				$th_filepath = "image/contents_folder/".$th_filename;
+				//ファイルアップロード
+				if (is_uploaded_file($th_tempfile)) {
+					if ( move_uploaded_file($th_tempfile , $th_filepath )) {
+						//echo $filename . "をアップロードしました。";
 
-				} else {
-					//$error[] = "ファイルをアップロードできません。";
-					$error['thumnail'] = "ファイルをアップロードできませんでした。";
-				}
-			}else {
-				//$error[] = "ファイルが選択されていません。";
-				$error['thumnail'] = "ファイルが選択されていません。";
-			} 
+					} else {
+						//$error[] = "ファイルをアップロードできません。";
+						$error['thumnail'] = "ファイルをアップロードできませんでした。";
+					}
+				}else {
+					//$error[] = "ファイルが選択されていません。";
+					$error['thumnail'] = "ファイルが選択されていません。";
+				} 
+			} else{
+				//許可されていない拡張子
+				$error['thumnail'] = "許可されていないファイルです";
+			}
 
 		}else{
 
