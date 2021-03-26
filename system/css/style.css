@@ -669,12 +669,21 @@ table {
 
     .select_button{
         min-width: 80px;
-        /* padding:0 1.5rem !important; */
-        padding:0 1.2rem !important;
+        padding:0 1.5rem !important;
+        /* padding:0 1.2rem !important; */
         font-size: 14px !important;
         line-height: 2.5 !important;
         margin-bottom: 5px;
         margin-top: 15px;
+    }
+
+    .flex{
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex !important;
+        justify-content: space-evenly;
     }
 
     section.section-list{
