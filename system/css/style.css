@@ -1024,3 +1024,42 @@ table {
 
 
     }
+
+
+    /* 画像アスペクト　テストCSS */
+.imgsumul {
+	margin:0;
+    padding:0;
+    border:0;
+    list-style-type: none;
+    /* display:flex; */
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-around;
+}
+.imgsumli {
+	margin:0px;
+	padding:0;
+	border:1px solid black;
+	/* background-color:white; */
+	border-radius:4px;
+}
+.imgsuma{
+	margin:0;
+	padding:0;
+	border:0;
+	display:block;
+	width:220px;
+	height:130px;
+}
+.imgsum {
+	margin:0;
+	width:100%;
+	height:100%;
+	object-fit: cover;
+}
+
+.filebtn{
+    min-width: 200px !important;
+    line-height: 45px !important;
+}

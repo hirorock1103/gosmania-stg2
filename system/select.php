@@ -74,7 +74,7 @@ i                   style="padding-left: 3px;"
 				>通信販売</button>
 				<button
 					type="button"
-					class="btn-sub select_button"
+					class="btn-sub select_button contentcheack"
 					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
 					data-target="contents"
 				>コンテンツ</button>
@@ -183,8 +183,11 @@ i                   style="padding-left: 3px;"
 		<!-- PC表示 -->
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<div class="imagearea">
+				<ul class="imgsumul">
 					<?php 
 						foreach($fil_array as $value){
+
+							/*
 							echo '<figure class="contents-image target-'.$value['contents_id'].'">';
 							echo '<a href="admin/image/contents_folder/';
 							echo $value["file_name"];
@@ -197,11 +200,27 @@ i                   style="padding-left: 3px;"
 							echo '<figcaption>';
 							echo $value["file_name"];
 							echo '</figcaption></figure>';
+							*/
+
+							echo '<figure>';
+							echo '<li class="imgsumli">';
+							echo '<a class="imgsuma" href="admin/image/contents_folder/';
+							echo $value["file_name"];
+							echo '" data-lity="data-lity">';
+							echo '<img class="imgsum" src="admin/image/contents_folder/';
+							echo $value["file_name"];
+							echo '" alt="写真"></a>';
+							echo '</li>';
+							echo '<figcaption>';
+							echo $value["file_name"];
+							echo '</figcaption></figure>';
+
 						}
 					?>
 <!-- 					<figure><a href="admin/image/contents_folder/sample.mp4" data-lity="data-lity"><div calss="photo"><video src="admin/image/contents_folder/sample.mp4" width="220px" height="130px" loop autoplay muted></video></div></a><figcaption>sample.mp4</figcaption></figure> -->
 					<!-- <figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><iframe src="admin/image/contents_folder/no1.pdf#page=1&scrollbar=0" width="220px" height="130px" ></iframe ></div></a><figcaption>sample.pdf</figcaption></figure> -->
 <!-- 					<figure><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><div calss="photo"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></div></a><figcaption>sample.pdf</figcaption></figure> -->
+				</ul>
 				</div>
 				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
 					data-target="contents" style="margin:10px 0 20px 0;">一覧に戻る</button>
@@ -248,6 +267,13 @@ $(function(){
 
 		$('.select_button').prop('disabled', false);
 		$(this).prop('disabled', true);
+
+		//ファイル開いたとき//一覧で戻ったとき
+		if( $(this).data('target')=="file" || $(this).text()=="一覧に戻る" && $(this).data('target')=="contents"){
+			let inputElement = document.getElementsByClassName("contentcheack");
+			$(inputElement).prop('disabled', true);
+		}
+
 	});
 	$('.select_button1').click(function(){
 		console.log($(this).text(), $(this).data('target'));

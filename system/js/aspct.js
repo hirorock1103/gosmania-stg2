@@ -1,7 +1,7 @@
 $(window).on('load resize', function(){
     trimming('.photo');//ここにトリミングしたい枠の種類を書くだけ（枠のサイズが同じなら1つ書けばOK。）
-    trimming('.photo2');//←枠サイズが違う形式でトリミングしたい場合はクラスを追加するだけ
-    trimming('.photo3');
+    // trimming('.photo2');//←枠サイズが違う形式でトリミングしたい場合はクラスを追加するだけ
+    // trimming('.photo3');
 })
 function trimming ($photoBox) {    //Functionで機能をまとめ
     jQuery($photoBox).each(function(){
