@@ -148,7 +148,7 @@ i                   style="padding-left: 3px;"
 			echo '<!-- PC -->';
 			echo '<div id="aplly_kind00" class="app app2 btn sp_none" style="box-sizing: border-box;">';
 			foreach($con_array as $value){
-				echo '<button type="button" class="btn-sub btn-select  select_button1" style="margin:15px;"';
+				echo '<button type="button" class="btn-sub btn-select select_button" style="margin:15px;"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
 				echo 'data-target="file" ';
 				echo 'data-id="'.$value['id'].'" >';
@@ -160,7 +160,7 @@ i                   style="padding-left: 3px;"
 			echo '<!-- スマホ -->';
 			echo '<div id="aplly_kind00" class="app app3 btn pc_none flex-buttons">';
 			foreach($con_array as $value){
-				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button1"';
+				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
 				echo 'data-target="file" ';
 				echo 'data-id="'.$value['id'].'" >';
@@ -273,23 +273,6 @@ $(function(){
 			let inputElement = document.getElementsByClassName("contentcheack");
 			$(inputElement).prop('disabled', true);
 		}
-
-	});
-	$('.select_button1').click(function(){
-		console.log($(this).text(), $(this).data('target'));
-		$('.block-gosmania2').hide();
-		$('#' + $(this).data('target')).show();
-
-		$('.select_button1').prop('disabled', false);
-		$(this).prop('disabled', true);
-
-		var contents_id = $(this).data('id');
-
-		$("#contents-name").text(titles[contents_id]);
-
-		//対象の画像を表示 --その他は非表示
-		$(".contents-image").hide();
-		$(".target-"+contents_id).show();
 
 	});
 });
