@@ -17,6 +17,8 @@ while($row = $db->fetch(PDO::FETCH_ASSOC)){
 		'id' => $row['id'],
 		'contents_id' => $row['contents_id'],
 		'file_name' => $row['file_name'],
+		'title' => $row['title'],
+		'guard_flag' => $row['guard_flag'],
 		'thumbnail_name' => $row['thumbnail_name'],
 		'status' => $row['status'],
 	);
@@ -196,7 +198,7 @@ i                   style="padding-left: 3px;"
 							echo '" alt="写真"></a>';
 							echo '</li>';
 							echo '<figcaption>';
-							echo $value["file_name"];
+							echo $value["title"];
 							echo '</figcaption></figure>';
 						}
 					?>
@@ -206,7 +208,7 @@ i                   style="padding-left: 3px;"
 				</ul>
 				</div>
 				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
-					data-target="contents" style="margin:10px 0 20px 0;">一覧に戻る</button>
+					data-target="contents" style="margin:10px 0px 0px 0;">一覧に戻る</button>
 			</div>
 			<!-- スマホ表示 -->
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
@@ -221,7 +223,7 @@ i                   style="padding-left: 3px;"
 							echo $value["file_name"];
 							echo '" alt="写真" width="218px" height="130px"></a>';
 							echo '<figcaption>';
-							echo $value["file_name"];
+							echo $value["title"];
 							echo '</figcaption></div>';
 						}
 					?>
