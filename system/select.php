@@ -183,7 +183,7 @@ i                   style="padding-left: 3px;"
 		>
 		<span id="contents-name"><?= $con_array[1]["contents_name"] ?></span>
 		<!-- PC表示 -->
-			<div id="aplly_kind00" class="app btn sp_none">
+			<div id="aplly_kind00" class="app btn sp_none" style="    padding: 30px 0; padding-bottom: 0;">
 				<div class="imagearea">
 				<ul class="imgsumul">
 					<?php 
@@ -211,11 +211,13 @@ i                   style="padding-left: 3px;"
 					data-target="contents" style="margin:10px 0px 0px 0;">一覧に戻る</button>
 			</div>
 			<!-- スマホ表示 -->
-			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
+			<div id="aplly_kind00" class="app btn pc_none flex-buttons" style="padding: 30px 0;    padding-bottom: 0;">
 				<div class="imagearea">
+				<ul class="imgsumul">
 					<?php 
 						foreach($fil_array as $value){
-							echo '<div>';
+
+/* 							echo '<div>';
 							echo '<a href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
@@ -224,13 +226,27 @@ i                   style="padding-left: 3px;"
 							echo '" alt="写真" width="218px" height="130px"></a>';
 							echo '<figcaption>';
 							echo $value["title"];
-							echo '</figcaption></div>';
+							echo '</figcaption></div>'; */
+
+							echo '<figure class="contents-image target-'.$value['contents_id'].'">';
+							echo '<li class="imgsumli">';
+							echo '<a class="imgsuma" href="admin/image/contents_folder/';
+							echo $value["file_name"];
+							echo '" data-lity="data-lity">';
+							echo '<img class="imgsum" src="admin/image/contents_folder/';
+							echo $value["file_name"];
+							echo '" alt="写真"></a>';
+							echo '</li>';
+							echo '<figcaption>';
+							echo $value["title"];
+							echo '</figcaption></figure>';
 						}
 					?>
 <!-- 					<div><a href="admin/image/contents_folder/sample.mp4" data-lity="data-lity"><video src="admin/image/contents_folder/sample.mp4" width="220px" height="130px" loop autoplay muted></video></a><figcaption>sample.mp4</figcaption></div> -->
 <!-- 					<div><a href="admin/image/contents_folder/no1.pdf" data-lity="data-lity"><img src="admin/image/contents_folder/samn.jpg" alt="写真" width="220px" height="130px"></a><figcaption>sample.pdf</figcaption></div> -->
+				</ul>
 				<button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
-					data-target="contents" style="margin:0 0 20px 0;     width: 150px;">一覧に戻る</button>
+					data-target="contents" style="margin:20px 0 10px 0;     width: 150px;">一覧に戻る</button>
 				</div>
 			</div>
 		</div>
