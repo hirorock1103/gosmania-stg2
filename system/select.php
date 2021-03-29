@@ -63,21 +63,21 @@ $con_titles_json = json_encode($con_titles);
 				<button
 					type="button"
 					class="btn-sub select_button"
-					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'disabled');?>
+					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'disabled');?>
 					data-target="user_data"
 i                   style="padding-left: 3px;"
 				>継続手続き</button>
 				<button
 					type="button"
 					class="btn-sub select_button"
-					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
+					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'disabled');?>
 					data-target="shopping_link"
 					style="display:none;"
 				>通信販売</button>
 				<button
 					type="button"
 					class="btn-sub select_button contentcheack"
-					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
+					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'disabled' : '');?>
 					data-target="contents"
 				>コンテンツ</button>
 			</span>
@@ -87,7 +87,7 @@ i                   style="padding-left: 3px;"
 		<div
 			class="block-gosmania2"
 			id="user_data"
-			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'none' : ''); ?>;"
+			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : ''); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<?php $class = ($entry_mode == false) ? "disable" : "";  ?>
@@ -125,7 +125,7 @@ i                   style="padding-left: 3px;"
 		<div
 			class="block-gosmania2"
 			id="shopping_link"
-			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
+			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : 'none'); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<a href="https://store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select">
@@ -143,7 +143,7 @@ i                   style="padding-left: 3px;"
 		<div
 			class="block-gosmania2"
 			id="contents"
-			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
+			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'none'); ?>;"
 		>
 			<?php 
 			// 表示
