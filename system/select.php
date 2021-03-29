@@ -188,13 +188,13 @@ i                   style="padding-left: 3px;"
 				<ul class="imgsumul">
 					<?php 
 						foreach($fil_array as $value){
-							$guard = $value['guard_flag'] == 1 ? 'guard' : '';
-							echo '<figure class="'.$guard.' contents-image target-'.$value['contents_id'].'">';
+							echo '<figure class=" contents-image target-'.$value['contents_id'].'">';
 							echo '<li class="imgsumli">';
 							echo '<a class="imgsuma" href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
-							echo '<img class="imgsum " src="admin/image/contents_folder/';
+							$guard = $value['guard_flag'] == 1 ? 'oncontextmenu="return false;"' : '';
+							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真"></a>';
 							echo '</li>';
@@ -234,7 +234,9 @@ i                   style="padding-left: 3px;"
 							echo '<a class="imgsuma" href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
-							echo '<img class="imgsum" src="admin/image/contents_folder/';
+							$guard = $value['guard_flag'] == 1 ? 'oncontextmenu="return false;"' : '';
+							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
+							//echo '<img class="imgsum" src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真"></a>';
 							echo '</li>';
