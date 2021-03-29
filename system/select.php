@@ -59,7 +59,7 @@ $con_titles_json = json_encode($con_titles);
 	<?php include_once dirname(__FILE__) . "/header.php"; ?>
 	<section class="section-list page-news GOSMANIA">
 		<div class="block-gosmania2--comment2">
-			<span class="flex">
+			<span class="">
 				<button
 					type="button"
 					class="btn-sub select_button"
