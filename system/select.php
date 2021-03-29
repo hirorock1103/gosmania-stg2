@@ -162,7 +162,7 @@ i                   style="padding-left: 3px;"
 			echo '<!-- スマホ -->';
 			echo '<div id="aplly_kind00" class="app app3 btn pc_none flex-buttons">';
 			foreach($con_array as $value){
-				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button select_button1"';
+				echo '<button type="button" class="btn-sub btn-select <?php echo $class;?> select_button select_button1 ml-0"';
 				echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');
 				echo 'data-target="file" ';
 				echo 'data-id="'.$value['id'].'" >';

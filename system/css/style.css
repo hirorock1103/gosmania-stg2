@@ -657,6 +657,10 @@ table {
 }
 
 
+.ml-1{
+    margin-left:0px !important;
+}
+
 @media screen and (max-width:639px) {
     /*スマホ用のcssを記述*/
 	.mobile{
