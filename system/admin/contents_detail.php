@@ -172,6 +172,7 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 					$params['guard_flag'] = ['placeholder' => 'guard_flag' , 'value' => $guard_flag, 'type' => PDO::PARAM_INT, 'method' => ' ='];
 					$params['title'] = ['placeholder' => 'title' , 'value' => $title, 'type' => PDO::PARAM_STR, 'method' => ' ='];
 					$params['file_name'] = ['placeholder' => 'file_name' , 'value' => $filename, 'type' => PDO::PARAM_STR, 'method' => ' ='];
+					$params['status'] = ['placeholder' => 'status' , 'value' => 1, 'type' => PDO::PARAM_INT, 'method' => ' ='];
 					if($th_filename != ""){
 						$params['thumbnail_name'] = ['placeholder' => 'thumbnail_name' , 'value' => $th_filename, 'type' => PDO::PARAM_STR, 'method' => ' ='];
 					}

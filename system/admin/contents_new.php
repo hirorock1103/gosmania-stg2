@@ -20,7 +20,7 @@ $table_ary = [];
 
 //html ・・・ HTML上に描画するカラム key = name
 $table_ary['html']['contents_name']			= ['col_name' => 'コンテンツ名',		 'must' => $must_label,	'type' => 'string','arr' => [] ,			'placeholder' => ''];
-$table_ary['html']['status']		 		= ['col_name' => 'ステータス',	 'must' => $must_label,	'type' => 'radio', 'arr' => $def_status ,	'placeholder' => ''];
+$table_ary['html']['status']		 		= ['col_name' => 'ステータス',	 'must' => $must_label,	'type' => 'radio', 'arr' => $def_status , 'set_value' => 1,	'placeholder' => ''];
 
 //db ・・・ 実際にクエリに使うカラム  key = column(物理名)
 $table_ary['db']['contents_name']			= ['default' => null,		'type' => PDO::PARAM_STR ];
