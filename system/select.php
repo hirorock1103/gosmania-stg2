@@ -196,7 +196,7 @@ i                   style="padding-left: 3px;"
 							echo '" data-lity="data-lity">';
 							echo '<img class="imgsum " src="admin/image/contents_folder/';
 							echo $value["file_name"];
-							echo '" alt="写真"></a>';
+							echo '" alt="写真" oncontextmenu="return false;"></a>';
 							echo '</li>';
 							echo '<figcaption>';
 							echo $value["title"];
