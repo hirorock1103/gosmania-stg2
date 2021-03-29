@@ -315,8 +315,8 @@ if($contents_id == ""){
 											<div class="th">ガード</div>
 											<div class="td">
 											<select name="guard_flag">
-											<option value="0" <?php echo $guard_flag == "0" ? 'selected' : ''; ?>> off
-											<option value="1" <?php echo $guard_flag == "1" ? 'selected' : ''; ?>> on 
+											<option value="0" <?php echo $guard_flag == "0" ? 'selected' : ''; ?>> on
+											<option value="1" <?php echo $guard_flag == "1" ? 'selected' : ''; ?>> off 
 											</select>
 											</div>
 										</div>
@@ -365,7 +365,7 @@ if($contents_id == ""){
 											<tr>
 												<!-- <td class="listUser" ><?php //echo h($value['contents_name']); ?></td> -->
 												<td class="listUser"><?php echo $value["title"]; ?></td>
-												<td class="listUser"> <?php echo  $value['guard_flag'] > 0 ? 'on' : 'off' ?> </td>
+												<td class="listUser"> <?php echo  $value['guard_flag'] > 0 ? 'off' : 'on' ?> </td>
 												<td class="listUser"><a href="image/contents_folder/<?php echo $value["file_name"]; ?>" target="_blank"><?php echo $value["file_name"]; ?></a></td>
 												<td class="listUser">
 													<?php if($value['thumbnail_name']=="0" || empty($value['thumbnail_name'])){ ?>

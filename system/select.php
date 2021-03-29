@@ -193,7 +193,7 @@ i                   style="padding-left: 3px;"
 							echo '<a class="imgsuma" href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
-							$guard = $value['guard_flag'] == 1 ? 'oncontextmenu="return false;"' : '';
+							$guard = $value['guard_flag'] == 0 ? 'oncontextmenu="return false;"' : '';
 							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真"></a>';
@@ -234,7 +234,7 @@ i                   style="padding-left: 3px;"
 							echo '<a class="imgsuma" href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
-							$guard = $value['guard_flag'] == 1 ? 'oncontextmenu="return false;"' : '';
+							$guard = $value['guard_flag'] == 0 ? 'oncontextmenu="return false;"' : '';
 							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
 							//echo '<img class="imgsum" src="admin/image/contents_folder/';
 							echo $value["file_name"];
