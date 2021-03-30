@@ -63,21 +63,21 @@ $con_titles_json = json_encode($con_titles);
 				<button
 					type="button"
 					class="btn-sub select_button"
-					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'disabled');?>
+					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'disabled');?>
 					data-target="user_data"
 i                   style="padding-left: 3px;"
 				>継続手続き</button>
 				<button
 					type="button"
 					class="btn-sub select_button"
-					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
+					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'disabled');?>
 					data-target="shopping_link"
 					style="display:none;"
 				>通信販売</button>
 				<button
 					type="button"
 					class="btn-sub select_button contentcheack"
-					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'disabled' : '');?>
+					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'disabled' : '');?>
 					data-target="contents"
 				>コンテンツ</button>
 			</span>
@@ -87,7 +87,7 @@ i                   style="padding-left: 3px;"
 		<div
 			class="block-gosmania2"
 			id="user_data"
-			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'none' : ''); ?>;"
+			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : ''); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<?php $class = ($entry_mode == false) ? "disable" : "";  ?>
@@ -125,7 +125,7 @@ i                   style="padding-left: 3px;"
 		<div
 			class="block-gosmania2"
 			id="shopping_link"
-			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
+			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : 'none'); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
 				<a href="https://store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select">
@@ -143,7 +143,7 @@ i                   style="padding-left: 3px;"
 		<div
 			class="block-gosmania2"
 			id="contents"
-			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;"
+			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'none'); ?>;"
 		>
 			<?php 
 			// 表示
@@ -188,13 +188,13 @@ i                   style="padding-left: 3px;"
 				<ul class="imgsumul">
 					<?php 
 						foreach($fil_array as $value){
-							$guard = $value['guard_flag'] == 1 ? 'guard' : '';
-							echo '<figure class="'.$guard.' contents-image target-'.$value['contents_id'].'">';
+							echo '<figure class=" contents-image target-'.$value['contents_id'].'">';
 							echo '<li class="imgsumli">';
 							echo '<a class="imgsuma" href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
-							echo '<img class="imgsum " src="admin/image/contents_folder/';
+							$guard = $value['guard_flag'] == 0 ? 'oncontextmenu="return false;"' : '';
+							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真" oncontextmenu="return false;"></a>';
 							echo '</li>';
@@ -234,7 +234,9 @@ i                   style="padding-left: 3px;"
 							echo '<a class="imgsuma" href="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
-							echo '<img class="imgsum" src="admin/image/contents_folder/';
+							$guard = $value['guard_flag'] == 0 ? 'oncontextmenu="return false;"' : '';
+							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
+							//echo '<img class="imgsum" src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真"></a>';
 							echo '</li>';

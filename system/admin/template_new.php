@@ -14,7 +14,8 @@
 			<div class="td-edit">
 				<div class="btn-group" data-toggle="buttons">
 				<?php foreach ($table_info['arr'] as $key => $val) { ?>
-					<label class="btn btn-default <?php echo ( (isset($data[$col]) && $data[$col] == $key) || ( !isset($data[$col]) && $key == 0 ) ? 'active' : ''); ?>" >
+					<?php $set_val = isset($table_info['set_value']) ? $table_info['set_value'] : 0;  ?>
+					<label class="btn btn-default <?php echo ( (isset($data[$col]) && $data[$col] == $key) || ( !isset($data[$col]) && $key == $set_val ) ? 'active' : ''); ?>" >
 						<input type="radio" name="<?php echo $col; ?>" autocomplete="off" value="<?php echo h($key); ?>" <?php echo ( (isset($data[$col]) && $data[$col] == $key) || ( !isset($data[$col]) && $key == 0 ) ? 'checked' : ''); ?> > <?php echo h($val); ?>
 					</label>
 				<?php } ?>
