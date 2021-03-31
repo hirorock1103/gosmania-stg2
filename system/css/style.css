@@ -661,6 +661,12 @@ table {
     margin-left:0px !important;
 }
 
+body{
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+}
+
+
 @media screen and (max-width:639px) {
     /*スマホ用のcssを記述*/
 	.mobile{

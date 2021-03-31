@@ -50,7 +50,8 @@ $con_titles_json = json_encode($con_titles);
 	<!-- 追加 -->
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.css' />
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.js'></script>
+<!-- 	<script src='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.js'></script> -->
+	<script type="text/javascript" src="js/lity.js" charset="utf-8"></script>
 	<script type="text/javascript" src="js/aspct.js" charset="utf-8"></script>
 </head>
 <body>
@@ -194,6 +195,7 @@ i                   style="padding-left: 3px;"
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
 							$guard = $value['guard_flag'] == 0 ? 'oncontextmenu="return false;"' : '';
+							$event = $value['guard_flag'] == 0 ? 'none' : '';
 							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真" oncontextmenu="return false;"></a>';
@@ -235,7 +237,8 @@ i                   style="padding-left: 3px;"
 							echo $value["file_name"];
 							echo '" data-lity="data-lity">';
 							$guard = $value['guard_flag'] == 0 ? 'oncontextmenu="return false;"' : '';
-							echo '<img class="imgsum" '.$guard.' src="admin/image/contents_folder/';
+							$event = $value['guard_flag'] == 0 ? 'none' : '';
+							echo '<img class="imgsum" '.$guard.' style="-webkit-user-select:'.$event.'; -webkit-touch-callout:'.$event.'; pointer-events:'.$event.';" src="admin/image/contents_folder/';
 							//echo '<img class="imgsum" src="admin/image/contents_folder/';
 							echo $value["file_name"];
 							echo '" alt="写真"></a>';
@@ -266,6 +269,8 @@ var titles = JSON.parse('<?php echo $con_titles_json; ?>');
 document.getElementsByTagName('html')[0].oncontextmenu = function () {return true;}
 
 $(function(){
+
+
 	$('.select_button').click(function(){
 		console.log($(this).text(), $(this).data('target'));
 		$('.block-gosmania2').hide();
