@@ -245,6 +245,10 @@ i                   style="padding-left: 3px;"
 							echo '</li>';
 							echo '<figcaption>';
 							echo $value["title"];
+							echo '<p><a href="../system/download.php';
+							echo '?fpath=';
+							echo $value["file_name"];
+							echo '">ダウンロード</a></p>';
 							echo '</figcaption></figure>';
 						}
 					?>
