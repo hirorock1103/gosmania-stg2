@@ -1580,7 +1580,7 @@ table.entry_form {
 */
 figure {
     float: left;             /* 左に寄せて後続を右に回り込ませる */
-    margin: 0px 7px 7px 0px; /* 外側に余白を加える(右に7px・下に7px) */
+    margin: 0px 0px 7px 0px; /* 外側に余白を加える(右に7px・下に7px) */
     /* background-color: #ccc;  背景色 */
 }
 figure img {
