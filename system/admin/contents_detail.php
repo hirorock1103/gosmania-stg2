@@ -177,6 +177,7 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 						$params['thumbnail_name'] = ['placeholder' => 'thumbnail_name' , 'value' => $th_filename, 'type' => PDO::PARAM_STR, 'method' => ' ='];
 					}
 					$ins_ret = InsertCommon($dbh, 'contentsfile', $params, 'id');
+					$title = "";
 				}catch(Exception $e){
 					$error['main_image'] = $e->getMessage();
 				}catch(PDOException $e){
