@@ -75,7 +75,7 @@ if(isset($_POST["fileupload"]) && !empty($_POST["fileupload"])){
 	$error = [];
 
 	//アップロードファイル情報
-	$allow = ['jpeg','jpg','png', 'pdf', 'gif','JPEG','JPG'];
+	$allow = ['jpeg','jpg','png', 'pdf', 'gif', 'JPG'];
 
 	/** main image */
 	$tempfile = "";
