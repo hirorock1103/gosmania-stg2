@@ -73,7 +73,7 @@ i                   style="padding-left: 3px;"
 					class="btn-sub select_button"
 					<?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'disabled');?>
 					data-target="shopping_link"
-					style="display:none;"
+					style="display:;"
 				>通信販売</button>
 				<button
 					type="button"
@@ -129,12 +129,12 @@ i                   style="padding-left: 3px;"
 			style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : 'none'); ?>;"
 		>
 			<div id="aplly_kind00" class="app btn sp_none flex-buttons">
-				<a href="https://store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select">
+				<a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=4186522a8093ecb320093354404d5a49" class="btn-sub btn-select">
 					<i class="fas fa-shopping-cart" style="position: absolute; left: 35px;"></i>会員限定グッズの購入はこちら
 				</a>
 			</div>
 			<div id="aplly_kind00" class="app btn pc_none flex-buttons">
-				<a href="https://store.plusmember.jp/gospellers/gateway/?c=3ea6e56e1297b97c3294b174288f614a" class="btn-sub btn-select" style="width:90%;">
+				<a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=4186522a8093ecb320093354404d5a49" class="btn-sub btn-select" style="width:90%;">
 					<i class="fas fa-shopping-cart" style="position: absolute; left: 15px;"></i>会員限定グッズの<br>購入はこちら
 				</a>
 			</div>
