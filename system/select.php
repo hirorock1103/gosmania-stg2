@@ -24,7 +24,6 @@ while ($row = $db->fetch(PDO::FETCH_ASSOC)) {
     );
 }
 
-
 //contents titles
 $sql = "select * from contents where status = 0 order by id asc";
 $db = $dbh->prepare($sql);
@@ -62,20 +61,40 @@ $con_titles_json = json_encode($con_titles);
         <section class="section-list page-news GOSMANIA">
             <div class="block-gosmania2--comment2">
                 <span class="">
-                    <button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? '' : 'disabled'); ?> data-target="user_data" style="padding-left: 3px;">継続手続き</button>
-                    <button type="button" class="btn-sub select_button" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'disabled' : ''); ?> data-target="shopping_link" style="display:;">通信販売</button>
+                    <button type="button" class="btn-sub select_button" <?php
+                    if ($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === false && $_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true) {
+                        echo htmlspecialchars('');
+                    } else {
+                        echo htmlspecialchars('disabled');
+                    }
+                    ?> data-target="user_data" style="padding-left: 3px;">継続手続き</button>
+                    <button type="button" class="btn-sub select_button" <?php
+                    if ($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true) {
+                        echo htmlspecialchars('disabled');
+                    } elseif ($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true) {
+                        echo htmlspecialchars('disabled');
+                    } else {
+                        echo htmlspecialchars('');
+                    }
+                    ?> data-target="shopping_link" style="display:;">通信販売</button>
                     <button type="button" class="btn-sub select_button contentcheack" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'disabled' : ''); ?> data-target="contents">コンテンツ</button>
                 </span>
                 <a class="link-type-1" style="margin-top: 3px; margin-bottom:5px;" href="riyou.php">継続手続きご利用に関する注意事項</a>
             </div>
-
-            <div class="block-gosmania2" id="user_data" style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : ''); ?>;">
+            <div class="block-gosmania2" id="user_data" style="display: <?php
+            if ($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === false && $_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true) {
+                echo htmlspecialchars('none');
+            } elseif ($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true) {
+                echo htmlspecialchars('none');
+            } else {
+                echo htmlspecialchars('');
+            }
+            ?>;">
                 <div id="aplly_kind00" class="app btn sp_none flex-buttons">
                     <?php $class = ($entry_mode == false) ? "disable" : "";  ?>
                     <a class="btn-sub btn-select <?php echo $class;  ?>" href="./entry.php">
                         <i class="fas fa-edit" style="position: absolute; left: 40px;"></i>クレジットカード新規登録はこちら
                     </a>
-
                     <?php $class = ($entry_mode == true) ? "disable" : "";  ?>
                     <a class="btn-sub btn-select <?php echo $class;  ?>" href="./credit_edit.php" class="btn-sub btn-select">
                         <i class="fas fa-sync-alt" style="position: absolute; left: 40px;"></i>クレジットカード更新はこちら
@@ -85,7 +104,6 @@ $con_titles_json = json_encode($con_titles);
                         <i class="far fa-envelope" style="position: absolute; left: 40px;"></i>お客様情報の登録・更新はこちら
                     </a>
                 </div>
-
                 <div id="aplly_kind00" class="app btn pc_none flex-buttons">
                     <?php $class = ($entry_mode == false) ? "disable" : "";  ?>
                     <a name="action" value="send" href="./entry.php" class="btn-sub btn-select <?php echo $class;  ?>" style="width:90%;">
@@ -103,7 +121,14 @@ $con_titles_json = json_encode($con_titles);
 
             </div>
 
-            <div class="block-gosmania2" id="shopping_link" style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : 'none'); ?>;">
+            <div class="block-gosmania2" id="shopping_link" style="display: <?php
+            // echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'none' : 'none');
+            if ($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === false && $_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true) {
+                echo htmlspecialchars('');
+            } else {
+                echo htmlspecialchars('none');
+            }
+            ?>;">
                 <div id="aplly_kind00" class="app btn sp_none flex-buttons">
                     <a href="https://stg-store.plusmember.jp/gospellers/gateway/?c=4186522a8093ecb320093354404d5a49" class="btn-sub btn-select">
                         <i class="fas fa-shopping-cart" style="position: absolute; left: 35px;"></i>会員限定グッズの購入はこちら
@@ -148,7 +173,7 @@ $con_titles_json = json_encode($con_titles);
             </div>
 
             <!-- ファイル画面 -->
-            <div class="block-gosmania2" id="file" style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? '' : 'none'); ?>;">
+            <div class="block-gosmania2" id="file" style="display: <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_shop'] === true ? 'none' : 'none'); ?>;">
                 <span id="contents-name"><?= $con_array[1]["contents_name"] ?></span>
                 <!-- PC表示 -->
                 <div id="aplly_kind00" class="app btn sp_none" style="    padding: 30px 0; padding-bottom: 0;">
