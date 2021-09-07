@@ -91,6 +91,62 @@ function sendSmtpMail( $mailto, $mail_subject, $mail_content  ){
 }
 
 /**
+ * get tareget 
+ */
+function getTargetUsers($dbh, $type, $target_ym, $mail = false){
+
+	$list = [];
+	$sql = "select * from SendMailTarget";
+	$where = " where type = :type and target_ym = :target_ym ";
+	if($mail == true){
+		$where .= " status = 0 ";
+	}
+	$sql .= $where;	
+	$sql .= "order by seq asc";
+	$db = $dbh->prepare($sql);
+	$db->bindValue(':type', $type, PDO::PARAM_INT);
+	$db->bindValue(':target_ym', $target_ym, PDO::PARAM_INT);
+	$db->execute();
+
+	while($row = $db->fetch(PDO::FETCH_ASSOC)){
+		$list[] = json_decode($row['info'], true);
+	}
+
+	return $list;
+
+}
+
+
+/**
+ * add data
+ */
+function addMailTarget( $dbh, $list, $type, $target_ym ){
+
+	$status = 0;
+
+
+	// CustomerInfoテーブル
+	foreach($list as $row){
+		$info = json_encode($row);
+		try{
+			$sql = "INSERT INTO SendMailTarget (type, info, Cs_Id, target_ym, status, createdate, updatedate) value(:type, :info, :Cs_Id, :target_ym, :status, now(), now())";
+			$db = $dbh->prepare($sql);
+			$db->bindValue(':Cs_Id', $row['Cs_Seq'], PDO::PARAM_INT);
+			$db->bindValue(':type', $type, PDO::PARAM_INT);
+			$db->bindValue(':info', $info, PDO::PARAM_STR);
+			$db->bindValue(':target_ym', $target_ym, PDO::PARAM_INT);
+			$db->bindValue(':status', $status, PDO::PARAM_INT);
+			$db->execute();
+		}catch(Exception $e){
+			var_dump($e->getMessage());
+			exit();
+		}
+	}
+		
+}
+
+
+/**
  * SendMailテーブルのSm_Typeカラムをキーにメール送信対象のユーザーを抽出する
  * @param PDOObject $dbh
  * @param int $Sm_Type
@@ -103,6 +159,9 @@ function sendSmtpMail( $mailto, $mail_subject, $mail_content  ){
  */
 function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 	$Customers = [];
+
+	//var_dump($Sm_Type);
+	//exit();
 
 	// メール種別ごとにユーザーの抽出方法が異なる
 	// 対象ユーザーを絞り込む場合は 各case 内を修飾していく
@@ -120,7 +179,9 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 			}
 
 			// CustomerInfoテーブル
-			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+			$sql = "select I.* from CustomerInfo as I 
+			inner join Customer as C on C.Cs_Id = I.Cs_Id 
+			where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			$tmp = array();
@@ -139,8 +200,11 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 				}
 			}
 
+
 			// PaymentInfoテーブル
-			$sql = "select I.* from PaymentInfo as I inner join Customer as C on C.Cs_Id = I.gmo_id where I.seq in (SELECT max(seq) FROM `PaymentInfo` group by gmo_id)";
+			$sql = "select I.* from PaymentInfo as I 
+			inner join Customer as C on C.Cs_Id = I.gmo_id 
+			where I.seq in (SELECT max(seq) FROM `PaymentInfo` group by gmo_id)";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			$tmp = array();
@@ -305,7 +369,7 @@ function getSendMailTargetByCsId($dbh, $Sm_Type, $Cs_Id, $option_data = array())
  * 	,,,,
  * ]
  */
-function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
+function executeSendMailtoTarget($dbh, $Sm_Type, $Customers, $target_ym = "") {
 	try{
 		$sendCount = 0;
 
@@ -348,6 +412,15 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers) {
 			// メール送信実行
 
             $sendCount += sendSmtpMail( $customer['Ci_MailAddress'], $sendMail['Sm_Subject'], $mailContent );
+
+			//送信完了のメールをstatus = 1に設定
+			$sql = "update SendMailTarget set status = 1, updatedate = now() where target_ym = :target_ym and type = :type and Cs_Id = :cs_seq";
+			$db = $dbh->prepare($sql);
+			$db->bindValue(':target_ym',$target_ym, PDO::PARAM_INT);
+			$db->bindValue(':type',$Sm_Type, PDO::PARAM_INT);
+			$db->bindValue(':cs_seq',$customer['Cs_Seq'], PDO::PARAM_INT);
+			$db->execute();
+
             /*
 			$sendCount += mb_send_mail(
 				$customer['Ci_MailAddress'],

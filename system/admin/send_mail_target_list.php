@@ -28,16 +28,26 @@ if( isset($_POST) && !empty($_POST) ) {
 		$query = params();
 		$selected_mail_type = $query['Sm_Type'];
 	if(empty($error) && !empty($_POST['search']) ){
-		// 対象者確認処理へ
-		$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
-		//echo "<pre>";
-		//var_dump($list);
-		//echo "</pre>";
-	}else if (empty($error) && !empty($_POST['send_mail']) ){
-		// メール送信処理へ
-		$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
 
-		$result = executeSendMailtoTarget($dbh, $query['Sm_Type'], $list);
+
+		if(isset($_POST['update']) && $_POST['update'] == 1){
+			// 対象者確認処理へ
+			$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
+			//対象を保存する
+			addMailTarget($dbh, $list, $query['Sm_Type'], date('Ym'));
+		}else{
+			//今月分があれば取得する
+			$list = getTargetUsers($dbh, $query['Sm_Type'], date('Ym'), $mail = false);
+		}
+
+
+	}else if (empty($error) && !empty($_POST['send_mail']) ){
+		//// メール送信処理へ
+		//$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
+		//今月分があれば取得する
+		$list = getTargetUsers($dbh, $query['Sm_Type'], date('Ym'), $mail = true);
+
+		$result = executeSendMailtoTarget($dbh, $query['Sm_Type'], $list, date('Ym'));
 		if($result == 'SUCCESS') {
 			$info = 'メールを送信しました。';
 		}else {
@@ -120,6 +130,7 @@ function validate() {
 														<input type="submit" name="send_mail" onclick="return confirm('メールを送信します。よろしいですか？');"  id="mail_send_button" class="btn import_btn large" value="メール送信" style="margin-left:10px;">
 														<?php } ?>
 													<?php } ?>
+													<input type="checkbox" value="1" name="update">情報を更新する
 												</div>
 												<div class="col-md-12" style="margin-top:10px;">
 													<p>---</p>
