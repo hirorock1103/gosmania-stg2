@@ -93,13 +93,35 @@ function sendSmtpMail( $mailto, $mail_subject, $mail_content  ){
 /**
  * get tareget 
  */
-function getTargetUsers($dbh, $type, $target_ym, $mail = false){
+function getMailedTarget($dbh, $type, $target_ym){
+
+	$list = [];
+	$sql = "select * from SendMailTarget";
+	$where = " where type = :type and target_ym = :target_ym and status = 1 ";
+	$sql .= $where;	
+	$sql .= "order by seq asc";
+	$db = $dbh->prepare($sql);
+	$db->bindValue(':type', $type, PDO::PARAM_INT);
+	$db->bindValue(':target_ym', $target_ym, PDO::PARAM_INT);
+	$db->execute();
+
+	while($row = $db->fetch(PDO::FETCH_ASSOC)){
+		$list[] = $row['Cs_Id'];
+	}
+
+	return $list;
+
+}
+/**
+ * get tareget 
+ */
+function getTargetUsers($dbh, $type, $target_ym, $unsent = false){
 
 	$list = [];
 	$sql = "select * from SendMailTarget";
 	$where = " where type = :type and target_ym = :target_ym ";
-	if($mail == true){
-		$where .= " status = 0 ";
+	if($unsent == true){
+		$where .= " and status = 0 ";
 	}
 	$sql .= $where;	
 	$sql .= "order by seq asc";
@@ -125,13 +147,45 @@ function addMailTarget( $dbh, $list, $type, $target_ym ){
 	$status = 0;
 
 
+	//同年月 と同一種別の情報は削除する
+	$sql = "delete from SendMailTarget where type = :type and target_ym = :target_ym and status = 0";
+	$db = $dbh->prepare($sql);
+	$db->bindValue(':type', $type, PDO::PARAM_INT);
+	$db->bindValue(':target_ym', $target_ym, PDO::PARAM_INT);
+	$db->execute();
+
+
+	//残ったデータ
+	$sql = "select * from SendMailTarget where type = :type and target_ym = :target_ym";
+	$db = $dbh->prepare($sql);
+	$db->bindValue(':type', $type, PDO::PARAM_INT);
+	$db->bindValue(':target_ym', $target_ym, PDO::PARAM_INT);
+	$db->execute();
+	$exclude_list = [];
+
+	while($row = $db->fetch(PDO::FETCH_ASSOC)){
+		$exclude_list[] = $row['Cs_Id'];
+	}
+
 	// CustomerInfoテーブル
 	foreach($list as $row){
+
+		if(in_array($row['Cs_Id'], $exclude_list)){
+			continue;
+		}
+
 		$info = json_encode($row);
+/* 		echo "<pre>";
+		var_dump($row);
+		echo "</pre>";
+		exit(); */
 		try{
+
+			//同年月、同一種別、同一顧客の場合はスキップする
+
 			$sql = "INSERT INTO SendMailTarget (type, info, Cs_Id, target_ym, status, createdate, updatedate) value(:type, :info, :Cs_Id, :target_ym, :status, now(), now())";
 			$db = $dbh->prepare($sql);
-			$db->bindValue(':Cs_Id', $row['Cs_Seq'], PDO::PARAM_INT);
+			$db->bindValue(':Cs_Id', $row['Cs_Id'], PDO::PARAM_STR);
 			$db->bindValue(':type', $type, PDO::PARAM_INT);
 			$db->bindValue(':info', $info, PDO::PARAM_STR);
 			$db->bindValue(':target_ym', $target_ym, PDO::PARAM_INT);
@@ -300,10 +354,10 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 				$Customers[$row['Cs_Id']]['Cs_Timelimit']       = $row['Cs_Timelimit'];
 				$Customers[$row['Cs_Id']]['member_limitmonth']  = "";
 				$Customers[$row['Cs_Id']]['card_limitdate']     = "";
-				$Customers[$row['Cs_Id']]['Ci_Seq']             = "";
+/* 				$Customers[$row['Cs_Id']]['Ci_Seq']             = "";
 				$Customers[$row['Cs_Id']]['Ci_MailAddress']     = "";
 				$Customers[$row['Cs_Id']]['Ci_Mhone']           = "";
-				$Customers[$row['Cs_Id']]['Ci_InformationSend'] = "";
+				$Customers[$row['Cs_Id']]['Ci_InformationSend'] = ""; */
 				$Customers[$row['Cs_Id']]['Ci_Seq']             = $row['Ci_Seq'];
 				$Customers[$row['Cs_Id']]['Ci_MailAddress']     = $row['Ci_MailAddress'];
 				$Customers[$row['Cs_Id']]['Ci_Mhone']           = $row['Ci_Phone'];
@@ -413,12 +467,20 @@ function executeSendMailtoTarget($dbh, $Sm_Type, $Customers, $target_ym = "") {
 
             $sendCount += sendSmtpMail( $customer['Ci_MailAddress'], $sendMail['Sm_Subject'], $mailContent );
 
+
 			//送信完了のメールをstatus = 1に設定
-			$sql = "update SendMailTarget set status = 1, updatedate = now() where target_ym = :target_ym and type = :type and Cs_Id = :cs_seq";
+			$sql = "update SendMailTarget 
+			set 
+			status = 1, 
+			updatedate = now() 
+			where 
+			target_ym = :target_ym 
+			and type = :type 
+			and Cs_Id = :cs_id";
 			$db = $dbh->prepare($sql);
 			$db->bindValue(':target_ym',$target_ym, PDO::PARAM_INT);
 			$db->bindValue(':type',$Sm_Type, PDO::PARAM_INT);
-			$db->bindValue(':cs_seq',$customer['Cs_Seq'], PDO::PARAM_INT);
+			$db->bindValue(':cs_id',$customer['Cs_Id'], PDO::PARAM_STR);
 			$db->execute();
 
             /*

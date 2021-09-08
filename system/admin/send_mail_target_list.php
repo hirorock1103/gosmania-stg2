@@ -13,6 +13,8 @@ include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
 include_once dirname(__FILE__) . "/cron_functions/send_mail_functions.php";
 
+$send_word = [0=>'未送信', 1=>'送信済'];
+
 $mail_types = JSON_DECODE(SEND_MAIL_TYPE, true);
 
 $list = [];
@@ -25,10 +27,10 @@ $selected_mail_type = 0;
 if( isset($_POST) && !empty($_POST) ) {
 	
 	$error = validate();
-		$query = params();
-		$selected_mail_type = $query['Sm_Type'];
-	if(empty($error) && !empty($_POST['search']) ){
+	$query = params();
+	$selected_mail_type = $query['Sm_Type'];
 
+	if(empty($error) && !empty($_POST['search']) ){
 
 		if(isset($_POST['update']) && $_POST['update'] == 1){
 			// 対象者確認処理へ
@@ -36,16 +38,15 @@ if( isset($_POST) && !empty($_POST) ) {
 			//対象を保存する
 			addMailTarget($dbh, $list, $query['Sm_Type'], date('Ym'));
 		}else{
-			//今月分があれば取得する
-			$list = getTargetUsers($dbh, $query['Sm_Type'], date('Ym'), $mail = false);
+			//対象条件のレコードすべて（送信済み、未送信）
+			$list = getTargetUsers($dbh, $query['Sm_Type'], date('Ym'));
 		}
-
 
 	}else if (empty($error) && !empty($_POST['send_mail']) ){
 		//// メール送信処理へ
 		//$list = getSendMailTargetUsers($dbh, $query['Sm_Type'] );
-		//今月分があれば取得する
-		$list = getTargetUsers($dbh, $query['Sm_Type'], date('Ym'), $mail = true);
+		//今月分があれば取得する未送信分
+		$list = getTargetUsers($dbh, $query['Sm_Type'], date('Ym'), $unsent = true);
 
 		$result = executeSendMailtoTarget($dbh, $query['Sm_Type'], $list, date('Ym'));
 		if($result == 'SUCCESS') {
@@ -54,6 +55,27 @@ if( isset($_POST) && !empty($_POST) ) {
 			$error[] = '問題が発生しました。';
 		}
 	}
+
+
+	/**
+	 * 最新の情報取得する
+	 */
+	//既に送った顧客
+	$mailed_list = getMailedTarget($dbh, $query['Sm_Type'], date('Ym'));
+
+	//メール送信済みフラグをセット
+	$tmp = [];
+	foreach($list as $customer){
+
+		$customer['mail_send'] = 0;
+		if(in_array($customer['Cs_Id'], $mailed_list)){
+			$customer['mail_send'] = 1;
+		}
+		$tmp[] = $customer;
+	}
+
+	$list = $tmp;
+
 }
 
 
@@ -194,18 +216,21 @@ function validate() {
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">カード有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
+														<th class="listUser table_result_element">送信フラグ</th>
 													<?php }else if($selected_mail_type == 2){  ?>
 														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">会員有効期限</th>
 														<th class="listUser table_result_element">残月数</th>
+														<th class="listUser table_result_element">送信フラグ</th>
 													<?php }else if($selected_mail_type == 3){  ?>
 														<th class="listUser table_result_element" style="width: 10%;">GOSMANIA会員番号</th>
 														<th class="listUser table_result_element">名前</th>
 														<th class="listUser table_result_element">メールアドレス</th>
 														<th class="listUser table_result_element">GMO年月</th>
 														<th class="listUser table_result_element">結果</th>
+														<th class="listUser table_result_element">送信フラグ</th>
 													<?php } ?>
 													</tr>
 												</thead>
@@ -224,6 +249,7 @@ function validate() {
 															</td>
 															<td class="listUser"><?php echo h($customer['card_limitdate']); ?></td>
 															<td class="listUser"><?php echo h($customer['card_limitmonth']); ?></td>
+															<td class="listUser" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
 														<?php }else if($selected_mail_type == 2){  ?>
 															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
 															<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
@@ -237,6 +263,7 @@ function validate() {
 															</td>
 															<td class="listUser"><?php echo h(date("Y年m月末日",strtotime($customer['Cs_Timelimit']))); ?></td>
 															<td class="listUser"><?php echo h($customer['member_limitmonth']); ?></td>
+															<td class="listUser" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
 														<?php }else if($selected_mail_type == 3){  ?>
 															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
 															<td class="listUser">
@@ -255,6 +282,7 @@ function validate() {
 															</td>
 															<td class="listUser" ><?php echo h($customer['ym']); ?></td>
 															<td class="listUser" ><?php echo h($customer['result']);  ?></td>
+															<td class="listUser" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
 														<?php } ?>
 														</tr>
 													<?php } ?>
