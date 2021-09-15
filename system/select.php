@@ -77,7 +77,7 @@ $con_titles_json = json_encode($con_titles);
                         echo htmlspecialchars('');
                     }
                     ?> data-target="shopping_link" style="display:;">通信販売</button>
-                    <button type="button" class="btn-sub select_button contentcheack" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'disabled' : ''); ?> data-target="contents">コンテンツ</button>
+                    <button type="button" class="btn-sub sp-mb10 select_button contentcheack" <?php echo htmlspecialchars($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true ? 'disabled' : ''); ?> data-target="contents">コンテンツ</button>
                 </span>
                 <a class="link-type-1" style="margin-top: 3px; margin-bottom:5px;" href="riyou.php">継続手続きご利用に関する注意事項</a>
             </div>

@@ -676,6 +676,10 @@ body{
 	.pc{
 		display:none;
 	}
+    
+    .sp-mb10{
+        margin-bottom: 12px !important;
+    }
 
     .select_button{
         min-width: 80px;
