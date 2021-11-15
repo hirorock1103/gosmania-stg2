@@ -134,6 +134,7 @@ function getTargetUsers($dbh, $type, $target_ym, $unsent = false){
 		$list[] = json_decode($row['info'], true);
 	}
 
+
 	return $list;
 
 }
@@ -213,9 +214,6 @@ function addMailTarget( $dbh, $list, $type, $target_ym ){
  */
 function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 	$Customers = [];
-
-	//var_dump($Sm_Type);
-	//exit();
 
 	// メール種別ごとにユーザーの抽出方法が異なる
 	// 対象ユーザーを絞り込む場合は 各case 内を修飾していく
@@ -300,14 +298,15 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 			
 			while($row = $db->fetch(PDO::FETCH_ASSOC)) {
 				//期限までの残月数
-				$target1 = date("Y-m-01");
-				$target2 = $row['Cs_Timelimit']; 
+				$target1 = date("Y-m-01");//本日
+				$target2 = $row['Cs_Timelimit'];//各ユーザーの有効期限 
 				
 				$date1 = strtotime($target1);
 				$date2 = strtotime($target2);
 
 				$month1=date("Y",$date1)*12+date("m",$date1);
 				$month2=date("Y",$date2)*12+date("m",$date2);
+
 
 				$diff = $month2 - $month1;
 
@@ -320,7 +319,10 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 			}
 
 			// CustomerInfoテーブル
-			$sql = "select I.* from CustomerInfo as I inner join Customer as C on C.Cs_Id = I.Cs_Id where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
+			$sql = "select I.* 
+			from CustomerInfo as I 
+			inner join Customer as C on C.Cs_Id = I.Cs_Id 
+			where Ci_Seq in (SELECT max(Ci_Seq) FROM `CustomerInfo` group by Cs_Id) and Ci_InformationSend = 1";
 			$db = $dbh->prepare($sql);
 			$db->execute();
 			$tmp = array();
@@ -330,14 +332,27 @@ function getSendMailTargetUsers($dbh, $Sm_Type, $option_data = array()) {
 			//group1 と比較して group2にないものは除外する
 			foreach($Customers as $cs_id => $row){
 				if(array_key_exists($cs_id, $tmp) == true){
-					$Customers[$cs_id]['Ci_Seq']              = $tmp[$cs_id]['Ci_Seq'];
-					$Customers[$cs_id]['Ci_MailAddress']     = $tmp[$cs_id]['Ci_MailAddress'];
-					$Customers[$cs_id]['Ci_Mhone']           = $tmp[$cs_id]['Ci_Phone'];
-					$Customers[$cs_id]['Ci_InformationSend'] = $tmp[$cs_id]['Ci_InformationSend'];
+
+					//決済方法がクレカ登録かどうか
+					$sql = "SELECT * FROM `PaymentInfo` WHERE gmo_id = :gmo_id and card_limitdate >= date_format( now() , '%Y%m' ) order by seq desc limit 1";
+					$db = $dbh->prepare($sql);
+					$db->bindValue(':gmo_id', $cs_id, PDO::PARAM_STR);
+					$db->execute();
+					$row = $db->fetch(PDO::FETCH_ASSOC);
+					if(isset($row['gmo_id']) && !empty($row['gmo_id'])){
+						$Customers[$cs_id]['Ci_Seq']              = $tmp[$cs_id]['Ci_Seq'];
+						$Customers[$cs_id]['Ci_MailAddress']     = $tmp[$cs_id]['Ci_MailAddress'];
+						$Customers[$cs_id]['Ci_Mhone']           = $tmp[$cs_id]['Ci_Phone'];
+						$Customers[$cs_id]['Ci_InformationSend'] = $tmp[$cs_id]['Ci_InformationSend'];
+					}else{
+						unset($Customers[$cs_id]);
+					}
+
 				}else{
 					unset($Customers[$cs_id]);
 				}
 			}
+
 
 
 		break;
