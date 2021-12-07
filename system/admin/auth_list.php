@@ -2,6 +2,10 @@
 include_once dirname(__FILE__) . "/settings.php";
 include_once dirname(__FILE__) . "/functions.php";
 
+//非表示対象年月これより以前の情報は不要
+$target_year_month = date("Ym",strtotime("-1 year"));
+
+
 $list = [];
 $data = [];
 $includeOutputted = false;
@@ -149,7 +153,11 @@ if(isset($data['export'])){
 													</tr>
 												</thead>
 												<tbody>
-												<?php foreach ($list as $at_seq => $record) { //if(empty($record['Cs_Name'])){var_dump($record);}  ?>
+												<?php foreach ($list as $at_seq => $record) { 
+													//if(empty($record['Cs_Name'])){var_dump($record);}
+													if( date("Ym",strtotime($record['createdate'])) <= $target_year_month ){continue;}
+
+													  ?>
 													<tr>
 														<td class="listUser" ><?php echo !empty($record['Cs_Name']) ? htmlspecialchars($record['Cs_Name']) : "会員情報(".$record['gmo_id'].")が存在しないため出力対象外"; ?></td>
 														<td class="listUser" ><?php echo htmlspecialchars($record['Cs_Id']); ?></td>
