@@ -108,6 +108,9 @@ function validate() {
 		.alert {
 			margin: 0 auto 16px;
 		}
+		.not-send{
+			color:red;
+		}
 	</style>
 	</head>
 	<body class="skin-blue" style="">
@@ -249,7 +252,7 @@ function validate() {
 															</td>
 															<td class="listUser"><?php echo h($customer['card_limitdate']); ?></td>
 															<td class="listUser"><?php echo h($customer['card_limitmonth']); ?></td>
-															<td class="listUser" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
+															<td class="listUser <?php echo $customer['mail_send'] > 0 ? '': 'not-send'; ?>" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
 														<?php }else if($selected_mail_type == 2){  ?>
 															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
 															<td class="listUser"><?php echo h($customer['Cs_Name']); ?></td>
@@ -263,7 +266,7 @@ function validate() {
 															</td>
 															<td class="listUser"><?php echo h(date("Y年m月末日",strtotime($customer['Cs_Timelimit']))); ?></td>
 															<td class="listUser"><?php echo h($customer['member_limitmonth']); ?></td>
-															<td class="listUser" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
+															<td class="listUser <?php echo $customer['mail_send'] > 0 ? '': 'not-send'; ?>" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
 														<?php }else if($selected_mail_type == 3){  ?>
 															<td class="listUser" ><?php echo h($customer['Cs_Id']); ?></td>
 															<td class="listUser">
@@ -282,7 +285,7 @@ function validate() {
 															</td>
 															<td class="listUser" ><?php echo h($customer['ym']); ?></td>
 															<td class="listUser" ><?php echo h($customer['result']);  ?></td>
-															<td class="listUser" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
+															<td class="listUser <?php echo $customer['mail_send'] > 0 ? '': 'not-send'; ?>" ><?php echo h( $send_word[$customer['mail_send']]);  ?></td>
 														<?php } ?>
 														</tr>
 													<?php } ?>
