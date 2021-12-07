@@ -380,14 +380,18 @@ function getPaymentInfoRecords($dbh, $includeOutputted = false, $since = NULL, $
 	}
 
 	if(!empty($since)) {
-		$sql .= " AND Pi.createdate >= :since ";
+		$sql .= " AND date_format(Pi.createdate, '%Y/%m/%d') >= :since ";
 	}
 	if(!empty($until)) {
-		$sql .= " AND Pi.createdate <= :until ";
+		//$sql .= " AND Pi.createdate <= :until ";
+		$sql .= " AND date_format(Pi.createdate, '%Y/%m/%d') <= :until ";
 	}
 
 	$sql .= " order by  exists_check DESC, Pi.createdate DESC";
 
+
+	//echo $sql;
+	//exit();
 	$db = $dbh->prepare($sql);
 
 	// クエリ条件のバインド
