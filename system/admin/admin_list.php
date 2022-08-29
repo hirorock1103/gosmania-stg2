@@ -30,6 +30,23 @@ if (isset($_POST['frm_submit'])) {
 //echo $min_page . "<br />";
 //echo $max_page . "<br />";
 
+//削除
+$delete_message = "";
+if(isset($_GET['delete'])){
+
+	$ad_seq = $_GET['delete'];
+	if($ad_seq > 0){
+
+		//message
+		$delete_message = "管理者を削除しました";
+		$sql = "delete from Admin where Ad_Seq = " . $ad_seq;
+		$db = $dbh->prepare($sql);
+		$db->execute();
+
+	}
+
+}
+
 
 
 
@@ -116,6 +133,9 @@ function _search($dbh, $arr_input)
 									</div>
 								</div><!-- box1 -->
 							</form>
+							<?php if($delete_message != ""){ ?>
+							<span style="color:red;">削除しました</span>
+							<?php } ?>
 							<form action="admin_detail.php" name="frm_admin_list" method="post" target="_blank">
 								<div class="">
 									<h3>検索結果数：<?php echo !empty($total_rows) ? number_format($total_rows) : 0  ;  ?>件</h3>
@@ -136,7 +156,12 @@ function _search($dbh, $arr_input)
 														<td class="listUser" ><?php echo h($ad['Ad_Name']); ?></td>
 														<td class="listUser"><?php echo h($ad['Ad_Id']); ?></td>
 														<td class="listUser"><?php echo $def_status[$ad['Ad_Invalid']]; ?></td>
-														<td class="listUser" style="padding:8px 10px" ><button type="submit" name="Ad_Seq" class="btn" value="<?php echo h($ad['Ad_Seq']); ?>" style="padding:3px 20px">詳細</button></td>
+														<td class="listUser" style="padding:8px 10px" >
+														<button type="submit" name="Ad_Seq" class="btn" value="<?php echo h($ad['Ad_Seq']); ?>" style="padding:3px 20px">詳細</button>
+														<?php if($_SESSION['gosmania']['login_info']['Ad_Seq'] != $ad['Ad_Seq']){ ?>
+														<a class="btn" style="padding:3px 20px; background-color:#eee;" href="admin_list.php?delete=<?php echo h($ad['Ad_Seq']);  ?>" onclick="return confirm('削除した管理者は戻せませんがよろしいでしょうか？')">削除</a>
+														<?php } ?>
+														</td>
 													</tr>
 <?php } ?>										</tbody>
 											</table>
