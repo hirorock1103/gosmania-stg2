@@ -67,7 +67,7 @@ $con_titles_json = json_encode($con_titles);
                     } else {
                         echo htmlspecialchars('disabled');
                     }
-                    ?> data-target="user_data" style="padding-left: 3px;">継続手続き</button>
+                    ?> data-target="user_data" style="padding-left: 3px;">！！！継続手続き</button>
                     <button type="button" class="btn-sub select_button" <?php
                     if ($_SESSION[SESSION_BASE_NAME]['login_info']['from_contents'] === true) {
                         echo htmlspecialchars('disabled');
